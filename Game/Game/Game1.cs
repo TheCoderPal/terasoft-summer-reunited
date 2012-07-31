@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Game.UI;
 namespace Game
 {
 
@@ -10,10 +11,12 @@ namespace Game
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //Bar bar;//Tamer Test
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+          //  bar = new Bar(100, 20, 30, 300, 30);  //Tamer Test
         }
 
         protected override void Initialize()
@@ -25,6 +28,7 @@ namespace Game
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+          //  bar.LoadContent(Content); //Tamer Test
 
         }
 
@@ -43,7 +47,8 @@ namespace Game
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             //drawings
-            base.Draw(gameTime);
+           // bar.Draw(spriteBatch); //Tamer Test
+            base.Draw(gameTime); 
         }
     }
 }
