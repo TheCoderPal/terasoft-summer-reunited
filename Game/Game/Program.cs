@@ -1,5 +1,3 @@
-
-
 namespace Game
 {
     public static class Program
@@ -12,6 +10,18 @@ namespace Game
                 game.Run();
             }
         }
+        //Tamer for testing  [To be Removed After Integration]
+        /*
+        static void Main(string[] args)
+        {
+            kinect x = new kinect();
+            while (x.swapFlag != true)
+            {
+                Console.WriteLine(x.swapFlag);
+            }
+            if (x.swapFlag == true)
+                Console.WriteLine("true");
+        }*/
   
     }
 }
