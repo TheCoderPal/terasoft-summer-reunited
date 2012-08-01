@@ -1,24 +1,17 @@
 ﻿namespace Game.Engine
 {
-    public class Item
+    public class Item : Object
     {
         private int level;
         private int effect;
-        private string name;
 
         /// <summary>
         /// Author: Ahmed Shirin.
         /// </summary>
-        public Item(int level, string name)
+        public Item(int level, string name): base(name)
         {
             this.level = level;
-            this.name = name;
             this.effect=10*level;
-        }
-
-        public Item()
-        {
-
         }
 
         public int GetEffect()
@@ -28,7 +21,7 @@
 
         public string GetName()
         {
-            return name;
+            return base.GetName();
         }
 
         public int GetLevel()

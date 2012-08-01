@@ -13,17 +13,17 @@ namespace Game.Engine
 
         }
 
-        public override int GetEffect() 
+        public int GetEffect() 
         {
             return base.GetEffect();
         }
 
-        public override string GetName()
+        public string GetName()
         {
             return base.GetName();
         }
 
-        public override int GetLevel()
+        public int GetLevel()
         {
             return base.GetLevel();
         }
