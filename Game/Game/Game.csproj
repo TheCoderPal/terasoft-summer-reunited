@@ -114,7 +114,7 @@
   <ItemGroup>
     <Compile Include="Engine\Food.cs" />
     <Compile Include="Engine\Item.cs" />
-    <Compile Include="Engine\ItemsGenerator.cs" />
+    <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Track.cs" />
     <Compile Include="Engine\TrackAI.cs" />
     <Compile Include="Engine\Virus.cs" />
@@ -135,7 +135,7 @@
     <Compile Include="UI\Bar.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\GameScreen.cs" />
-    <Compile Include="UI\Score.cs" />
+    <Compile Include="UI\ParallaxingBackground.cs" />
     <Compile Include="UI\ScreeenManager.cs" />
     <Compile Include="UI\SpriteAnimation.cs" />
     <Compile Include="UI\TextureList.cs" />
