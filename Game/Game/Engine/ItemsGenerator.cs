@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 namespace Game.Engine
 {
+    /// <summary>
+    /// Tamer Nabil
+    /// </summary>
     class ItemsGenerator
     {
        private string[] goodItems = { "banana", "apple", "orange" };

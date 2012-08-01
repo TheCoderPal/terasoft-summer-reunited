@@ -135,6 +135,7 @@
     <Compile Include="UI\Bar.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\GameScreen.cs" />
+    <Compile Include="UI\Score.cs" />
     <Compile Include="UI\ScreeenManager.cs" />
     <Compile Include="UI\SpriteAnimation.cs" />
     <Compile Include="UI\TextureList.cs" />
