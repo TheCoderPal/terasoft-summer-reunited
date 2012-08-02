@@ -31,9 +31,9 @@ namespace Game.Screens
             newGame = new Sprite(Content.Load<Texture2D>("Textures//new"), new Rectangle(140, 230, 200, 200));
             instructions = new Sprite(Content.Load<Texture2D>("Textures//instructions"), new Rectangle(540, 230, 200, 200));
             exit = new Sprite(Content.Load<Texture2D>("Textures//exit"), new Rectangle(940, 230, 200, 200));
-            newGameLabel = new Sprite(Content.Load<Texture2D>("Textures//new_label"), new Rectangle(140, 450, 200, 50));
-            instructionsLabel = new Sprite(Content.Load<Texture2D>("Textures//instructions_label"), new Rectangle(545, 450, 200, 50));
-            exitLabel = new Sprite(Content.Load<Texture2D>("Textures//exit_label"), new Rectangle(950, 450, 200, 50));
+            newGameLabel = new Sprite(Content.Load<Texture2D>("Textures//new_label"), new Rectangle(115, 450, 240, 50));
+            instructionsLabel = new Sprite(Content.Load<Texture2D>("Textures//instructions_label"), new Rectangle(520, 450, 240, 50));
+            exitLabel = new Sprite(Content.Load<Texture2D>("Textures//exit_label"), new Rectangle(925, 450, 240, 50));
         }
 
         public void Draw(SpriteBatch spriteBatch)
