@@ -14,14 +14,10 @@ namespace Game.Screens
         Sprite newGameLabel;
         Sprite instructionsLabel;
         Sprite exitLabel;
-        GraphicsDeviceManager graphics;
 
-        public MainScreen(GraphicsDeviceManager graphics)
+        public MainScreen()
         {
-            this.graphics = graphics;
-            this.graphics.PreferredBackBufferWidth = 1280;
-            this.graphics.PreferredBackBufferHeight = 720;
-            this.graphics.IsFullScreen = true;
+
         }
 
         public void Initialize()
@@ -38,7 +34,6 @@ namespace Game.Screens
             newGameLabel = new Sprite(Content.Load<Texture2D>("Textures//new_label"), new Rectangle(140, 450, 200, 50));
             instructionsLabel = new Sprite(Content.Load<Texture2D>("Textures//instructions_label"), new Rectangle(545, 450, 200, 50));
             exitLabel = new Sprite(Content.Load<Texture2D>("Textures//exit_label"), new Rectangle(950, 450, 200, 50));
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
