@@ -16,6 +16,9 @@ namespace Game
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
           //  bar = new Bar(100, 20, 30, 300, 30);  //Tamer Test
           // score = new Score(100, 20, Color.WhiteSmoke); //Tamer Test
