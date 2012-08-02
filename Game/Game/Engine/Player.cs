@@ -14,7 +14,7 @@ namespace Game.Engine
     class Player
     {
         //Enumerator on player state
-        enum PlayerState
+        enum PlayerStates
         {
             Running,
             Jumping, 
@@ -23,7 +23,7 @@ namespace Game.Engine
         }
 
         //
-        PlayerState State;
+        PlayerStates State;
 
         //Animation of the avatar.
         SpriteAnimation playerAnimation;
@@ -48,7 +48,7 @@ namespace Game.Engine
         public Player()
         {
             Position = new Vector2();
-            State = PlayerState.Running;
+            State = PlayerStates.Running;
             runAnimation = new SpriteAnimation();
             jumpAnimation = new SpriteAnimation();
         }
@@ -70,11 +70,21 @@ namespace Game.Engine
         {
             switch (State)
             {
-                case PlayerState.Running: playerAnimation = runAnimation; break;
-                case PlayerState.Jumping: playerAnimation = jumpAnimation; break;
+                case PlayerStates.Running: playerAnimation = runAnimation; break;
+                case PlayerStates.Jumping: playerAnimation = jumpAnimation; break;
                 default: playerAnimation = runAnimation; break;
             }
             playerAnimation.Update(gameTime);
+
+            
+        }
+
+        public void CheckDeath()
+        {
+            if (immunity == 0)
+            {
+
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

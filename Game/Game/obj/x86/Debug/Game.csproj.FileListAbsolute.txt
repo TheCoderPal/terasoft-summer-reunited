@@ -1,0 +1,6 @@
+X:\terasoft-summer-reunited\Game\Game\bin\x86\Debug\Game.exe
+X:\terasoft-summer-reunited\Game\Game\bin\x86\Debug\Game.pdb
+X:\terasoft-summer-reunited\Game\Game\obj\x86\Debug\ResolveAssemblyReference.cache
+X:\terasoft-summer-reunited\Game\Game\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+X:\terasoft-summer-reunited\Game\Game\obj\x86\Debug\Game.exe
+X:\terasoft-summer-reunited\Game\Game\obj\x86\Debug\Game.pdb

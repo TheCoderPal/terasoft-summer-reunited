@@ -49,6 +49,40 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< .mine
+    <Compile Include="Textures\exit.png">
+      <Name>exit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\exit_label.png">
+      <Name>exit_label</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\instructions.png">
+      <Name>instructions</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\instructions_label.png">
+      <Name>instructions_label</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\new.png">
+      <Name>new</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\new_label.png">
+      <Name>new_label</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+=======
     <Compile Include="SpriteFont1.spritefont">
       <Name>SpriteFont1</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -56,6 +90,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+>>>>>>> .r26
     <Compile Include="Textures\choosing_frame.png">
       <Name>choosing_frame</Name>
       <Importer>TextureImporter</Importer>
