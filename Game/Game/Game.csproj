@@ -123,6 +123,12 @@
     <Compile Include="Engine\Track.cs" />
     <Compile Include="Engine\TrackAI.cs" />
     <Compile Include="Engine\Virus.cs" />
+    <Compile Include="Kinect\Bend.cs" />
+    <Compile Include="Kinect\Gesture.cs" />
+    <Compile Include="Kinect\GestureController.cs" />
+    <Compile Include="Kinect\GestureEnumTypes.cs" />
+    <Compile Include="Kinect\GestureEventArgs.cs" />
+    <Compile Include="Kinect\IRelativeGestureSegment.cs" />
     <Compile Include="Kinect\Kinect.cs" />
     <Compile Include="Kinect\SwapHand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
