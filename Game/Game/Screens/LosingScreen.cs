@@ -32,11 +32,13 @@ namespace Game.Screens
 
         public void AddScore(int Score, string Name)
         {
-            scores.Add(Name + Score + "\n");
+            scores.Add(Name + "," + Score);
 
             scores.Sort(compareHighScores);
 
             scores.RemoveAt(scores.Count - 1);
+
+            System.IO.File.WriteAllLines("Text/HighScores.txt", scores);
 
         }
 
