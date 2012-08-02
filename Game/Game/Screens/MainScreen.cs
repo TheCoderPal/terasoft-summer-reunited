@@ -17,6 +17,10 @@ namespace Game.Screens
         Sprite scoreslabel;
         Sprite exitLabel;
 
+        /// <summary>
+        /// Author: Ahmed Shirin.
+        /// </summary>
+
         public MainScreen()
         {
 
