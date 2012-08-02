@@ -4,23 +4,39 @@ namespace Game.Kinect
     /// <summary>
     /// Author : Microsoft
     /// </summary>
-    class kinect
+    class Kinect
     {
         private Skeleton[] skeletons;
         private KinectSensor nui;
         public bool swapFlag; //Tamer
         SwapHand swapHand; //Tamer
+
+
         /// <summary>
         /// The ID if the skeleton to be tracked.
         /// </summary>
         private int nearestId = -1;
-        public kinect()
+
+
+        //Omar Abdulaal
+        private int ScreenWidth, ScreenHeight;
+        //Used for scaling
+        private const float SkeletonMaxX = 0.60f;
+        private const float SkeletonMaxY = 0.40f;
+
+
+        public Kinect(int screenWidth, int screenHeight)
         {
             skeletons = new Skeleton[0];
             this.InitializeNui();
             swapFlag = false; //tamer
             swapHand = new SwapHand(); //tamer
+
+            ScreenHeight = screenHeight; //omar
+            ScreenWidth = screenWidth; //omar
         }
+
+
         /// <summary>
         /// Handle insertion of Kinect sensor.
         /// </summary>
@@ -35,6 +51,8 @@ namespace Game.Kinect
             this.nui.SkeletonStream.Enable();
             this.nui.SkeletonFrameReady += this.OnSkeletonFrameReady;
         }
+
+
         /// <summary>
         /// Handler for skeleton ready handler.
         /// </summary>
@@ -89,9 +107,19 @@ namespace Game.Kinect
                 }
             }
         }
+
         public Skeleton[] requestSkeleton()
         {
             return skeletons;
+        }
+
+        /// <summary>
+        /// Returns right hand position scaled to screen.
+        /// </summary>
+        /// Author : Omar Abdulaal
+        public Joint GetCursorPosition()
+        {
+            return skeletons[0].Joints[JointType.HandRight].ScaleTo(ScreenWidth, ScreenHeight, SkeletonMaxX, SkeletonMaxY);
         }
     }
 }
