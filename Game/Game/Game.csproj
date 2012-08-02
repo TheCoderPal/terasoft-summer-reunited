@@ -117,6 +117,7 @@
     <Compile Include="Engine\Item.cs" />
     <Compile Include="Engine\ItemsGenerator.cs" />
     <Compile Include="Engine\Object.cs" />
+    <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Shield.cs" />
     <Compile Include="Engine\Sword.cs" />
     <Compile Include="Engine\Track.cs" />
