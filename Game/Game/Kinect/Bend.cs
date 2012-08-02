@@ -20,7 +20,7 @@ namespace Game.Kinect
         bool flag1;
         bool flag2;
         Skeleton user;
-        kinect kinect;
+        Kinect kinect;
 
         public void Initialize()
         {
