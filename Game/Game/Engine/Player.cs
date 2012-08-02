@@ -76,7 +76,8 @@ namespace Game.Engine
             }
             playerAnimation.Update(gameTime);
 
-            
+            //Increment Score
+            score += 10;
         }
 
         public void CheckDeath()
@@ -95,6 +96,11 @@ namespace Game.Engine
         public void Collided(int value)
         {
             immunity += value;
+
+            if (value < 0)
+                score -= 100;
+            else
+                score += 100;
         }
     }
 }

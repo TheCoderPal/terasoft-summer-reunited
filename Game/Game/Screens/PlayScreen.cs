@@ -14,7 +14,6 @@ namespace Game.Screens
 
         public static readonly int blockSize = 96;
 
-        private SpriteAnimation animation;
         private Track track;
         private TrackUI trackUI;
         private ItemsUI itemsUI;
@@ -24,9 +23,16 @@ namespace Game.Screens
         private int playQueue = 1;
         #endregion
 
+        private Player player;
+        private ParallaxingBackground bgLayer1, bgLayer2;
+
         public void Initialize()
         {
+            player = new Player();
+            bgLayer1 = new ParallaxingBackground();
+            bgLayer2 = new ParallaxingBackground();
 
+            player.Initialize();
         }
         /// <remarks>
         ///<para>AUTHOR: Khaled Salah </para>
@@ -36,7 +42,12 @@ namespace Game.Screens
             songs[0] = Content.Load<Song>("Directory\\songtitle");
             songs[1] = Content.Load<Song>("Directory\\songtitle");
             songs[2] = Content.Load<Song>("Directory\\songtitle");
-            MediaPlayer.IsRepeating = true; 
+            MediaPlayer.IsRepeating = true;
+
+            player.LoadContent(Content);
+            //bgLayer1.Initialize(Content, "", graphics.Viewport.Width, -1);
+            //bgLayer1.Initialize(Content, "", graphics.Viewport.Width, -1);
+
         }
 
         /// <remarks>
@@ -68,11 +79,18 @@ namespace Game.Screens
                     }
                     }
                 }
+
+
+                bgLayer1.Update();
+                bgLayer2.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            bgLayer1.Draw(spriteBatch);
+            bgLayer2.Draw(spriteBatch);
 
+            player.Draw(spriteBatch);
         }
 
 
