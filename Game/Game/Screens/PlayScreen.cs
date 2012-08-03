@@ -26,16 +26,26 @@ namespace Game.Screens
         private Player player;
         private ParallaxingBackground bgLayer1, bgLayer2;
 
+        private ItemsGenerator generator;
+        private string[,] current;
+        private int globalCounter = 0;
+        private int spriteCounter = 0;
+        private Sprite[] currentSprite;
+        private ContentManager Content;
+
         public void Initialize()
         {
             player = new Player();
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
-
             player.Initialize();
+
+            generator = new ItemsGenerator();
+            current = generator.generateMore();
+            currentSprite = new Sprite[10];            
         }
         /// <remarks>
-        ///<para>AUTHOR: Khaled Salah </para>
+        ///<para>AUTHOR: Khaled Salah, Ahmed Shirin </para>
         ///</remarks>
         public void LoadContent(ContentManager Content)
         {
@@ -45,13 +55,19 @@ namespace Game.Screens
             MediaPlayer.IsRepeating = true;
 
             player.LoadContent(Content);
+
+            for (int i = 0; i <= 9; i++)
+            {
+                currentSprite[i] = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(0, 0, 0, 0));
+            }
+            this.Content = Content;
             //bgLayer1.Initialize(Content, "", graphics.Viewport.Width, -1);
             //bgLayer1.Initialize(Content, "", graphics.Viewport.Width, -1);
 
         }
 
         /// <remarks>
-        ///<para>AUTHOR: Khaled Salah </para>
+        ///<para>AUTHOR: Khaled Salah, Ahmed Shirin </para>
         ///</remarks>
         public void Update(GameTime gameTime)
         {
@@ -83,14 +99,70 @@ namespace Game.Screens
 
                 bgLayer1.Update();
                 bgLayer2.Update();
+
+
+                if (globalCounter == 1000)
+                {
+                    current = generator.generateMore();
+                    for (int i = 0; i <= 9; i++)
+                    {
+                        Texture2D texture = Content.Load<Texture2D>("Textures//sword");
+                        int length = 40;
+                        switch (current[i, 0])
+                        {
+                            case "banana": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
+                            case "apple": texture = Content.Load<Texture2D>("Textures//healthy2"); break;
+                            case "orange": texture = Content.Load<Texture2D>("Textures//healthy3"); break;
+                            case "hamburg": texture = Content.Load<Texture2D>("Textures//unhealthy1"); break;
+                            case "fries": texture = Content.Load<Texture2D>("Textures//unhealthy2"); break;
+                            case "hotdog": texture = Content.Load<Texture2D>("Textures//unhealthy3"); break;
+                            case "level1": texture = Content.Load<Texture2D>("Textures//virus1"); break;
+                            case "level2": texture = Content.Load<Texture2D>("Textures//virus2"); break;
+                            case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
+                            case "shield": texture = Content.Load<Texture2D>("Textures//shield"); break;
+                            default: length = 0; break;
+                        }
+                        int height = 0;
+                        switch (current[i, 1])
+                        {
+                            case "0": height = 400; break;
+                            case "1": height = 300; break;
+                            case "2": height = 100; break;
+                        }
+                        currentSprite[i] = new Sprite(texture, new Rectangle(880, height, length, length));
+                    }
+                    globalCounter = 0;
+                    spriteCounter = 0;
+                }
+
+                if (globalCounter % 100 == 0)
+                {
+                    spriteCounter++;
+                }
+
+                for (int i = 0; i <= spriteCounter - 1; i++)
+                {
+                    currentSprite[i].Update(6);
+                }
+
+                globalCounter++;
         }
 
+
+        /// <summary>
+        /// Author: Ahmed Shirin
+        /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
             bgLayer1.Draw(spriteBatch);
             bgLayer2.Draw(spriteBatch);
 
             player.Draw(spriteBatch);
+
+            for (int i = 0; i <= 9; i++)
+            {
+                currentSprite[i].Draw(spriteBatch);
+            }
         }
 
 
