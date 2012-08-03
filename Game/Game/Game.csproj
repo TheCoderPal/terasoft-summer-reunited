@@ -131,6 +131,8 @@
     <Compile Include="Kinect\IRelativeGestureSegment.cs" />
     <Compile Include="Kinect\Kinect Extensions\SkeletalCommonExtensions.cs" />
     <Compile Include="Kinect\Kinect.cs" />
+    <Compile Include="Kinect\PunchGesture.cs" />
+    <Compile Include="Kinect\StepRightGesture.cs" />
     <Compile Include="Kinect\SwapHand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="UI\Sprite.cs" />
     <Compile Include="UI\SpriteAnimation.cs" />
     <Compile Include="UI\TextureList.cs" />
+    <Compile Include="UI\UserAvatar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
