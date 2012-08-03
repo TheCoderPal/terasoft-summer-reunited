@@ -146,5 +146,20 @@ float frametime, Color color, float scale, bool looping)
             }
         }
 
+        public Color[] GetColorData()
+        {
+            Color[] colorArray = new Color[FrameWidth * FrameHeight];
+
+            spriteStrip.GetData<Color>(
+                0,
+                sourceRect,
+                colorArray,
+                0,
+                colorArray.Length
+                );
+
+            return colorArray;
+        }
+
     }
 }

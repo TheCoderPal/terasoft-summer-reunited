@@ -102,5 +102,16 @@ namespace Game.Engine
             else
                 score += 100;
         }
+
+        public Color[] GetColorData()
+        {
+            return playerAnimation.GetColorData();
+        }
+
+        public Rectangle GetBoundingRectangle()
+        {
+            return new Rectangle((int)Position.X, (int)Position.Y, playerAnimation.FrameWidth, playerAnimation.FrameHeight);
+        }
+
     }
 }
