@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Kinect;
 
-namespace Fizbin.Kinect.Gestures
+namespace Game.Kinect
 {
     class Gesture
     {

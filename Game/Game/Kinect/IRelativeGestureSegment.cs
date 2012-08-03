@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Kinect;
 
-namespace Fizbin.Kinect.Gestures
+namespace Game.Kinect
 {
     /// <summary>
     /// Defines a single gesture segment which uses relative positioning 

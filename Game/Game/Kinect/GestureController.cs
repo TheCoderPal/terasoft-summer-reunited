@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Game.Kinect;
 using Microsoft.Kinect;
 
-namespace Fizbin.Kinect.Gestures
+namespace Game.Kinect
 {
     public class GestureController
     {

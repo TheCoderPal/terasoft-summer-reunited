@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Fizbin.Kinect.Gestures
+namespace Game.Kinect
 {
     /// <summary>
     /// the gesture part result

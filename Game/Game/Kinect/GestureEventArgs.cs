@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fizbin.Kinect.Gestures
+namespace Game.Kinect
 {
     /// <summary>
     /// The gesture event arguments
