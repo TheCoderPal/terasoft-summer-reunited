@@ -42,7 +42,7 @@ namespace Game.Screens
 
             generator = new ItemsGenerator();
             current = generator.generateMore();
-            currentSprite = new Sprite[10];            
+            currentSprite = new Sprite[20];            
         }
         /// <remarks>
         ///<para>AUTHOR: Khaled Salah, Ahmed Shirin </para>
@@ -56,7 +56,7 @@ namespace Game.Screens
 
             player.LoadContent(Content);
 
-            for (int i = 0; i <= 9; i++)
+            for (int i = 0; i <= 19; i++)
             {
                 currentSprite[i] = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(0, 0, 0, 0));
             }
@@ -95,19 +95,28 @@ namespace Game.Screens
                     }
                     }
                 }
-
-
                 bgLayer1.Update();
                 bgLayer2.Update();
 
 
-                if (globalCounter == 1000)
+
+    
+                if (globalCounter == 500)
                 {
+                    Sprite[] previousSprites = currentSprite;
+                    int counter = 10;
+                    for (int i = 0; i <= 9; i++)
+                    {
+                        currentSprite[i] = previousSprites[counter];
+                        counter++;
+                    }
+
+                    counter = 10;
                     current = generator.generateMore();
                     for (int i = 0; i <= 9; i++)
                     {
                         Texture2D texture = Content.Load<Texture2D>("Textures//sword");
-                        int length = 40;
+                        int length = 50;
                         switch (current[i, 0])
                         {
                             case "banana": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
@@ -125,27 +134,29 @@ namespace Game.Screens
                         int height = 0;
                         switch (current[i, 1])
                         {
-                            case "0": height = 400; break;
-                            case "1": height = 300; break;
+                            case "0": height = 300; break;
+                            case "1": height = 200; break;
                             case "2": height = 100; break;
                         }
-                        currentSprite[i] = new Sprite(texture, new Rectangle(880, height, length, length));
+                        currentSprite[counter] = new Sprite(texture, new Rectangle(880, height, length, length));
+                        counter++;
                     }
                     globalCounter = 0;
-                    spriteCounter = 0;
+                    spriteCounter = 10;
                 }
 
-                if (globalCounter % 100 == 0)
+                if (globalCounter % 50 == 0)
                 {
                     spriteCounter++;
                 }
 
                 for (int i = 0; i <= spriteCounter - 1; i++)
                 {
-                    currentSprite[i].Update(6);
+                    currentSprite[i].Update(4);
                 }
 
                 globalCounter++;
+                
         }
 
 
@@ -159,7 +170,7 @@ namespace Game.Screens
 
             player.Draw(spriteBatch);
 
-            for (int i = 0; i <= 9; i++)
+            for (int i = 0; i <= currentSprite.Length - 1; i++)
             {
                 currentSprite[i].Draw(spriteBatch);
             }
