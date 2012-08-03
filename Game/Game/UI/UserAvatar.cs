@@ -115,8 +115,8 @@ namespace Game.UI
         {
             for (int i = 0; i < 1; i++)
             {
-                if (kinect.Skeletons[0] != null)
-                    UpdateUser(i);
+            //    if (kinect.Skeletons[0] != null)
+            //        UpdateUser(i);
             }
         }
 
@@ -165,7 +165,8 @@ namespace Game.UI
         {
             try
             {
-                return (int)(100 * kinect.Skeletons[0].Joints[JointType.HipCenter].Position.Z);
+                return 1;
+              //  return (int)(100 * kinect.Skeletons[0].Joints[JointType.HipCenter].Position.Z);
             }
             catch (NullReferenceException)
             {
