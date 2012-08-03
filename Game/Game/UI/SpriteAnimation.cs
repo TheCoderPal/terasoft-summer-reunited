@@ -64,14 +64,14 @@ namespace Game.UI
         public Vector2 Position;
 
 
-        public void Initialize(Texture2D texture, Vector2 position,
+        public void Initialize(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int frameCount, 
 float frametime, Color color, float scale, bool looping)
         {
             // Keep a local copy of the values passed in
             this.color = color;
-            this.FrameWidth = texture.Height;
-            this.FrameHeight = texture.Height;
-            this.frameCount = texture.Width/FrameWidth;
+            this.FrameWidth = frameWidth;
+            this.FrameHeight = frameHeight;
+            this.frameCount = frameCount;
             this.frameTime = frametime;
             this.scale = scale;
 

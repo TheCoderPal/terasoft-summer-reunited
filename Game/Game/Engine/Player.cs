@@ -61,8 +61,8 @@ namespace Game.Engine
 
         public void Initialize()
         {
-            runAnimation.Initialize(runTexture, Position, 0.1f, Color.White, 1f, true);
-            jumpAnimation.Initialize(jumpTexture, Position, 0.1f, Color.White, 1f, false);
+            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width/runTexture.Height, 0.1f, Color.White, 1f, true);
+            jumpAnimation.Initialize(jumpTexture, Position, jumpTexture.Height, jumpTexture.Height, jumpTexture.Width/jumpTexture.Height, 0.1f, Color.White, 1f, false);
             playerAnimation = runAnimation; 
         }
 
