@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Game.UI
 {
-    class Sprite
+    public class Sprite
     {
         Texture2D texture;
         Rectangle area;

@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Game.UI;
 
 namespace Game.Engine
 {
-    class Collectible : Object
+    class Collectible : Sprite
     {
         private bool acquired;
 
-        public Collectible(bool acquired, string name) : base(name)
+        public Collectible(Texture2D tex, Rectangle area, bool acquired)
+            : base(tex, area)
         {
             this.acquired = acquired;
-        }
-
-        public string GetName()
-        {
-            return base.GetName();
         }
 
         public bool GetAcquired()
@@ -27,6 +26,11 @@ namespace Game.Engine
         public void AcquireObject()
         {
             this.acquired = true;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
         }
     }
 }

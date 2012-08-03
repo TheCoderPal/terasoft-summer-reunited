@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 namespace Game.Engine
 {
     public class Virus : Item
@@ -8,24 +10,24 @@ namespace Game.Engine
         /// <summary>
         /// Author: Ahmed Shirin.
         /// </summary>
-        public Virus(int level, string name) : base(level,name)
+        public Virus(Texture2D tex, Rectangle area, int level, string name) : base(tex, area, level, name)
         {
 
         }
 
-        public int GetEffect() 
+        public int GetEffect()
         {
             return base.GetEffect();
-        }
-
-        public string GetName()
-        {
-            return base.GetName();
         }
 
         public int GetLevel()
         {
             return base.GetLevel();
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
         }
 
     }
