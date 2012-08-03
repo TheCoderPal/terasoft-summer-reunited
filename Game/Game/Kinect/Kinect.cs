@@ -4,7 +4,7 @@ namespace Game.Kinect
     /// <summary>
     /// Author : Microsoft
     /// </summary>
-    class Kinect
+    public class Kinect
     {
         private Skeleton[] skeletons;
         private KinectSensor nui;
