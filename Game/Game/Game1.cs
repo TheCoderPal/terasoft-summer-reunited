@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Game.UI;
+using Microsoft.Xna.Framework.Input;
 namespace Game
 {
 
@@ -10,7 +11,7 @@ namespace Game
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        ScreenManager screenManager;
         //Bar bar;//Tamer Test
         //Score score; //Tamer Test
         public Game1()
@@ -18,8 +19,11 @@ namespace Game
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
+            screenManager = new ScreenManager(this);
+            Components.Add(screenManager);
+
           //  bar = new Bar(100, 20, 30, 300, 30);  //Tamer Test
           // score = new Score(100, 20, Color.WhiteSmoke); //Tamer Test
         }
@@ -33,9 +37,10 @@ namespace Game
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            //screenManager.AddScreen(AyScreen());
           //  bar.LoadContent(Content); //Tamer Test
           //  score.LoadContent(Content);//Tamer Test
-
+            
         }
 
         protected override void UnloadContent()
@@ -45,7 +50,8 @@ namespace Game
 
         protected override void Update(GameTime gameTime)
         {
-            //updates
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+                this.Exit();
             base.Update(gameTime);
         }
 
