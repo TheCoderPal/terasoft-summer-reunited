@@ -57,7 +57,7 @@ namespace Game.UI
         public virtual void LoadContent() {
             if (showAvatar)
             {
-                //userAvatar = new UserAvatar(Game1.Kinect, ScreenManager.Game.Content, ScreenManager.GraphicsDevice, ScreenManager.SpriteBatch);
+             //   userAvatar = new UserAvatar(new Game.Kinect.Kinect(), ScreenManager.Game.Content, ScreenManager.GraphicsDevice, ScreenManager.SpriteBatch);
                 userAvatar.LoadContent();
             }
   

@@ -113,11 +113,8 @@ namespace Game.UI
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public void Update(GameTime gameTime)
         {
-            for (int i = 0; i < 1; i++)
-            {
-            //    if (kinect.Skeletons[0] != null)
-            //        UpdateUser(i);
-            }
+                if ((kinect.requestSkeleton().Length > 0) && (kinect.requestSkeleton()[0]!= null))
+                    UpdateUser(0);
         }
 
         /// <summary>
@@ -165,8 +162,7 @@ namespace Game.UI
         {
             try
             {
-                return 1;
-              //  return (int)(100 * kinect.Skeletons[0].Joints[JointType.HipCenter].Position.Z);
+                return (int)(100 * kinect.requestSkeleton()[0].Joints[JointType.HipCenter].Position.Z);
             }
             catch (NullReferenceException)
             {
