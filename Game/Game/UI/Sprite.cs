@@ -18,6 +18,11 @@ namespace Game.UI
             this.area = area;
         }
 
+        public void Update(int speed)
+        {
+            area.X -= speed;
+        }
+        
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
