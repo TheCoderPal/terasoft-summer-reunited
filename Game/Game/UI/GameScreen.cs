@@ -20,7 +20,7 @@ namespace Game.UI
     public abstract class GameScreen
     {
         public static int frameNumber;
-        //public UserAvatar userAvatar;
+        public UserAvatar userAvatar;
         public bool IsFrozen
         {
             get { 
@@ -48,19 +48,18 @@ namespace Game.UI
                 return screenState == ScreenState.Active;
             }
         }
-        //public bool showAvatar=true;
-        //public bool isTwoPlayers = false;
+        public bool showAvatar=true;
 
         /// <summary>
         /// LoadContent will be called only once before drawing and it's the place to load
         /// all of your content.
         /// </summary>
         public virtual void LoadContent() {
-            //if (showAvatar)
-            //{
-            //    userAvatar = new UserAvatar(Game1.User, ScreenManager.Game.Content, ScreenManager.GraphicsDevice, ScreenManager.SpriteBatch);
-            //    userAvatar.LoadContent();
-            //}
+            if (showAvatar)
+            {
+                //userAvatar = new UserAvatar(Game1.Kinect, ScreenManager.Game.Content, ScreenManager.GraphicsDevice, ScreenManager.SpriteBatch);
+                userAvatar.LoadContent();
+            }
   
         }
         /// <summary>
@@ -84,10 +83,10 @@ namespace Game.UI
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public virtual void Update(GameTime gameTime) {
-            //if (showAvatar)
-            //{
-            //        userAvatar.Update(gameTime);  
-            //}
+            if (showAvatar)
+            {
+                    userAvatar.Update(gameTime);  
+            }
         }
         
         /// <summary>
@@ -103,8 +102,8 @@ namespace Game.UI
         /// </summary>
         public virtual void Draw(GameTime gameTime)
         {
-        //    if(showAvatar)
-        //   userAvatar.Draw(gameTime);
+          if(showAvatar)
+           userAvatar.Draw(gameTime);
         }
         
         public void FreezeScreen()
