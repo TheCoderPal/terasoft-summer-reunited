@@ -150,6 +150,7 @@
     <Compile Include="UI\Bar.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\GameScreen.cs" />
+    <Compile Include="UI\HandCursor.cs" />
     <Compile Include="UI\ParallaxingBackground.cs" />
     <Compile Include="UI\Score.cs" />
     <Compile Include="UI\ScreeenManager.cs" />
