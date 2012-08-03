@@ -11,11 +11,15 @@ namespace Game.UI
     {
 
         private Texture2D texture;
-        private Game.Kinect.Kinect kinect;
         private Vector2 position;
         private string texturePath;
+        private int TextureWidth, TextureHeight;
+        private bool TextureSet;
+
+        private Game.Kinect.Kinect kinect;
         private float timer = 0;
         private const float CLICK_TIME_OUT = 1000;
+
         private Rectangle BoundingRectangle;
 
         private Color hoverColor;
@@ -34,13 +38,27 @@ namespace Game.UI
             texturePath = Path;
             this.kinect = kinect;
             position = Position;
+            TextureSet = false;
+            hoverColor = new Color(255, 255, 255, 220);
+        }
+
+        public void Initialize(string Path, Game.Kinect.Kinect kinect, Vector2 Position, int buttonWidth, int buttonHeight)
+        {
+            texturePath = Path;
+            this.kinect = kinect;
+            position = Position;
+            TextureWidth = buttonWidth;
+            TextureHeight = buttonHeight;
             hoverColor = new Color(255, 255, 255, 220);
         }
 
         public void LoadContent(ContentManager Content)
         {
             texture = Content.Load<Texture2D>(texturePath);
-            BoundingRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            if(TextureWidth == texture.Width && TextureHeight == texture.Height)
+                BoundingRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            else
+                BoundingRectangle = new Rectangle((int)position.X, (int)position.Y, TextureWidth, TextureHeight);
         }
 
         public void Update(GameTime gameTime)
