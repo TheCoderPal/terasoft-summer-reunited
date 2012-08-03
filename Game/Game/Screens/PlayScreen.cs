@@ -26,11 +26,16 @@ namespace Game.Screens
         private Player player;
         private ParallaxingBackground bgLayer1, bgLayer2;
 
+        //Shirin
         private ItemsGenerator generator;
         private string[,] current;
         private int globalCounter = 0;
         private int spriteCounter = 0;
         private Sprite[] currentSprite;
+        private Sprite sword;
+        private Sprite shield;
+        private Sprite swordAcquired;
+        private Sprite shieldAcquired;
         private ContentManager Content;
 
         public void Initialize()
@@ -40,6 +45,7 @@ namespace Game.Screens
             bgLayer2 = new ParallaxingBackground();
             player.Initialize();
 
+            //Shirin
             generator = new ItemsGenerator();
             current = generator.generateMore();
             currentSprite = new Sprite[20];            
@@ -56,11 +62,19 @@ namespace Game.Screens
 
             player.LoadContent(Content);
 
+            //Shirin
+            sword = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(300, 0, 35, 65));
+            shield = new Sprite(Content.Load<Texture2D>("Textures//shield"), new Rectangle(390, 0, 60, 60));
+            swordAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(290, 10, 60, 60));
+            shieldAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(380, 10, 60, 60));
+
             for (int i = 0; i <= 19; i++)
             {
                 currentSprite[i] = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(0, 0, 0, 0));
             }
             this.Content = Content;
+
+
             //bgLayer1.Initialize(Content, "", graphics.Viewport.Width, -1);
             //bgLayer1.Initialize(Content, "", graphics.Viewport.Width, -1);
 
@@ -100,7 +114,7 @@ namespace Game.Screens
 
 
 
-    
+                //Shirin
                 if (globalCounter == 500)
                 {
                     Sprite[] previousSprites = currentSprite;
@@ -170,10 +184,14 @@ namespace Game.Screens
 
             player.Draw(spriteBatch);
 
+            //Shirin
             for (int i = 0; i <= currentSprite.Length - 1; i++)
             {
                 currentSprite[i].Draw(spriteBatch);
             }
+            sword.Draw(spriteBatch);
+            shield.Draw(spriteBatch);
+            
         }
 
 
