@@ -13,14 +13,10 @@ namespace Game.Kinect
         {
             public GesturePartResult CheckGesture(Skeleton skeleton)
             {
-                posX = skeleton.Joints[JointType.HipCenter].Position.Z;
-                if (skeleton.Joints[JointType.Head].Position.X == skeleton.Joints[JointType.HipCenter].Position.X)
+                posX = skeleton.Joints[JointType.HipCenter].Position.X;
+                if ((skeleton.Joints[JointType.Head].Position.X >= skeleton.Joints[JointType.HipCenter].Position.X+2) ||(skeleton.Joints[JointType.Head].Position.X <= (skeleton.Joints[JointType.HipCenter].Position.X+2)))
                 {
-                    if (skeleton.Joints[JointType.Head].Position.Z == (skeleton.Joints[JointType.HipCenter].Position.Z))
-                    {
-                        return GesturePartResult.Suceed;
-                    }
-                    return GesturePartResult.Pausing;
+                    return GesturePartResult.Suceed;
                 }
                 return GesturePartResult.Fail;
             }
@@ -28,9 +24,9 @@ namespace Game.Kinect
             {
                 public GesturePartResult CheckGesture(Skeleton skeleton)
                 {
-                    if (skeleton.Joints[JointType.Head].Position.X >posX)
+                    if (skeleton.Joints[JointType.Head].Position.X >= (posX+10))
                     {
-                        if (skeleton.Joints[JointType.HipCenter].Position.X >posX)
+                        if (skeleton.Joints[JointType.HipCenter].Position.X >=(posX+10))
                         {
                             return GesturePartResult.Suceed;
                         }
