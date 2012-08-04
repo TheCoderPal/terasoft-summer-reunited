@@ -13,7 +13,7 @@ namespace Game.Screens
     {
 
         public static readonly int blockSize = 96;
-
+        public bool screenPaused = false;
         private Track track;
         private TrackUI trackUI;
         private ItemsUI itemsUI;
@@ -85,6 +85,18 @@ namespace Game.Screens
         ///</remarks>
         public void Update(GameTime gameTime)
         {
+            if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[0]))
+            {
+                //Freeze Screen, Show pause Screen
+               // this.FreezeScreen();
+                screenPaused = true;
+            }
+            else if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
+            {
+                //exit pause screen, unfreeze screen
+                this.UnfreezeScreen();
+                screenPaused = false;
+            }
                 if (MediaPlayer.State.Equals(MediaState.Stopped))
                 {
                     switch(playQueue)
