@@ -124,6 +124,7 @@
     <Compile Include="Engine\TrackAI.cs" />
     <Compile Include="Engine\Virus.cs" />
     <Compile Include="Kinect\BendGesture.cs" />
+    <Compile Include="Kinect\DumbbellGesture.cs" />
     <Compile Include="Kinect\Gesture.cs" />
     <Compile Include="Kinect\GestureController.cs" />
     <Compile Include="Kinect\GestureEnumTypes.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Kinect\Kinect Extensions\SkeletalCommonExtensions.cs" />
     <Compile Include="Kinect\Kinect.cs" />
     <Compile Include="Kinect\PunchGesture.cs" />
+    <Compile Include="Kinect\RunningGesture.cs" />
     <Compile Include="Kinect\StepRightGesture.cs" />
     <Compile Include="Kinect\SwapHand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
