@@ -6,6 +6,7 @@ using Game.Engine;
 using Game.UI;
 using Game.Screens.Components;
 using Microsoft.Xna.Framework.Media;
+using System.Collections.Generic;
 
 namespace Game.Screens
 {
@@ -37,7 +38,11 @@ namespace Game.Screens
         private Sprite swordAcquired;
         private Sprite shieldAcquired;
         private ContentManager Content;
-
+        private Rectangle playerBounds;
+        private Rectangle[] itemBounds = new Rectangle[20];
+        private Color[] avatarData;
+        private List<Color[]> itemsData;
+        
         public void Initialize()
         {
             player = new Player();
@@ -48,7 +53,13 @@ namespace Game.Screens
             //Shirin
             generator = new ItemsGenerator();
             current = generator.generateMore();
-            currentSprite = new Sprite[20];            
+            currentSprite = new Sprite[20];
+            playerBounds = player.GetBoundingRectangle();
+            for (int i = 0; i <= 19; i++) 
+            {
+                itemBounds[i] = new Rectangle(0, 0, 0, 0);
+            }
+            avatarData = player.GetColorData();
         }
         /// <remarks>
         ///<para>AUTHOR: Khaled Salah, Ahmed Shirin </para>
