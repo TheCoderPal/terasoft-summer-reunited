@@ -148,6 +148,7 @@
     <Compile Include="Screens\InstructionsScreen.cs" />
     <Compile Include="Screens\LosingScreen.cs" />
     <Compile Include="Screens\MainScreen.cs" />
+    <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\PlayScreen.cs" />
     <Compile Include="Screens\TreadmillScreen.cs" />
     <Compile Include="UI\Bar.cs" />
