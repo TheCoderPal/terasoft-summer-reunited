@@ -32,6 +32,10 @@ namespace Game.UI
         {
             get { return avatar; }
         }
+        public Texture2D[] AllAvatars
+        {
+            get { return allAvatars; }
+        }
 
         /// <summary>
         /// Class constructor for 1 player mode.
