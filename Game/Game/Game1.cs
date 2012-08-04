@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Game.UI;
 using Microsoft.Xna.Framework.Input;
+using Game.Screens;
 namespace Game
 {
 
@@ -37,6 +38,7 @@ namespace Game
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            screenManager.AddScreen(new MainScreen());
             //screenManager.AddScreen(AyScreen());
           //  bar.LoadContent(Content); //Tamer Test
           //  score.LoadContent(Content);//Tamer Test
