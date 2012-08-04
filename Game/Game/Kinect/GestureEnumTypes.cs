@@ -32,6 +32,10 @@ namespace Game.Kinect
     public enum GestureType
     {
         None,
-        SwipeLeft,
+        BendGesture,
+        PunchGesture,
+        StepRightGesture,
+        RunningGesture,
+        DumbbellGesture,
         }
 }
