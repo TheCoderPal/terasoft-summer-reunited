@@ -165,7 +165,7 @@ namespace Game.Screens
                             case "level1": texture = Content.Load<Texture2D>("Textures//virus1"); break;
                             case "level2": texture = Content.Load<Texture2D>("Textures//virus2"); break;
                             case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
-                            case "shield": texture = Content.Load<Texture2D>("Textures//shield"); break;
+                            case "sheild": texture = Content.Load<Texture2D>("Textures//shield"); break;
                             default: length = 0; break;
                         }
                         int height = 0;
