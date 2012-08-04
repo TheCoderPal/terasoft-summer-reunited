@@ -202,8 +202,36 @@ namespace Game.Screens
                 currentSprite[i].Draw(spriteBatch);
             }
             sword.Draw(spriteBatch);
-            shield.Draw(spriteBatch);
-            
+            shield.Draw(spriteBatch);            
+        }
+
+
+        /// <summary>
+        /// Author: Ahmed Shirin
+        /// </summary>
+        public static bool IntersectPixels(Rectangle rectangleA, Color[] dataA, Rectangle rectangleB, Color[] dataB)
+        {
+            int top = Math.Max(rectangleA.Top, rectangleB.Top);
+            int bottom = Math.Min(rectangleA.Bottom, rectangleB.Bottom);
+            int left = Math.Max(rectangleA.Left, rectangleB.Left);
+            int right = Math.Min(rectangleA.Right, rectangleB.Right);
+
+            for (int y = top; y < bottom; y++)
+            {
+                for (int x = left; x < right; x++)
+                {
+                    Color colorA = dataA[(x - rectangleA.Left) +
+                                         (y - rectangleA.Top) * rectangleA.Width];
+                    Color colorB = dataB[(x - rectangleB.Left) +
+                                         (y - rectangleB.Top) * rectangleB.Width];
+
+                    if (colorA.A != 0 && colorB.A != 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
 
