@@ -28,6 +28,10 @@ namespace Game.UI
         const int maxDepth = 350;
         private int[] depth;
         private Texture2D[] allAvatars;
+        public Texture2D[] Avatar
+        {
+            get { return avatar; }
+        }
 
         /// <summary>
         /// Class constructor for 1 player mode.
