@@ -54,12 +54,18 @@ namespace Game.Screens
             generator = new ItemsGenerator();
             current = generator.generateMore();
             currentSprite = new Sprite[20];
-            playerBounds = player.GetBoundingRectangle();
             for (int i = 0; i <= 19; i++) 
             {
                 itemBounds[i] = new Rectangle(0, 0, 0, 0);
             }
-            avatarData = player.GetColorData();
+            //Adding temporary color data to the list to avoid exceptions at the start of the game before items are initialized.
+            Texture2D tempTexture = Content.Load<Texture2D>("Textures//Transparent");
+            Color[] tempColors = new Color[tempTexture.Width * tempTexture.Height];
+            tempTexture.GetData(tempColors);
+            for (int i = 0; i <= 19; i++)
+            {
+                itemsData.Add(tempColors);
+            }
         }
         /// <remarks>
         ///<para>AUTHOR: Khaled Salah, Ahmed Shirin </para>
@@ -150,13 +156,21 @@ namespace Game.Screens
 
 
                 //Shirin
+
+                playerBounds = player.GetBoundingRectangle();
+                avatarData = player.GetColorData();
+
                 if (globalCounter == 500)
                 {
+                    itemsData.Clear();
                     Sprite[] previousSprites = currentSprite;
                     int counter = 10;
                     for (int i = 0; i <= 9; i++)
                     {
                         currentSprite[i] = previousSprites[counter];
+                        Color[] temp = new Color[previousSprites[i].GetTexture().Width * previousSprites[i].GetTexture().Height];
+                        currentSprite[i].GetTexture().GetData(temp);
+                        itemsData.Add(temp);
                         counter++;
                     }
 
@@ -177,6 +191,7 @@ namespace Game.Screens
                             case "level2": texture = Content.Load<Texture2D>("Textures//virus2"); break;
                             case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
                             case "sheild": texture = Content.Load<Texture2D>("Textures//shield"); break;
+                            case "sword": texture = Content.Load<Texture2D>("Textures//sword"); break;
                         }
                         int height = 0;
                         switch (current[i, 1])
@@ -186,11 +201,19 @@ namespace Game.Screens
                             case "2": height = 100; break;
                         }
                         currentSprite[counter] = new Sprite(texture, new Rectangle(880, height, 50, 50));
+                        Color[] temp = new Color[texture.Width * texture.Height];
+                        texture.GetData(temp);
+                        itemsData.Add(temp);
                         counter++;
                     }
                     globalCounter = 0;
                     spriteCounter = 10;
                 }
+
+                for (int i = 0; i <= 19; i++)
+                {
+                    itemBounds[i] = new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), 50, 50);
+                } 
 
                 if (globalCounter % 50 == 0)
                 {
@@ -200,6 +223,10 @@ namespace Game.Screens
                 for (int i = 0; i <= spriteCounter - 1; i++)
                 {
                     currentSprite[i].Update(4);
+                    if (IntersectPixels(playerBounds, avatarData, new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), 50, 50), itemsData[i]))
+                    {
+
+                    } 
                 }
 
                 globalCounter++;
