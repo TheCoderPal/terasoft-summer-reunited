@@ -170,18 +170,16 @@ namespace Game.Screens
 
                 if (globalCounter == 500)
                 {
-                    for (int i = 0; i <= 19; i++)
-                    {
-                        collided[i] = false;
-                    }
                     itemsData.Clear();
                     Sprite[] previousSprites = currentSprite;
                     Boolean[] previousTrans = transparent;
+                    Boolean[] previousCollisions = collided;
                     int counter = 10;
                     for (int i = 0; i <= 9; i++)
                     {
                         currentSprite[i] = previousSprites[counter];
                         transparent[i] = previousTrans[counter];
+                        collided[i] = previousCollisions[counter];
                         Color[] temp = new Color[previousSprites[i].GetTexture().Width * previousSprites[i].GetTexture().Height];
                         currentSprite[i].GetTexture().GetData(temp);
                         itemsData.Add(temp);
@@ -217,6 +215,7 @@ namespace Game.Screens
                             case "2": height = 100; break;
                         }
                         currentSprite[counter] = new Sprite(texture, new Rectangle(880, height, 50, 50));
+                        collided[counter] = false;
                         Color[] temp = new Color[texture.Width * texture.Height];
                         texture.GetData(temp);
                         itemsData.Add(temp);
