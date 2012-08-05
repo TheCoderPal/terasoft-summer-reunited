@@ -25,7 +25,7 @@ namespace Game.Screens
         #endregion
 
         private Player player;
-        private ParallaxingBackground bgLayer1, bgLayer2;
+        private ParallaxingBackground bgLayer1, bgLayer2, bgLayer3;
 
         //Shirin
         private ItemsGenerator generator;
@@ -48,6 +48,7 @@ namespace Game.Screens
             player = new Player();
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
+            bgLayer3 = new ParallaxingBackground();
             player.Initialize();
 
             //Shirin
@@ -70,8 +71,10 @@ namespace Game.Screens
         /// <remarks>
         ///<para>AUTHOR: Khaled Salah, Ahmed Shirin </para>
         ///</remarks>
-        public void LoadContent(ContentManager Content)
+        public void LoadContent()
         {
+            ContentManager Content = ScreenManager.Game.Content;
+
             songs[0] = Content.Load<Song>("Directory\\songtitle");
             songs[1] = Content.Load<Song>("Directory\\songtitle");
             songs[2] = Content.Load<Song>("Directory\\songtitle");
@@ -89,11 +92,11 @@ namespace Game.Screens
             {
                 currentSprite[i] = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(0, 0, 0, 0));
             }
-            this.Content = Content;
 
 
-            //bgLayer1.Initialize(Content, "", graphics.Viewport.Width, -1);
-            //bgLayer1.Initialize(Content, "", graphics.Viewport.Width, -1);
+            bgLayer1.Initialize(Content, "Background/Layer 1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
+            bgLayer2.Initialize(Content, "Background/Layer 2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
+            bgLayer3.Initialize(Content, "Background/Layer 3", ScreenManager.GraphicsDevice.Viewport.Width, -4);
 
         }
 
@@ -107,6 +110,7 @@ namespace Game.Screens
 
             bgLayer1.Update();
             bgLayer2.Update();
+            bgLayer3.Update();
 
             if (player.CheckDeath())
             {
@@ -239,10 +243,14 @@ namespace Game.Screens
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
             bgLayer1.Draw(spriteBatch);
             bgLayer2.Draw(spriteBatch);
-
+            bgLayer3.Draw(spriteBatch);
+           
             player.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             //Shirin
             for (int i = 0; i <= currentSprite.Length - 1; i++)

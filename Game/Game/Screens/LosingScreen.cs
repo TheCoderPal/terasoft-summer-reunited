@@ -59,7 +59,7 @@ namespace Game.Screens
             }
             else
             {
-                text = "Sorry, You did not make it into top 10 !";
+                text = "Sorry, You did not make it into the top 10 !";
             }
 
             base.Initialize();
