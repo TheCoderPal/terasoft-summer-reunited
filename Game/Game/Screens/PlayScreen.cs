@@ -164,8 +164,7 @@ namespace Game.Screens
                     current = generator.generateMore();
                     for (int i = 0; i <= 9; i++)
                     {
-                        Texture2D texture = Content.Load<Texture2D>("Textures//sword");
-                        int length = 50;
+                        Texture2D texture = Content.Load<Texture2D>("Textures//Transparent");
                         switch (current[i, 0])
                         {
                             case "banana": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
@@ -178,7 +177,6 @@ namespace Game.Screens
                             case "level2": texture = Content.Load<Texture2D>("Textures//virus2"); break;
                             case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
                             case "sheild": texture = Content.Load<Texture2D>("Textures//shield"); break;
-                            default: length = 0; break;
                         }
                         int height = 0;
                         switch (current[i, 1])
@@ -187,7 +185,7 @@ namespace Game.Screens
                             case "1": height = 200; break;
                             case "2": height = 100; break;
                         }
-                        currentSprite[counter] = new Sprite(texture, new Rectangle(880, height, length, length));
+                        currentSprite[counter] = new Sprite(texture, new Rectangle(880, height, 50, 50));
                         counter++;
                     }
                     globalCounter = 0;
