@@ -43,6 +43,7 @@ namespace Game.Screens
         private Color[] avatarData;
         private List<Color[]> itemsData;
         private Boolean[] transparent = new Boolean[20];
+        private Boolean[] collided = new Boolean[20];
         
         public void Initialize()
         {
@@ -68,6 +69,7 @@ namespace Game.Screens
             {
                 itemsData.Add(tempColors);
                 transparent[i] = true;
+                collided[i] = false;
             }
         }
         /// <remarks>
@@ -168,6 +170,10 @@ namespace Game.Screens
 
                 if (globalCounter == 500)
                 {
+                    for (int i = 0; i <= 19; i++)
+                    {
+                        collided[i] = false;
+                    }
                     itemsData.Clear();
                     Sprite[] previousSprites = currentSprite;
                     Boolean[] previousTrans = transparent;
@@ -227,7 +233,7 @@ namespace Game.Screens
                     {
                         if (!transparent[i])
                         {
-
+                            collided[i] = true;
                         }
                     }  
                 } 
@@ -264,7 +270,10 @@ namespace Game.Screens
             //Shirin
             for (int i = 0; i <= currentSprite.Length - 1; i++)
             {
-                currentSprite[i].Draw(spriteBatch);
+                if (!collided[i])
+                {
+                    currentSprite[i].Draw(spriteBatch);
+                }
             }
             sword.Draw(spriteBatch);
             shield.Draw(spriteBatch);            
