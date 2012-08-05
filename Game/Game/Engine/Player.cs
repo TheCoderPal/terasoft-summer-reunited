@@ -41,6 +41,7 @@ namespace Game.Engine
 
         //Player Score
         private int score;
+        public int Score { get { return score; } set { score = value; } }
 
         //Player items status
         bool hasShield, hasSword;
@@ -80,12 +81,13 @@ namespace Game.Engine
             score += 10;
         }
 
-        public void CheckDeath()
+        public bool CheckDeath()
         {
             if (immunity == 0)
             {
-
+                return true;
             }
+            return false;
         }
 
         public void Draw(SpriteBatch spriteBatch)

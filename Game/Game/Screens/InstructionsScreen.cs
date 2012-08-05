@@ -26,11 +26,14 @@ namespace Game.Screens
             textBox = new Rectangle((int)textPosition.X, (int)textPosition.Y, 1200, 600);
         }
 
-        public void LoadContent(ContentManager Content)
+        public void LoadContent()
         {
+            ContentManager Content = ScreenManager.Game.Content;
             //spriteFont = Content.Load<SpriteFont>("instructionsFont");
             //backgroundImage = Content.Load<Texture2D>("Images/instructionsScreen");
             Text = WrapText(spriteFont, Text, textBox.Width);
+
+            base.LoadContent();
         }
 
         public void Draw(SpriteBatch spriteBatch)

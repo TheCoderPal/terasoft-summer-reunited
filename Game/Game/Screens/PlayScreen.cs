@@ -96,6 +96,20 @@ namespace Game.Screens
         ///</remarks>
         public void Update(GameTime gameTime)
         {
+
+            #region Omar Abdulaal
+
+            bgLayer1.Update();
+            bgLayer2.Update();
+
+            if (player.CheckDeath())
+            {
+                this.Remove();
+                ScreenManager.AddScreen(new LosingScreen(player.Score));
+            }
+
+            #endregion
+
             if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[0]))
             {
                 //Freeze Screen, Show pause Screen
@@ -132,8 +146,6 @@ namespace Game.Screens
                     }
                     }
                 }
-                bgLayer1.Update();
-                bgLayer2.Update();
 
 
 
