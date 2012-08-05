@@ -22,7 +22,22 @@ namespace Game.UI
         {
             area.X -= speed;
         }
-        
+
+        public Texture2D GetTexture()
+        {
+            return texture;
+        }
+
+        public int GetX()
+        {
+            return area.X;
+        }
+
+        public int GetY()
+        {
+            return area.Y;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
