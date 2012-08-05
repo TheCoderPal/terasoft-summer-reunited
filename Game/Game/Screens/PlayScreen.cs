@@ -42,6 +42,7 @@ namespace Game.Screens
         private Rectangle[] itemBounds = new Rectangle[20];
         private Color[] avatarData;
         private List<Color[]> itemsData;
+        private Boolean[] transparent = new Boolean[20];
         
         public void Initialize()
         {
@@ -66,6 +67,7 @@ namespace Game.Screens
             for (int i = 0; i <= 19; i++)
             {
                 itemsData.Add(tempColors);
+                transparent[i] = true;
             }
         }
         /// <remarks>
@@ -168,10 +170,12 @@ namespace Game.Screens
                 {
                     itemsData.Clear();
                     Sprite[] previousSprites = currentSprite;
+                    Boolean[] previousTrans = transparent;
                     int counter = 10;
                     for (int i = 0; i <= 9; i++)
                     {
                         currentSprite[i] = previousSprites[counter];
+                        transparent[i] = previousTrans[counter];
                         Color[] temp = new Color[previousSprites[i].GetTexture().Width * previousSprites[i].GetTexture().Height];
                         currentSprite[i].GetTexture().GetData(temp);
                         itemsData.Add(temp);
@@ -183,6 +187,7 @@ namespace Game.Screens
                     for (int i = 0; i <= 9; i++)
                     {
                         Texture2D texture = Content.Load<Texture2D>("Textures//Transparent");
+                        transparent[counter] = false;
                         switch (current[i, 0])
                         {
                             case "banana": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
@@ -196,6 +201,7 @@ namespace Game.Screens
                             case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
                             case "sheild": texture = Content.Load<Texture2D>("Textures//shield"); break;
                             case "sword": texture = Content.Load<Texture2D>("Textures//sword"); break;
+                            case "Empty": transparent[counter] = true; break;
                         }
                         int height = 0;
                         switch (current[i, 1])
@@ -217,6 +223,13 @@ namespace Game.Screens
                 for (int i = 0; i <= 19; i++)
                 {
                     itemBounds[i] = new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), 50, 50);
+                    if (IntersectPixels(playerBounds, avatarData, new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), 50, 50), itemsData[i]))
+                    {
+                        if (!transparent[i])
+                        {
+
+                        }
+                    }  
                 } 
 
                 if (globalCounter % 50 == 0)
@@ -226,11 +239,7 @@ namespace Game.Screens
 
                 for (int i = 0; i <= spriteCounter - 1; i++)
                 {
-                    currentSprite[i].Update(4);
-                    if (IntersectPixels(playerBounds, avatarData, new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), 50, 50), itemsData[i]))
-                    {
-
-                    } 
+                    currentSprite[i].Update(4);                    
                 }
 
                 globalCounter++;
