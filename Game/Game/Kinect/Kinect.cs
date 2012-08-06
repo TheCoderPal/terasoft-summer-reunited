@@ -1,4 +1,5 @@
 ﻿using Microsoft.Kinect;
+using System.Collections.Generic;
 namespace Game.Kinect
 {
     /// <summary>
@@ -6,37 +7,31 @@ namespace Game.Kinect
     /// </summary>
     public class Kinect
     {
-        private Skeleton[] skeletons;
+       private Skeleton[] skeletons;
         private KinectSensor nui;
-        public bool swapFlag; //Tamer
-        SwapHand swapHand; //Tamer
-
-
-        /// <summary>
-        /// The ID if the skeleton to be tracked.
-        /// </summary>
-        private int nearestId = -1;
-
-
-        //Omar Abdulaal
+        //Tracked Skeleton
+        public Skeleton trackedSkeleton;
+        public bool swapFlag,jumpFlag; //Tamer
+        private SwapHand swapHand; //Tamer
+        private List<double> list, list2;//Tamer
+         //Omar Abdulaal
         private int ScreenWidth, ScreenHeight;
         //Used for scaling
         private const float SkeletonMaxX = 0.60f;
         private const float SkeletonMaxY = 0.40f;
-
-
         public Kinect(int screenWidth, int screenHeight)
         {
             skeletons = new Skeleton[0];
-            this.InitializeNui();
-            swapFlag = false; //tamer
-            swapHand = new SwapHand(); //tamer
-
-            ScreenHeight = screenHeight; //omar
+            trackedSkeleton = null;
+            list = new List<double>();//Tamer
+            list2 = new List<double>();//Tamer
+            swapFlag =false;//Tamer
+            jumpFlag = false;//Tamer
+            swapHand = new SwapHand();//Tamer
+             ScreenHeight = screenHeight; //omar
             ScreenWidth = screenWidth; //omar
+            this.InitializeNui();
         }
-
-
         /// <summary>
         /// Handle insertion of Kinect sensor.
         /// </summary>
@@ -51,8 +46,6 @@ namespace Game.Kinect
             this.nui.SkeletonStream.Enable();
             this.nui.SkeletonFrameReady += this.OnSkeletonFrameReady;
         }
-
-
         /// <summary>
         /// Handler for skeleton ready handler.
         /// </summary>
@@ -66,6 +59,7 @@ namespace Game.Kinect
                 // Ensure we have a frame.
                 if (frame != null)
                 {
+                    // trackedSkeleton = null;
                     // Resize the skeletons array if a new size (normally only on first call).
                     if (this.skeletons.Length != frame.SkeletonArrayLength)
                     {
@@ -73,53 +67,74 @@ namespace Game.Kinect
                     }
                     // Get the skeletons.
                     frame.CopySkeletonDataTo(this.skeletons);
-                    // Assume no nearest skeleton and that the nearest skeleton is a long way away.
-                    var newNearestId = -1;
-                    var nearestDistance2 = double.MaxValue;
-                    // Look through the skeletons.
                     foreach (var skeleton in this.skeletons)
                     {
                         // Only consider tracked skeletons.
                         if (skeleton.TrackingState == SkeletonTrackingState.Tracked)
                         {
-                            // Find the distance squared.
-                            var distance2 = (skeleton.Position.X * skeleton.Position.X) +
-                                (skeleton.Position.Y * skeleton.Position.Y) +
-                                (skeleton.Position.Z * skeleton.Position.Z);
-
-                            // Is the new distance squared closer than the nearest so far?
-                            if (distance2 < nearestDistance2)
-                            {
-                                // Use the new values.
-                                newNearestId = skeleton.TrackingId;
-                                nearestDistance2 = distance2;
-                            }
+                            if (trackedSkeleton == null || skeleton.Position.Z < trackedSkeleton.Position.Z)
+                                trackedSkeleton = skeleton;
                         }
                     }
-                    if (this.nearestId != newNearestId)
+                    //Tamer
+                      swapHand.activeRecognizer.Recognize(null, null, this.skeletons);
+                      swapFlag = swapHand.requestFlag();
+                    if (trackedSkeleton != null)
                     {
-                        this.nearestId = newNearestId;
+                        JumpHelp();
                     }
-                    //Tamer Nabil
-                    // Pass skeletons to recognizer.
-                    swapHand.activeRecognizer.Recognize(sender, frame, this.skeletons);
-                    swapFlag = swapHand.requestFlag();
                 }
             }
         }
 
+        private void JumpHelp()
+        {
+            double average = 0, average2 = 0;
+            if (list.Count == 10)
+            {
+                list.RemoveAt(0);
+                list.Add(trackedSkeleton.Joints[JointType.AnkleRight].Position.Y);
+            }
+            else
+                list.Add(trackedSkeleton.Joints[JointType.AnkleRight].Position.Y);
+
+            if (list2.Count == 10)
+            {
+                list2.RemoveAt(0);
+                list2.Add(trackedSkeleton.Joints[JointType.AnkleLeft].Position.Y);
+            }
+            else
+                list2.Add(trackedSkeleton.Joints[JointType.AnkleLeft].Position.Y);
+            if (list.Count == 10 && list2.Count == 10)
+            {
+                for (int i = 5; i < 9; i++)
+                {
+                    average += list[i];
+                    average2 += list2[i];
+                }
+                average = average / 4;
+                average2 = average2 / 4;
+
+                if (list[9] > average && list2[9] > average2)
+                {
+                    jumpFlag = true;
+                }
+
+
+            }
+        }
         public Skeleton[] requestSkeleton()
         {
             return skeletons;
         }
-
+        
         /// <summary>
         /// Returns right hand position scaled to screen.
         /// </summary>
         /// Author : Omar Abdulaal
         public Joint GetCursorPosition()
         {
-            return skeletons[0].Joints[JointType.HandRight].ScaleTo(ScreenWidth, ScreenHeight, SkeletonMaxX, SkeletonMaxY);
+            return trackedSkeleton.Joints[JointType.HandRight].ScaleTo(ScreenWidth, ScreenHeight, SkeletonMaxX, SkeletonMaxY);
         }
     }
 }
