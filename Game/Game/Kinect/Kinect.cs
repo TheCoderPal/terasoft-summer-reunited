@@ -1,5 +1,8 @@
 ﻿using Microsoft.Kinect;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System;
+using System.ComponentModel;
 namespace Game.Kinect
 {
     /// <summary>
@@ -7,7 +10,27 @@ namespace Game.Kinect
     /// </summary>
     public class Kinect
     {
-       private Skeleton[] skeletons;
+        private GestureController gestureController;
+        private string _gesture;
+        public event PropertyChangedEventHandler PropertyChanged;
+        public String Gesture
+        {
+            get { return _gesture; }
+
+            private set
+            {
+                if (_gesture == value)
+                    return;
+
+                _gesture = value;
+
+                Debug.WriteLine("Gesture = " + _gesture);
+
+                if (this.PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("Gesture"));
+            }
+        }
+        private Skeleton[] skeletons;
         private KinectSensor nui;
         //Tracked Skeleton
         public Skeleton trackedSkeleton;
@@ -38,6 +61,8 @@ namespace Game.Kinect
         private void InitializeNui()
         {
             var index = 0;
+            gestureController = new GestureController();
+            gestureController.GestureRecognized += OnGestureRecognized;
             while (this.nui == null && index < KinectSensor.KinectSensors.Count)
             {
                 this.nui = KinectSensor.KinectSensors[index];
@@ -46,6 +71,32 @@ namespace Game.Kinect
             this.nui.SkeletonStream.Enable();
             this.nui.SkeletonFrameReady += this.OnSkeletonFrameReady;
         }
+
+    private void OnGestureRecognized(object sender, GestureEventArgs e)
+    {
+    Debug.WriteLine(e.GestureType);
+
+    switch (e.GestureType)
+    {
+        case GestureType.BendGesture:
+            Gesture = "BendGesture";
+            break;
+        case GestureType.PunchGesture:
+            Gesture = "PunchGesture";
+            break;
+        case GestureType.StepRightGesture:
+            Gesture = "StepRightGesture";
+            break;
+        case GestureType.RunningGesture:
+            Gesture = "RunningGesture";
+            break;
+        case GestureType.DumbbellGesture:
+            Gesture = "DumbbellGesture";
+            break;
+        default:
+            break;
+    }
+    }
         /// <summary>
         /// Handler for skeleton ready handler.
         /// </summary>
@@ -82,6 +133,7 @@ namespace Game.Kinect
                     if (trackedSkeleton != null)
                     {
                         JumpHelp();
+                        gestureController.UpdateAllGestures(trackedSkeleton);
                     }
                 }
             }
