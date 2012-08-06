@@ -87,7 +87,7 @@ namespace Game.Engine
 
         public bool CheckDeath()
         {
-            return immunity == 0;
+            return immunity <= 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)

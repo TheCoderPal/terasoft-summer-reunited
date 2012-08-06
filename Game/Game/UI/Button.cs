@@ -89,8 +89,8 @@ namespace Game.UI
             if (timer > 0 && timer < CLICK_TIME_OUT)
             {
                 float overlayHeight = 0f;
-                overlayHeight = ((timer / CLICK_TIME_OUT) * BoundingRectangle.Height);
-                spriteBatch.Draw(texture, position, new Rectangle(0, 0, (int)BoundingRectangle.X, (int)overlayHeight), hoverColor);
+                overlayHeight = ((timer / CLICK_TIME_OUT) * texture.Height);
+                spriteBatch.Draw(texture, position, new Rectangle(0, 0, texture.Width, (int)overlayHeight), hoverColor);
             }
         }
 

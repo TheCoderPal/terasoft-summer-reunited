@@ -40,15 +40,17 @@ namespace Game.Screens
             exit = new Button();
             Hand = new HandCursor();
             kinect = ScreenManager.Kinect;
-            newGame.Initialize("Textures//new", kinect, new Vector2(85, 210), 200, 200);
-            instructions.Initialize("Textures//instructions", kinect, new Vector2(385, 210), 200, 200);
-            highscores.Initialize("Textures//highscores", kinect, new Vector2(685, 210), 200, 200);
-            exit.Initialize("Textures//exit", kinect, new Vector2(975, 210), 200, 200);
+            newGame.Initialize("Buttons//new", kinect, new Vector2(85, 210), 200, 200);
+            instructions.Initialize("Buttons//instructions", kinect, new Vector2(385, 210), 200, 200);
+            highscores.Initialize("Buttons//highscores", kinect, new Vector2(685, 210), 200, 200);
+            exit.Initialize("Buttons//exit", kinect, new Vector2(975, 210), 200, 200);
             Hand.Initialize(ScreenManager.Kinect);
             newGame.Clicked += new Button.ClickedEventHandler(newGame_Clicked);
             instructions.Clicked += new Button.ClickedEventHandler(instructions_Clicked);
             highscores.Clicked += new Button.ClickedEventHandler(highscores_Clicked);
             exit.Clicked += new Button.ClickedEventHandler(exit_Clicked);
+
+            base.Initialize();
         }
 
         void exit_Clicked(object sender, System.EventArgs a)
@@ -89,6 +91,8 @@ namespace Game.Screens
             instructionsLabel = new Sprite(Content.Load<Texture2D>("Textures//instructions_label"), new Rectangle(375, 430, 240, 50));
             scoreslabel = new Sprite(Content.Load<Texture2D>("Textures//scores_label"), new Rectangle(665, 430, 240, 50));
             exitLabel = new Sprite(Content.Load<Texture2D>("Textures//exit_label"), new Rectangle(960, 430, 240, 50));
+
+            base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
@@ -116,6 +120,8 @@ namespace Game.Screens
             instructionsLabel.Draw(spriteBatch);
             scoreslabel.Draw(spriteBatch);
             exitLabel.Draw(spriteBatch);
+
+            base.Draw(gameTime);
         }
 
     }
