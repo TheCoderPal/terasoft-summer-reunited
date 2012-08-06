@@ -186,7 +186,10 @@ namespace Game.Kinect
         /// Author : Omar Abdulaal
         public Joint GetCursorPosition()
         {
-            return trackedSkeleton.Joints[JointType.HandRight].ScaleTo(ScreenWidth, ScreenHeight, SkeletonMaxX, SkeletonMaxY);
+            if (trackedSkeleton != null)
+                return trackedSkeleton.Joints[JointType.HandRight].ScaleTo(ScreenWidth, ScreenHeight, SkeletonMaxX, SkeletonMaxY);
+            else
+                return new Joint();
         }
     }
 }

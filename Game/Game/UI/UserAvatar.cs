@@ -102,11 +102,8 @@ namespace Game.UI
         public void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-            for (int i = 0; i < 1; i++)
-            {
-                spriteBatch.Draw(avatar[i], avatarPosition[i], null, Color.White, 0,
-                    new Vector2(avatar[i].Width, avatar[i].Height), 1f, SpriteEffects.None, 0);
-            }
+                spriteBatch.Draw(avatar[0], avatarPosition[0], null, Color.White, 0,
+                    new Vector2(avatar[0].Width, avatar[0].Height), 1f, SpriteEffects.None, 0);
             spriteBatch.End();
         }
 
@@ -121,7 +118,7 @@ namespace Game.UI
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public void Update(GameTime gameTime)
         {
-                if ((kinect.requestSkeleton().Length > 0) && (kinect.requestSkeleton()[0]!= null))
+                if (kinect.trackedSkeleton!= null)
                     UpdateUser(0);
         }
 
@@ -170,7 +167,7 @@ namespace Game.UI
         {
             try
             {
-                return (int)(100 * kinect.requestSkeleton()[0].Joints[JointType.HipCenter].Position.Z);
+                return (int)(100 * kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.Z);
             }
             catch (NullReferenceException)
             {

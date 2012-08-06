@@ -28,7 +28,7 @@ namespace Game.UI
 
         public void LoadContent(ContentManager Content)
         {
-            texture = Content.Load<Texture2D>("Textures/HandImage");
+            texture = Content.Load<Texture2D>("Textures/cursor2");
         }
 
         public void Update(GameTime gameTime)
@@ -39,7 +39,8 @@ namespace Game.UI
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, Color.White);
+            spriteBatch.Draw(texture, new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height), null, Color.White, 
+                0, new Vector2(texture.Width/2, texture.Height/2), SpriteEffects.None, 0);
         }
     }
 }

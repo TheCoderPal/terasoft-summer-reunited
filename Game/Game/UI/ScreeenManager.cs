@@ -10,6 +10,8 @@ namespace Game.UI
         private List<GameScreen> screensToUpdate = new List<GameScreen>();
         private SpriteBatch spriteBatch;
 
+        public Kinect.Kinect Kinect;
+
         /// <summary>
         /// Returns the sprite batch object.
         /// </summary>
@@ -21,9 +23,10 @@ namespace Game.UI
         /// <summary>
         /// Creates a new instance of ScreenManager.
         /// </summary>
-        public ScreenManager(Microsoft.Xna.Framework.Game game)
+        public ScreenManager(Microsoft.Xna.Framework.Game game, Kinect.Kinect kinect)
             : base(game)
         {
+            this.Kinect = kinect;
             base.Initialize();
 
         }

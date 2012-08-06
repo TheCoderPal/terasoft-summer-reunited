@@ -120,8 +120,6 @@
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Shield.cs" />
     <Compile Include="Engine\Sword.cs" />
-    <Compile Include="Engine\Track.cs" />
-    <Compile Include="Engine\TrackAI.cs" />
     <Compile Include="Engine\Virus.cs" />
     <Compile Include="Kinect\BendGesture.cs" />
     <Compile Include="Kinect\DumbbellGesture.cs" />
@@ -130,7 +128,6 @@
     <Compile Include="Kinect\GestureEnumTypes.cs" />
     <Compile Include="Kinect\GestureEventArgs.cs" />
     <Compile Include="Kinect\IRelativeGestureSegment.cs" />
-    <Compile Include="Kinect\Jump.cs" />
     <Compile Include="Kinect\Kinect Extensions\SkeletalCommonExtensions.cs" />
     <Compile Include="Kinect\Kinect.cs" />
     <Compile Include="Kinect\PunchGesture.cs" />
@@ -151,6 +148,7 @@
     <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\PlayScreen.cs" />
     <Compile Include="Screens\TreadmillScreen.cs" />
+    <Compile Include="Text\Constants.cs" />
     <Compile Include="UI\Bar.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\GameScreen.cs" />

@@ -15,6 +15,9 @@ namespace Game
         ScreenManager screenManager;
         //Bar bar;//Tamer Test
         //Score score; //Tamer Test
+
+        public Kinect.Kinect Kinect;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -22,9 +25,11 @@ namespace Game
             graphics.PreferredBackBufferHeight = 720;
             graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
-            screenManager = new ScreenManager(this);
+            Kinect = new Kinect.Kinect(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            screenManager = new ScreenManager(this, Kinect);
             Components.Add(screenManager);
 
+            
           //  bar = new Bar(100, 20, 30, 300, 30);  //Tamer Test
           // score = new Score(100, 20, Color.WhiteSmoke); //Tamer Test
         }

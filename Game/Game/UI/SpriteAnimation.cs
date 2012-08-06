@@ -152,7 +152,7 @@ float frametime, Color color, float scale, bool looping)
 
             spriteStrip.GetData<Color>(
                 0,
-                sourceRect,
+                new Rectangle(currentFrame * FrameWidth, 0, FrameWidth, FrameHeight),
                 colorArray,
                 0,
                 colorArray.Length

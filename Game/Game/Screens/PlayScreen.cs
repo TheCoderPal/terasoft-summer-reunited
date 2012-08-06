@@ -7,19 +7,18 @@ using Game.UI;
 using Game.Screens.Components;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Game.Screens
 {
     public class PlayScreen : GameScreen
     {
 
-        public static readonly int blockSize = 96;
         public bool screenPaused = false;
-        private Track track;
-        private TrackUI trackUI;
-        private ItemsUI itemsUI;
+
+
         #region background music attributes
-        private Song[] songs= new Song[3];
+        private Song[] songs = new Song[3];
         private bool songstart = false;
         private int playQueue = 1;
         #endregion
@@ -38,14 +37,12 @@ namespace Game.Screens
         private Sprite swordAcquired;
         private Sprite shieldAcquired;
         private ContentManager Content;
+        private SoundEffect[] soundEffects = new SoundEffect[6];
+
+        private Color[] playerData;
         private Rectangle playerBounds;
-        private Rectangle[] itemBounds = new Rectangle[20];
-        private Color[] avatarData;
-        private List<Color[]> itemsData;
-        private Boolean[] transparent = new Boolean[20];
-        private Boolean[] collided = new Boolean[20];
-        
-        public void Initialize()
+
+        public override void Initialize()
         {
             player = new Player();
             bgLayer1 = new ParallaxingBackground();
@@ -57,33 +54,19 @@ namespace Game.Screens
             generator = new ItemsGenerator();
             current = generator.generateMore();
             currentSprite = new Sprite[20];
-            for (int i = 0; i <= 19; i++) 
-            {
-                itemBounds[i] = new Rectangle(0, 0, 0, 0);
-            }
-            //Adding temporary color data to the list to avoid exceptions at the start of the game before items are initialized.
-            Texture2D tempTexture = Content.Load<Texture2D>("Textures//Transparent");
-            Color[] tempColors = new Color[tempTexture.Width * tempTexture.Height];
-            tempTexture.GetData(tempColors);
-            for (int i = 0; i <= 19; i++)
-            {
-                itemsData.Add(tempColors);
-                transparent[i] = true;
-                collided[i] = false;
-            }
+            base.Initialize();
         }
         /// <remarks>
         ///<para>AUTHOR: Khaled Salah, Ahmed Shirin </para>
         ///</remarks>
-        public void LoadContent()
+        public override void LoadContent()
         {
             ContentManager Content = ScreenManager.Game.Content;
 
-            songs[0] = Content.Load<Song>("Directory\\songtitle");
-            songs[1] = Content.Load<Song>("Directory\\songtitle");
-            songs[2] = Content.Load<Song>("Directory\\songtitle");
+            //songs[0] = Content.Load<Song>("Directory\\songtitle");
+            //songs[1] = Content.Load<Song>("Directory\\songtitle");
+            //songs[2] = Content.Load<Song>("Directory\\songtitle");
             MediaPlayer.IsRepeating = true;
-
             player.LoadContent(Content);
 
             //Shirin
@@ -102,12 +85,16 @@ namespace Game.Screens
             bgLayer2.Initialize(Content, "Background/Layer 2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
             bgLayer3.Initialize(Content, "Background/Layer 3", ScreenManager.GraphicsDevice.Viewport.Width, -4);
 
+            playerBounds = player.GetBoundingRectangle();
+            playerData = player.GetColorData();
+            base.LoadContent();
+
         }
 
         /// <remarks>
         ///<para>AUTHOR: Khaled Salah, Ahmed Shirin </para>
         ///</remarks>
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
             #region Omar Abdulaal
@@ -124,144 +111,136 @@ namespace Game.Screens
 
             #endregion
 
-            if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[0]))
+            //if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[0]))
+            //{
+            //    //Freeze Screen, Show pause Screen
+            //    // this.FreezeScreen();
+            //    screenPaused = true;
+            //}
+            //else if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
+            //{
+            //    //exit pause screen, unfreeze screen
+            //    this.UnfreezeScreen();
+            //    screenPaused = false;
+            //}
+            //if (MediaPlayer.State.Equals(MediaState.Stopped))
+            //{
+            //    switch (playQueue)
+            //    {
+            //        case 1:
+            //            {
+            //                MediaPlayer.Play(songs[0]);
+            //                playQueue = 2;
+            //                break;
+            //            }
+            //        case 2:
+            //            {
+            //                MediaPlayer.Play(songs[1]);
+            //                playQueue = 3;
+            //                break;
+            //            }
+            //        case 3:
+            //            {
+            //                MediaPlayer.Play(songs[2]);
+            //                playQueue = 1;
+            //                break;
+            //            }
+            //    }
+            //}
+
+
+
+            //Shirin
+
+
+            if (globalCounter == 500)
             {
-                //Freeze Screen, Show pause Screen
-               // this.FreezeScreen();
-                screenPaused = true;
+                Sprite[] previousSprites = currentSprite;
+                int counter = 10;
+                for (int i = 0; i <= 9; i++)
+                {
+                    currentSprite[i] = previousSprites[counter];
+                    counter++;
+                }
+
+                counter = 10;
+                current = generator.generateMore();
+                for (int i = 0; i <= 9; i++)
+                {
+                    Texture2D texture = Content.Load<Texture2D>("Textures//Transparent");
+                    Boolean transparent = false;
+                    switch (current[i, 0])
+                    {
+                        case "banana": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
+                        case "apple": texture = Content.Load<Texture2D>("Textures//healthy2"); break;
+                        case "orange": texture = Content.Load<Texture2D>("Textures//healthy3"); break;
+                        case "hamburg": texture = Content.Load<Texture2D>("Textures//unhealthy1"); break;
+                        case "fries": texture = Content.Load<Texture2D>("Textures//unhealthy2"); break;
+                        case "hotdog": texture = Content.Load<Texture2D>("Textures//unhealthy3"); break;
+                        case "level1": texture = Content.Load<Texture2D>("Textures//virus1"); break;
+                        case "level2": texture = Content.Load<Texture2D>("Textures//virus2"); break;
+                        case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
+                        case "sheild": texture = Content.Load<Texture2D>("Textures//shield"); break;
+                        case "sword": texture = Content.Load<Texture2D>("Textures//sword"); break;
+                        case "Empty": transparent = true; break;
+                    }
+                    int height = 0;
+                    switch (current[i, 1])
+                    {
+                        case "0": height = 499; break;
+                        case "1": height = 399; break;
+                        case "2": height = 299; break;
+                    }
+                    currentSprite[counter] = new Sprite(texture, new Rectangle(880, height, 50, 50));
+                    currentSprite[counter].EnterName(current[i, 0]);
+                    if (transparent)
+                    {
+                        currentSprite[counter].SetTransparent(true);
+                    }
+                    counter++;
+                }
+                globalCounter = 0;
+                spriteCounter = 10;
             }
-            else if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
+
+            for (int i = 0; i <= 19; i++)
             {
-                //exit pause screen, unfreeze screen
-                this.UnfreezeScreen();
-                screenPaused = false;
+                if (IntersectPixels(playerBounds, playerData, new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), 50, 50), currentSprite[i].GetColorData()))
+                {
+                    if (!currentSprite[i].GetTransparent())
+                    {
+                        currentSprite[i].Collide();
+                        Effects(currentSprite[i].GetName(), currentSprite[i]);
+                    }
+                }
             }
-                if (MediaPlayer.State.Equals(MediaState.Stopped))
-                {
-                    switch(playQueue)
-                    {
-                        case 1:
-                    {
-                        MediaPlayer.Play(songs[0]);
-                        playQueue = 2;
-                        break;
-                    }
-                        case 2:
-                    {
-                        MediaPlayer.Play(songs[1]);
-                        playQueue = 3;
-                        break;
-                    }
-                        case 3:
-                    {
-                        MediaPlayer.Play(songs[2]);
-                        playQueue = 1;
-                        break;
-                    }
-                    }
-                }
 
+            if (globalCounter % 50 == 0)
+            {
+                spriteCounter++;
+            }
 
+            for (int i = 0; i <= spriteCounter - 1; i++)
+            {
+                currentSprite[i].Update(4);
+            }
 
-                //Shirin
-
-                playerBounds = player.GetBoundingRectangle();
-                avatarData = player.GetColorData();
-
-                if (globalCounter == 500)
-                {
-                    itemsData.Clear();
-                    Sprite[] previousSprites = currentSprite;
-                    Boolean[] previousTrans = transparent;
-                    Boolean[] previousCollisions = collided;
-                    int counter = 10;
-                    for (int i = 0; i <= 9; i++)
-                    {
-                        currentSprite[i] = previousSprites[counter];
-                        transparent[i] = previousTrans[counter];
-                        collided[i] = previousCollisions[counter];
-                        Color[] temp = new Color[previousSprites[i].GetTexture().Width * previousSprites[i].GetTexture().Height];
-                        currentSprite[i].GetTexture().GetData(temp);
-                        itemsData.Add(temp);
-                        counter++;
-                    }
-
-                    counter = 10;
-                    current = generator.generateMore();
-                    for (int i = 0; i <= 9; i++)
-                    {
-                        Texture2D texture = Content.Load<Texture2D>("Textures//Transparent");
-                        transparent[counter] = false;
-                        switch (current[i, 0])
-                        {
-                            case "banana": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
-                            case "apple": texture = Content.Load<Texture2D>("Textures//healthy2"); break;
-                            case "orange": texture = Content.Load<Texture2D>("Textures//healthy3"); break;
-                            case "hamburg": texture = Content.Load<Texture2D>("Textures//unhealthy1"); break;
-                            case "fries": texture = Content.Load<Texture2D>("Textures//unhealthy2"); break;
-                            case "hotdog": texture = Content.Load<Texture2D>("Textures//unhealthy3"); break;
-                            case "level1": texture = Content.Load<Texture2D>("Textures//virus1"); break;
-                            case "level2": texture = Content.Load<Texture2D>("Textures//virus2"); break;
-                            case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
-                            case "sheild": texture = Content.Load<Texture2D>("Textures//shield"); break;
-                            case "sword": texture = Content.Load<Texture2D>("Textures//sword"); break;
-                            case "Empty": transparent[counter] = true; break;
-                        }
-                        int height = 0;
-                        switch (current[i, 1])
-                        {
-                            case "0": height = 300; break;
-                            case "1": height = 200; break;
-                            case "2": height = 100; break;
-                        }
-                        currentSprite[counter] = new Sprite(texture, new Rectangle(880, height, 50, 50));
-                        collided[counter] = false;
-                        Color[] temp = new Color[texture.Width * texture.Height];
-                        texture.GetData(temp);
-                        itemsData.Add(temp);
-                        counter++;
-                    }
-                    globalCounter = 0;
-                    spriteCounter = 10;
-                }
-
-                for (int i = 0; i <= 19; i++)
-                {
-                    itemBounds[i] = new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), 50, 50);
-                    if (IntersectPixels(playerBounds, avatarData, new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), 50, 50), itemsData[i]))
-                    {
-                        if (!transparent[i])
-                        {
-                            collided[i] = true;
-                        }
-                    }  
-                } 
-
-                if (globalCounter % 50 == 0)
-                {
-                    spriteCounter++;
-                }
-
-                for (int i = 0; i <= spriteCounter - 1; i++)
-                {
-                    currentSprite[i].Update(4);                    
-                }
-
-                globalCounter++;
-                
+            globalCounter++;
+            base.Update(gameTime);
         }
 
 
         /// <summary>
         /// Author: Ahmed Shirin
         /// </summary>
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gametime)
         {
+            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             spriteBatch.Begin();
             bgLayer1.Draw(spriteBatch);
             bgLayer2.Draw(spriteBatch);
             bgLayer3.Draw(spriteBatch);
-           
+
             player.Draw(spriteBatch);
 
             spriteBatch.End();
@@ -269,13 +248,22 @@ namespace Game.Screens
             //Shirin
             for (int i = 0; i <= currentSprite.Length - 1; i++)
             {
-                if (!collided[i])
+                if (currentSprite[i].GetCollided())
                 {
                     currentSprite[i].Draw(spriteBatch);
                 }
             }
+            if (player.HasShield())
+            {
+                shieldAcquired.Draw(spriteBatch);
+            }
+            if (player.HasSword())
+            {
+                swordAcquired.Draw(spriteBatch);
+            }
             sword.Draw(spriteBatch);
-            shield.Draw(spriteBatch);            
+            shield.Draw(spriteBatch);
+            base.Draw(gametime);
         }
 
 
@@ -307,6 +295,41 @@ namespace Game.Screens
             return false;
         }
 
+        public void Effects(String name, Sprite sprite)
+        {
+            switch (name)
+            {
+                case "banana": player.Collided(3); sprite.PlaySoundEffect(soundEffects[1]); break;
+                case "apple": player.Collided(5); sprite.PlaySoundEffect(soundEffects[1]); break;
+                case "orange": player.Collided(7); sprite.PlaySoundEffect(soundEffects[1]); break;
+                case "hamburg": player.Collided(-8); sprite.PlaySoundEffect(soundEffects[1]); break;
+                case "fries": player.Collided(-6); sprite.PlaySoundEffect(soundEffects[1]); break;
+                case "hotdog": player.Collided(-4); sprite.PlaySoundEffect(soundEffects[1]); break;
+                case "level1": if (!player.HasShield())
+                    {
+                        if (!player.HasSword()) { player.Collided(-5); }
+                        else { player.Collided(-2); player.AcquireSword(false); };
+                    }
+                    else { player.AcquireShield(false); };
+                    sprite.PlaySoundEffect(soundEffects[5]); break;
+                case "level2": if (!player.HasShield())
+                    {
+                        if (!player.HasSword()) { player.Collided(-8); }
+                        else { player.Collided(-4); player.AcquireSword(false); };
+                    }
+                    else { player.AcquireShield(false); };
+                    sprite.PlaySoundEffect(soundEffects[5]); break;
+                case "level3": if (!player.HasShield())
+                    {
+                        if (!player.HasSword()) { player.Collided(-12); }
+                        else { player.Collided(-6); player.AcquireSword(false); };
+                    }
+                    else { player.AcquireShield(false); };
+                    sprite.PlaySoundEffect(soundEffects[5]); break;
+                case "sheild": player.AcquireShield(true); sprite.PlaySoundEffect(soundEffects[2]); break;
+                case "sword": player.AcquireSword(true); sprite.PlaySoundEffect(soundEffects[3]); break;
+            }
+        }
 
     }
 }

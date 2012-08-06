@@ -57,7 +57,7 @@ namespace Game.UI
         public virtual void LoadContent() {
             //if (showAvatar)
             //{
-            // //   userAvatar = new UserAvatar(new Game.Kinect.Kinect(), ScreenManager.Game.Content, ScreenManager.GraphicsDevice, ScreenManager.SpriteBatch);
+            //    userAvatar = new UserAvatar(ScreenManager.Kinect, ScreenManager.Game.Content, ScreenManager.GraphicsDevice, ScreenManager.SpriteBatch);
             //    userAvatar.LoadContent();
             //}
   
@@ -65,7 +65,9 @@ namespace Game.UI
         /// <summary>
         /// Initializes the GameScreen.
         /// </summary
-        public virtual void Initialize() {}
+        public virtual void Initialize() {
+           
+        }
 
         /// <summary>
         /// Unloads the content of GameScreen.
@@ -102,7 +104,7 @@ namespace Game.UI
         /// </summary>
         public virtual void Draw(GameTime gameTime)
         {
-        //  if(showAvatar)
+        // if(showAvatar)
         //   userAvatar.Draw(gameTime);
         }
         

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game.Engine
 {
-    
+
 
     class Player
     {
@@ -17,8 +17,8 @@ namespace Game.Engine
         enum PlayerStates
         {
             Running,
-            Jumping, 
-            Sliding, 
+            Jumping,
+            Sliding,
             Dying
         }
 
@@ -56,15 +56,16 @@ namespace Game.Engine
 
         public void LoadContent(ContentManager Content)
         {
-            runTexture = Content.Load<Texture2D>("sprites/run");
-            jumpTexture = Content.Load<Texture2D>("sprites/jump");
+            runTexture = Content.Load<Texture2D>("Sprites/run");
+            jumpTexture = Content.Load<Texture2D>("Sprites/jump"); Position = new Vector2(210, 550 - runTexture.Height);
+            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 0.1f, Color.White, 1f, true);
+            jumpAnimation.Initialize(jumpTexture, Position, jumpTexture.Height, jumpTexture.Height, jumpTexture.Width / jumpTexture.Height, 0.1f, Color.White, 1f, false);
+            playerAnimation = runAnimation;
         }
 
         public void Initialize()
         {
-            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width/runTexture.Height, 0.1f, Color.White, 1f, true);
-            jumpAnimation.Initialize(jumpTexture, Position, jumpTexture.Height, jumpTexture.Height, jumpTexture.Width/jumpTexture.Height, 0.1f, Color.White, 1f, false);
-            playerAnimation = runAnimation; 
+            
         }
 
         public void Update(GameTime gameTime)
@@ -115,5 +116,24 @@ namespace Game.Engine
             return new Rectangle((int)Position.X, (int)Position.Y, playerAnimation.FrameWidth, playerAnimation.FrameHeight);
         }
 
+        public void AcquireSword(Boolean t)
+        {
+            hasSword = t;
+        }
+
+        public void AcquireShield(Boolean t)
+        {
+            hasShield = t;
+        }
+
+        public Boolean HasSword()
+        {
+            return this.hasSword;
+        }
+
+        public Boolean HasShield()
+        {
+            return this.hasShield;
+        }
     }
 }

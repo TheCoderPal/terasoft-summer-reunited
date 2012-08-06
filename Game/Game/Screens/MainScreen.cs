@@ -1,4 +1,5 @@
 ﻿using Game.UI;
+using Game;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,6 +20,7 @@ namespace Game.Screens
         SpriteBatch spriteBatch;
         ContentManager Content;
         Game.Kinect.Kinect kinect;
+        HandCursor Hand;
 
         /// <summary>
         /// Author: Ahmed Shirin.
@@ -31,14 +33,18 @@ namespace Game.Screens
 
         public override void Initialize()
         {
+            showAvatar = true;
             newGame = new Button();
             instructions = new Button();
             highscores = new Button();
             exit = new Button();
+            Hand = new HandCursor();
+            kinect = ScreenManager.Kinect;
             newGame.Initialize("Textures//new", kinect, new Vector2(85, 210), 200, 200);
             instructions.Initialize("Textures//instructions", kinect, new Vector2(385, 210), 200, 200);
             highscores.Initialize("Textures//highscores", kinect, new Vector2(685, 210), 200, 200);
             exit.Initialize("Textures//exit", kinect, new Vector2(975, 210), 200, 200);
+            Hand.Initialize(ScreenManager.Kinect);
             newGame.Clicked += new Button.ClickedEventHandler(newGame_Clicked);
             instructions.Clicked += new Button.ClickedEventHandler(instructions_Clicked);
             highscores.Clicked += new Button.ClickedEventHandler(highscores_Clicked);
@@ -47,21 +53,25 @@ namespace Game.Screens
 
         void exit_Clicked(object sender, System.EventArgs a)
         {
+            this.ScreenManager.Game.Exit();
            
         }
 
         void highscores_Clicked(object sender, System.EventArgs a)
         {
+            this.Remove();
             ScreenManager.AddScreen(new HighScoresScreen());
         }
 
         void instructions_Clicked(object sender, System.EventArgs a)
         {
+            this.Remove();
             ScreenManager.AddScreen(new InstructionsScreen());
         }
 
         void newGame_Clicked(object sender, System.EventArgs a)
         {
+            this.Remove();
             ScreenManager.AddScreen(new PlayScreen());
         }
 
@@ -73,6 +83,7 @@ namespace Game.Screens
             instructions.LoadContent(Content);
             highscores.LoadContent(Content);
             exit.LoadContent(Content);
+            Hand.LoadContent(Content);
             menu = new Sprite(Content.Load<Texture2D>("Textures//menu"), new Rectangle(0, 0, 1280, 720));           
             newGameLabel = new Sprite(Content.Load<Texture2D>("Textures//new_label"), new Rectangle(70, 430, 240, 50));
             instructionsLabel = new Sprite(Content.Load<Texture2D>("Textures//instructions_label"), new Rectangle(375, 430, 240, 50));
@@ -82,6 +93,11 @@ namespace Game.Screens
 
         public override void Update(GameTime gameTime)
         {
+            Hand.Update(gameTime);
+            newGame.Update(gameTime);
+            instructions.Update(gameTime);
+            highscores.Update(gameTime);
+            exit.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -94,6 +110,7 @@ namespace Game.Screens
             instructions.Draw(spriteBatch);
             highscores.Draw(spriteBatch);
             exit.Draw(spriteBatch);
+            Hand.Draw(sprite);
             sprite.End();            
             newGameLabel.Draw(spriteBatch);
             instructionsLabel.Draw(spriteBatch);

@@ -95,7 +95,7 @@ namespace Game.Screens
         }
         public void AddScore(int Score, string Name)
         {
-            scores.Add(Name + "," + Score);
+            scores.Add(Name + "," + Score + ",");
 
             scores.Sort(compareHighScores);
 
