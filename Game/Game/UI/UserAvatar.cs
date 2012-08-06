@@ -87,9 +87,8 @@ namespace Game.UI
                 avatar[i] = allAvatars[0];
                 command[i] = "";
             }
-            avatarPosition[0] = new Vector2((screenWidth + 25), (screenHeight / 2.6f));
-            if (avatarPosition.Length == 2)
-                avatarPosition[1] = new Vector2((screenWidth / 8), (screenHeight / 2.6f));
+            avatarPosition[0] = new Vector2((screenWidth + 25), (screenHeight / 3.4f));
+           
         }
 
         /// <summary>

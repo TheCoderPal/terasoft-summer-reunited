@@ -13,7 +13,6 @@ namespace Game
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         ScreenManager screenManager;
-        //Bar bar;//Tamer Test
         //Score score; //Tamer Test
 
         public Kinect.Kinect Kinect;
@@ -23,15 +22,12 @@ namespace Game
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
             Kinect = new Kinect.Kinect(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             screenManager = new ScreenManager(this, Kinect);
             Components.Add(screenManager);
 
-            
-          //  bar = new Bar(100, 20, 30, 300, 30);  //Tamer Test
-          // score = new Score(100, 20, Color.WhiteSmoke); //Tamer Test
         }
 
         protected override void Initialize()
@@ -44,8 +40,7 @@ namespace Game
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             screenManager.AddScreen(new PlayScreen());
-            //screenManager.AddScreen(AyScreen());
-          //  bar.LoadContent(Content); //Tamer Test
+
           //  score.LoadContent(Content);//Tamer Test
             
         }

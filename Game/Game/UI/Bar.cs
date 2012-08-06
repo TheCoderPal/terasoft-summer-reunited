@@ -10,10 +10,21 @@ namespace Game.UI
     {
         private Texture2D activeBar;
         private int maxValue, barPositionX, barPositionY, widthBar, heightBar;
-        public int currentValue { get;set; }
+        private int currentValue;
         public Color goodPartColor { get; set; }
         public Color badPartColor { get; set; }
-   
+
+        public int getCurrentValue()
+        {
+            return currentValue;
+        }
+        public void setCurrentValue(int value)
+        {
+            if (value > maxValue)
+                currentValue = maxValue;
+            else
+                currentValue = value;
+        }
         public Bar(int maxValue, int barPositionX, int barPositionY, int widthBar, int heightBar)
         {
             this.maxValue = maxValue;
@@ -21,7 +32,7 @@ namespace Game.UI
             this.barPositionY = barPositionY;
             this.widthBar = widthBar;
             this.heightBar = heightBar;
-            currentValue = 90;
+            currentValue = 100;
             goodPartColor = Color.SeaGreen;
             badPartColor = Color.Red;
         }

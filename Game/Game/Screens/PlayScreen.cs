@@ -25,6 +25,8 @@ namespace Game.Screens
 
         private Player player;
         private ParallaxingBackground bgLayer1, bgLayer2, bgLayer3;
+        Bar bar;
+        Score score;
 
         //Shirin
         private ItemsGenerator generator;
@@ -50,6 +52,9 @@ namespace Game.Screens
             bgLayer3 = new ParallaxingBackground();
             player.Initialize();
 
+            bar = new Bar(100, 20, 15, 270, 30); 
+            score = new Score(100, 20, Color.WhiteSmoke);
+
             //Shirin
             generator = new ItemsGenerator();
             current = generator.generateMore();
@@ -70,10 +75,10 @@ namespace Game.Screens
             player.LoadContent(Content);
 
             //Shirin
-            sword = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(300, 0, 35, 65));
-            shield = new Sprite(Content.Load<Texture2D>("Textures//shield"), new Rectangle(390, 0, 60, 60));
-            swordAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(290, 10, 60, 60));
-            shieldAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(380, 10, 60, 60));
+            sword = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(335, 7, 50, 50));
+            shield = new Sprite(Content.Load<Texture2D>("Textures//shield"), new Rectangle(420, 0, 60, 60));
+            swordAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(325, 10, 60, 60));
+            shieldAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(410, 10, 60, 60));
 
             for (int i = 0; i <= 19; i++)
             {
@@ -96,6 +101,9 @@ namespace Game.Screens
 
             playerBounds = player.GetBoundingRectangle();
             playerData = player.GetColorData();
+
+            bar.LoadContent(Content);
+            score.LoadContent(Content);
             base.LoadContent();
 
         }
@@ -220,8 +228,9 @@ namespace Game.Screens
                 {
                     if (!currentSprite[i].GetTransparent())
                     {
-                        currentSprite[i].Collide();
                         Effects(currentSprite[i].GetName(), currentSprite[i]);
+
+                        currentSprite[i].Collide();
                     }
                 }
             }
@@ -237,6 +246,10 @@ namespace Game.Screens
             }
 
             globalCounter++;
+
+
+            bar.setCurrentValue(player.Immunity);
+            score.score = player.Score;
             base.Update(gameTime);
         }
 
@@ -256,10 +269,15 @@ namespace Game.Screens
 
             spriteBatch.End();
 
+            bar.Draw(spriteBatch);
+            score.Draw(spriteBatch);
+
             //Shirin
             foreach (Sprite s in currentSprite)
                 s.Draw(spriteBatch);
-
+            
+            sword.Draw(spriteBatch);
+            shield.Draw(spriteBatch);
             if (player.HasShield())
             {
                 shieldAcquired.Draw(spriteBatch);
@@ -268,8 +286,6 @@ namespace Game.Screens
             {
                 swordAcquired.Draw(spriteBatch);
             }
-            sword.Draw(spriteBatch);
-            shield.Draw(spriteBatch);
             base.Draw(gametime);
         }
 
@@ -304,39 +320,41 @@ namespace Game.Screens
 
         public void Effects(String name, Sprite sprite)
         {
-            switch (name)
+            if (!sprite.GetCollided())
             {
-                case "banana": player.Collided(3); sprite.PlaySoundEffect(soundEffects[1]); break;
-                case "apple": player.Collided(5); sprite.PlaySoundEffect(soundEffects[1]); break;
-                case "orange": player.Collided(7); sprite.PlaySoundEffect(soundEffects[1]); break;
-                case "hamburg": player.Collided(-8); sprite.PlaySoundEffect(soundEffects[1]); break;
-                case "fries": player.Collided(-6); sprite.PlaySoundEffect(soundEffects[1]); break;
-                case "hotdog": player.Collided(-4); sprite.PlaySoundEffect(soundEffects[1]); break;
-                case "level1": if (!player.HasShield())
-                    {
-                        if (!player.HasSword()) { player.Collided(-5); }
-                        else { player.Collided(-2); player.AcquireSword(false); };
-                    }
-                    else { player.AcquireShield(false); };
-                    sprite.PlaySoundEffect(soundEffects[5]); break;
-                case "level2": if (!player.HasShield())
-                    {
-                        if (!player.HasSword()) { player.Collided(-8); }
-                        else { player.Collided(-4); player.AcquireSword(false); };
-                    }
-                    else { player.AcquireShield(false); };
-                    sprite.PlaySoundEffect(soundEffects[5]); break;
-                case "level3": if (!player.HasShield())
-                    {
-                        if (!player.HasSword()) { player.Collided(-12); }
-                        else { player.Collided(-6); player.AcquireSword(false); };
-                    }
-                    else { player.AcquireShield(false); };
-                    sprite.PlaySoundEffect(soundEffects[5]); break;
-                case "sheild": player.AcquireShield(true); sprite.PlaySoundEffect(soundEffects[2]); break;
-                case "sword": player.AcquireSword(true); sprite.PlaySoundEffect(soundEffects[3]); break;
+                switch (name)
+                {
+                    case "banana": player.Collided(3); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "apple": player.Collided(5); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "orange": player.Collided(7); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "hamburg": player.Collided(-8); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "fries": player.Collided(-6); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "hotdog": player.Collided(-4); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "level1": if (!player.HasShield())
+                        {
+                            if (!player.HasSword()) { player.Collided(-5); }
+                            else { player.Collided(-2); player.AcquireSword(false); };
+                        }
+                        else { player.AcquireShield(false); };
+                        sprite.PlaySoundEffect(soundEffects[5]); break;
+                    case "level2": if (!player.HasShield())
+                        {
+                            if (!player.HasSword()) { player.Collided(-8); }
+                            else { player.Collided(-4); player.AcquireSword(false); };
+                        }
+                        else { player.AcquireShield(false); };
+                        sprite.PlaySoundEffect(soundEffects[5]); break;
+                    case "level3": if (!player.HasShield())
+                        {
+                            if (!player.HasSword()) { player.Collided(-12); }
+                            else { player.Collided(-6); player.AcquireSword(false); };
+                        }
+                        else { player.AcquireShield(false); };
+                        sprite.PlaySoundEffect(soundEffects[5]); break;
+                    case "sheild": player.AcquireShield(true); sprite.PlaySoundEffect(soundEffects[2]); break;
+                    case "sword": player.AcquireSword(true); sprite.PlaySoundEffect(soundEffects[3]); break;
+                }
             }
         }
-
     }
 }

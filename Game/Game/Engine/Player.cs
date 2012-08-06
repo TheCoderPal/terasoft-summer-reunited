@@ -38,6 +38,7 @@ namespace Game.Engine
 
         //Player health.
         private int immunity;
+        public int Immunity { get { return immunity; } set { immunity = value; } }
 
         //Player Score
         private int score;
@@ -86,11 +87,7 @@ namespace Game.Engine
 
         public bool CheckDeath()
         {
-            if (immunity == 0)
-            {
-                return true;
-            }
-            return false;
+            return immunity == 0;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -100,8 +97,10 @@ namespace Game.Engine
 
         public void Collided(int value)
         {
+            
             immunity += value;
-
+            if (immunity > 100)
+                immunity = 100;
             if (value < 0)
                 score -= 100;
             else
