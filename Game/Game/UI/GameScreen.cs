@@ -55,11 +55,11 @@ namespace Game.UI
         /// all of your content.
         /// </summary>
         public virtual void LoadContent() {
-            //if (showAvatar)
-            //{
-            //    userAvatar = new UserAvatar(ScreenManager.Kinect, ScreenManager.Game.Content, ScreenManager.GraphicsDevice, ScreenManager.SpriteBatch);
-            //    userAvatar.LoadContent();
-            //}
+            if (showAvatar)
+            {
+                userAvatar = new UserAvatar(ScreenManager.Kinect, ScreenManager.Game.Content, ScreenManager.GraphicsDevice, ScreenManager.SpriteBatch);
+                userAvatar.LoadContent();
+            }
   
         }
         /// <summary>
@@ -85,10 +85,10 @@ namespace Game.UI
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public virtual void Update(GameTime gameTime) {
-            //if (showAvatar)
-            //{
-            //        userAvatar.Update(gameTime);  
-            //}
+            if (showAvatar)
+            {
+                    userAvatar.Update(gameTime);  
+            }
         }
         
         /// <summary>
@@ -104,8 +104,8 @@ namespace Game.UI
         /// </summary>
         public virtual void Draw(GameTime gameTime)
         {
-        // if(showAvatar)
-        //   userAvatar.Draw(gameTime);
+         if(showAvatar)
+           userAvatar.Draw(gameTime);
         }
         
         public void FreezeScreen()

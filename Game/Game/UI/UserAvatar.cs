@@ -169,7 +169,7 @@ namespace Game.UI
             {
                 return (int)(100 * kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.Z);
             }
-            catch (NullReferenceException)
+            catch (Exception)
             {
                 return 0;
             }
