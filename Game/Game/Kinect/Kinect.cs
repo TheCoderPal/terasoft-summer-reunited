@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System;
 using System.ComponentModel;
+using Game.Text;
 namespace Game.Kinect
 {
     /// <summary>
@@ -34,7 +35,7 @@ namespace Game.Kinect
         private KinectSensor nui;
         //Tracked Skeleton
         public Skeleton trackedSkeleton;
-        public bool swapFlag,jumpFlag; //Tamer
+      //  public bool swapFlag,jumpFlag; //Tamer
         private SwapHand swapHand; //Tamer
         private List<double> list, list2;//Tamer
          //Omar Abdulaal
@@ -48,8 +49,8 @@ namespace Game.Kinect
             trackedSkeleton = null;
             list = new List<double>();//Tamer
             list2 = new List<double>();//Tamer
-            swapFlag =false;//Tamer
-            jumpFlag = false;//Tamer
+            //swapFlag =false;//Tamer
+          //  jumpFlag = false;//Tamer
             swapHand = new SwapHand();//Tamer
              ScreenHeight = screenHeight; //omar
             ScreenWidth = screenWidth; //omar
@@ -129,7 +130,7 @@ namespace Game.Kinect
                     }
                     //Tamer
                       swapHand.activeRecognizer.Recognize(null, null, this.skeletons);
-                      swapFlag = swapHand.requestFlag();
+                      //swapFlag = swapHand.requestFlag();
                     if (trackedSkeleton != null)
                     {
                         JumpHelp();
@@ -167,9 +168,10 @@ namespace Game.Kinect
                 average = average / 4;
                 average2 = average2 / 4;
 
-                if (list[9] > average && list2[9] > average2)
+                if (list[9] >= average / 1.2 && list2[9] >= average2 / 1.2)
                 {
-                    jumpFlag = true;
+                   // jumpFlag = true;
+                    Constants.isJumping = true;
                 }
 
 

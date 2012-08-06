@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using System;
 using System.Text;
+using Game.Text;
 namespace Game.Screens
 {
     public class HighScoresScreen : GameScreen
@@ -60,6 +61,7 @@ namespace Game.Screens
             spriteBatch.Begin();
             spriteBatch.DrawString(font,drawnScores, new Vector2(screenWidth/2f,screenHeight/6f),Color.White);
             spriteBatch.DrawString(font, drawnNames, new Vector2(screenWidth /2.5f,screenHeight/6f), Color.White);
+          //Test  spriteBatch.DrawString(font,Constants.isSwappingHand+"", new Vector2(10,10), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }

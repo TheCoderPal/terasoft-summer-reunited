@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Samples.Kinect.SwipeGestureRecognizer;
+using Game.Text;
 namespace Game.Kinect
 {
     /// <summary>
@@ -8,10 +9,10 @@ namespace Game.Kinect
     class SwapHand
     {
         public readonly Recognizer activeRecognizer;
-        private bool flag;
+       // private bool flag;
         public SwapHand()
         {
-            flag = false;
+            //flag = false;
             this.activeRecognizer = this.CreateRecognizer();
         }
         public Recognizer CreateRecognizer()
@@ -19,14 +20,15 @@ namespace Game.Kinect
             var recognizer = new Recognizer();
             recognizer.SwipeRightDetected += (s, e) =>
             {
-                flag = true;
+                Constants.isSwappingHand = true;
             };
             recognizer.SwipeLeftDetected += (s, e) =>
             {
-                flag = true;
+                Constants.isSwappingHand = true;
             };
             return recognizer;
         }
+        /*
         public bool requestFlag()
         {
             return flag;
@@ -34,6 +36,6 @@ namespace Game.Kinect
         public void resetFlag()
         {
             flag = false;
-        }
+        }*/
     }
 }

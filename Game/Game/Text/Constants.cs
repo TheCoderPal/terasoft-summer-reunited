@@ -7,8 +7,8 @@ namespace Game.Text
 {
     class Constants
     {
-        public bool isJumping;
-        public bool isSwappingHand;
+        public static bool isJumping;
+        public static bool isSwappingHand;
         public bool isBending;
         public bool isPunching;
         public bool isDumbbell;
