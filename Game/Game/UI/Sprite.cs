@@ -47,9 +47,12 @@ namespace Game.UI
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
-            spriteBatch.Draw(texture, area, Color.White);
-            spriteBatch.End();
+            if (!collided)
+            {
+                spriteBatch.Begin();
+                spriteBatch.Draw(texture, area, null, Color.White);
+                spriteBatch.End();
+            }
         }
 
         public void EnterName(String name)

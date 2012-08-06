@@ -7,7 +7,6 @@ namespace Game.UI
 
     public class SpriteAnimation
     {
-
         // The image representing the collection of images used for animation
         Texture2D spriteStrip;
 
@@ -21,7 +20,7 @@ namespace Game.UI
 
 
         // The time we display a frame until the next one
-        float frameTime;
+        int frameTime;
 
 
         // The number of frames that the animation contains
@@ -64,8 +63,9 @@ namespace Game.UI
         public Vector2 Position;
 
 
-        public void Initialize(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int frameCount, 
-float frametime, Color color, float scale, bool looping)
+        public void Initialize(Texture2D texture, Vector2 position,
+int frameWidth, int frameHeight, int frameCount,
+int frametime, Color color, float scale, bool looping)
         {
             // Keep a local copy of the values passed in
             this.color = color;
@@ -83,7 +83,7 @@ float frametime, Color color, float scale, bool looping)
 
             // Set the time to zero
             elapsedTime = 0;
-            currentFrame = 0;
+            currentFrame = frameCount - 1;
 
 
             // Set the Animation to active by default
@@ -106,13 +106,13 @@ float frametime, Color color, float scale, bool looping)
             if (elapsedTime > frameTime)
             {
                 // Move to the next frame
-                currentFrame++;
+                currentFrame--;
 
 
                 // If the currentFrame is equal to frameCount reset currentFrame to zero
-                if (currentFrame == frameCount)
+                if (currentFrame == -1)
                 {
-                    currentFrame = 0;
+                    currentFrame = frameCount - 1;
                     // If we are not looping deactivate the animation
                     if (Looping == false)
                         Active = false;
@@ -148,17 +148,16 @@ float frametime, Color color, float scale, bool looping)
 
         public Color[] GetColorData()
         {
-            Color[] colorArray = new Color[FrameWidth * FrameHeight];
+            Color[] c = new Color[FrameHeight * FrameWidth];
 
             spriteStrip.GetData<Color>(
                 0,
                 new Rectangle(currentFrame * FrameWidth, 0, FrameWidth, FrameHeight),
-                colorArray,
+                c,
                 0,
-                colorArray.Length
-                );
+                c.Length);
 
-            return colorArray;
+            return c;
         }
 
     }

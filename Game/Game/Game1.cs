@@ -23,7 +23,7 @@ namespace Game
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             Kinect = new Kinect.Kinect(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             screenManager = new ScreenManager(this, Kinect);
@@ -43,7 +43,7 @@ namespace Game
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            screenManager.AddScreen(new MainScreen());
+            screenManager.AddScreen(new PlayScreen());
             //screenManager.AddScreen(AyScreen());
           //  bar.LoadContent(Content); //Tamer Test
           //  score.LoadContent(Content);//Tamer Test

@@ -52,14 +52,16 @@ namespace Game.Engine
             State = PlayerStates.Running;
             runAnimation = new SpriteAnimation();
             jumpAnimation = new SpriteAnimation();
+            immunity = 100;
         }
 
         public void LoadContent(ContentManager Content)
         {
             runTexture = Content.Load<Texture2D>("Sprites/run");
-            jumpTexture = Content.Load<Texture2D>("Sprites/jump"); Position = new Vector2(210, 550 - runTexture.Height);
-            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 0.1f, Color.White, 1f, true);
-            jumpAnimation.Initialize(jumpTexture, Position, jumpTexture.Height, jumpTexture.Height, jumpTexture.Width / jumpTexture.Height, 0.1f, Color.White, 1f, false);
+            jumpTexture = Content.Load<Texture2D>("Sprites/jump"); 
+            Position = new Vector2(210, 515);
+            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 70, Color.White, 1f, true);
+            jumpAnimation.Initialize(jumpTexture, Position, jumpTexture.Height, jumpTexture.Height, jumpTexture.Width / jumpTexture.Height, 70, Color.White, 1f, false);
             playerAnimation = runAnimation;
         }
 

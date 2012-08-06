@@ -77,8 +77,17 @@ namespace Game.Screens
 
             for (int i = 0; i <= 19; i++)
             {
-                currentSprite[i] = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(0, 0, 0, 0));
+                currentSprite[i] = new Sprite(Content.Load<Texture2D>("Textures//Transparent"), new Rectangle(0, 0, 0, 0));
+                currentSprite[i].EnterName("Empty");
             }
+
+            soundEffects[0] = Content.Load<SoundEffect>("Audio//Death");
+            soundEffects[1] = Content.Load<SoundEffect>("Audio//Food");
+            soundEffects[2] = Content.Load<SoundEffect>("Audio//ShieldAcquired");
+            soundEffects[3] = Content.Load<SoundEffect>("Audio//SwordAcquired");
+            soundEffects[4] = Content.Load<SoundEffect>("Audio//SwordSlash");
+            soundEffects[5] = Content.Load<SoundEffect>("Audio//VirusHit");
+
 
 
             bgLayer1.Initialize(Content, "Background/Layer 1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
@@ -96,6 +105,7 @@ namespace Game.Screens
         ///</remarks>
         public override void Update(GameTime gameTime)
         {
+            Content = ScreenManager.Game.Content;
 
             #region Omar Abdulaal
 
@@ -103,12 +113,13 @@ namespace Game.Screens
             bgLayer2.Update();
             bgLayer3.Update();
 
+            player.Update(gameTime);
             if (player.CheckDeath())
             {
                 this.Remove();
                 ScreenManager.AddScreen(new LosingScreen(player.Score));
             }
-
+            
             #endregion
 
             //if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[0]))
@@ -152,7 +163,7 @@ namespace Game.Screens
 
             //Shirin
 
-
+            
             if (globalCounter == 500)
             {
                 Sprite[] previousSprites = currentSprite;
@@ -191,7 +202,7 @@ namespace Game.Screens
                         case "1": height = 399; break;
                         case "2": height = 299; break;
                     }
-                    currentSprite[counter] = new Sprite(texture, new Rectangle(880, height, 50, 50));
+                    currentSprite[counter] = new Sprite(texture, new Rectangle(1280, height, 50, 50));
                     currentSprite[counter].EnterName(current[i, 0]);
                     if (transparent)
                     {
@@ -246,13 +257,9 @@ namespace Game.Screens
             spriteBatch.End();
 
             //Shirin
-            for (int i = 0; i <= currentSprite.Length - 1; i++)
-            {
-                if (currentSprite[i].GetCollided())
-                {
-                    currentSprite[i].Draw(spriteBatch);
-                }
-            }
+            foreach (Sprite s in currentSprite)
+                s.Draw(spriteBatch);
+
             if (player.HasShield())
             {
                 shieldAcquired.Draw(spriteBatch);
