@@ -32,7 +32,8 @@ namespace Game.UI
             if (Kinect.trackedSkeleton != null)
             {
                 Constants.posY = Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.Y;
-                Constants.posZ = Kinect.trackedSkeleton.Joints[JointType.HandRight].Position.Z;
+                Constants.posZ = Kinect.trackedSkeleton.Joints[JointType.ElbowRight].Position.Z;
+                Constants.elbowPosY = Kinect.trackedSkeleton.Joints[JointType.ElbowRight].Position.Y;
                 Constants.diffHandElbow = Kinect.trackedSkeleton.Joints[JointType.HandRight].Position.Z - Kinect.trackedSkeleton.Joints[JointType.ElbowRight].Position.Z;
                 Constants.HipPosX = Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
             }
