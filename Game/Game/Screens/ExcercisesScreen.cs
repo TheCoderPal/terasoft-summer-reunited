@@ -40,12 +40,14 @@ namespace Game.Screens
 
         void treadmill_Clicked(object sender, System.EventArgs a)
         {
-            throw new System.NotImplementedException();
+            this.Remove();
+            ScreenManager.AddScreen(new TreadmillScreen());
         }
 
         void dumbbell_Clicked(object sender, System.EventArgs a)
         {
-            throw new System.NotImplementedException();
+            this.Remove();
+            ScreenManager.AddScreen(new DumbbellScreen());
         }
 
         public override void LoadContent()
