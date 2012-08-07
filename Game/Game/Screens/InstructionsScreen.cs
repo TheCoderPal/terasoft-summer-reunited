@@ -14,11 +14,13 @@ namespace Game.Screens
         private SpriteFont spriteFont;
         private Texture2D backgroundImage;
         Button OkButton;
+        HandCursor Hand;
 
         public InstructionsScreen()
         {
             textBox = new Rectangle();
             OkButton = new Button();
+            Hand = new HandCursor();
         }
 
         public override void Initialize()
@@ -27,6 +29,8 @@ namespace Game.Screens
             textBox = new Rectangle((int)textPosition.X, (int)textPosition.Y, 1020, 455);
             OkButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(this.ScreenManager.GraphicsDevice.Viewport.Width / 2 - 60, 500));
             OkButton.Clicked += new Button.ClickedEventHandler(OkButton_Clicked);
+
+            Hand.Initialize(ScreenManager.Kinect);
             base.Initialize();
         }
 
@@ -49,13 +53,14 @@ namespace Game.Screens
             spriteFont.LineSpacing = 40;
             TextToDraw = WrapText(spriteFont, Text, 1130);
             OkButton.LoadContent(Content);
+            Hand.LoadContent(Content);
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             OkButton.Update(gameTime);
-
+            Hand.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -66,6 +71,7 @@ namespace Game.Screens
             spriteBatch.Draw(backgroundImage, Vector2.Zero, Color.White);
             spriteBatch.DrawString(spriteFont, TextToDraw, textPosition, Color.White);
             OkButton.Draw(spriteBatch);
+            Hand.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

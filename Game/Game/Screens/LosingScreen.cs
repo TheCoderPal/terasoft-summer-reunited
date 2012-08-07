@@ -15,6 +15,7 @@ namespace Game.Screens
         List<string> scores;
         List<Button> buttons;
         Texture2D backgroundImage;
+        HandCursor Hand;
         private int score;
         private string text;
         private StringBuilder textBox;
@@ -28,6 +29,7 @@ namespace Game.Screens
         {
             scores = new List<string>();
             buttons = new List<Button>();
+            Hand = new HandCursor();
             score = Score;
             textBox = new StringBuilder("", 6);
         }
@@ -50,6 +52,7 @@ namespace Game.Screens
             Font = Content.Load<SpriteFont>("Fontopo");
             if(highScore)LoadButtonsContent(Content);
 
+            Hand.LoadContent(Content);
             base.LoadContent();
         }
 
@@ -75,6 +78,8 @@ namespace Game.Screens
             OKButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(this.ScreenManager.GraphicsDevice.Viewport.Width / 2 - 60, 500));
             buttons.Add(OKButton);
             OKButton.Clicked += new Button.ClickedEventHandler(OKButton_Clicked);
+
+            Hand.Initialize(ScreenManager.Kinect);
             base.Initialize();
         }
 
@@ -89,6 +94,7 @@ namespace Game.Screens
 
         public override void Update(GameTime gameTime)
         {
+            Hand.Update(gameTime);
                 foreach (Button b in buttons)
                 {
                     b.Update(gameTime);
@@ -387,6 +393,7 @@ namespace Game.Screens
 
             spriteBatch.DrawString(Font, text, new Vector2(200, 35), Color.White);
             spriteBatch.DrawString(Font, textBox, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2 - 200, 255), Color.White);
+            Hand.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
