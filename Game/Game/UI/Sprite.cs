@@ -15,7 +15,7 @@ namespace Game.UI
         String name;
         Boolean soundEffectPlayed;
         Boolean transparent;
-        Boolean collided;
+        Boolean collided;       
 
         public Sprite(Texture2D tex, Rectangle area)
         {
@@ -104,6 +104,16 @@ namespace Game.UI
                 effect.Play();
             }
             soundEffectPlayed = true;
+        }
+
+        public int GetWidth()
+        {
+            return area.Width;
+        }
+
+        public int GetHeight()
+        {
+            return area.Height;
         }
     }
 }
