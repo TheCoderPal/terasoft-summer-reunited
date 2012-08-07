@@ -69,7 +69,12 @@ namespace Game.Kinect
                 this.nui = KinectSensor.KinectSensors[index];
                 this.nui.Start();
             }
-            this.nui.SkeletonStream.Enable();
+            try
+            {
+                this.nui.SkeletonStream.Enable();
+            }
+            catch (Exception)
+            { return; }
             this.nui.SkeletonFrameReady += this.OnSkeletonFrameReady;
         }
 
@@ -102,7 +107,17 @@ namespace Game.Kinect
         default:
             break;
     }
+    Debug.Write(Constants.isDumbbell.ToString());
+    Debug.Write(Constants.isBending.ToString());
+    Debug.Write(Constants.isPunching.ToString());
+    Debug.Write(Constants.isRunning.ToString());
+    Debug.Write(Constants.isSteppingRight.ToString());
     Constants.ResetFlags();
+    Debug.Write(Constants.isDumbbell.ToString());
+    Debug.Write(Constants.isBending.ToString());
+    Debug.Write(Constants.isPunching.ToString());
+    Debug.Write(Constants.isRunning.ToString());
+    Debug.Write(Constants.isSteppingRight.ToString());
     }
         /// <summary>
         /// Handler for skeleton ready handler.
@@ -227,7 +242,7 @@ namespace Game.Kinect
              DumbbellSegments[2] = dumbbellGesture1;
              DumbbellSegments[3] = dumbbellGesture2;
              this.gestureController.AddGesture(GestureType.DumbbellGesture, DumbbellSegments);
-             IRelativeGestureSegment[] RunningSegments = new IRelativeGestureSegment[2];
+             IRelativeGestureSegment[] RunningSegments = new IRelativeGestureSegment[4];
              RunningGesture1 runningGesture1 = new RunningGesture1();
              RunningGesture2 runningGesture2 = new RunningGesture2();
              RunningSegments[0] = runningGesture1;
