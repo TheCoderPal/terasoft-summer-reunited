@@ -20,10 +20,8 @@ namespace Game.Screens
 
         #region background music attributes
         private Song[] songs = new Song[2];
-        private bool songstart = false;
         private int playQueue = 1;
         #endregion
-        private GameScreen pauseScreen;
         private Player player;
         private ParallaxingBackground bgLayer1, bgLayer2, bgLayer3;
         Bar bar;
