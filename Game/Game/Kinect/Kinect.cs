@@ -62,8 +62,6 @@ namespace Game.Kinect
         private void InitializeNui()
         {
             var index = 0;
-            gestureController = new GestureController();
-            gestureController.GestureRecognized += OnGestureRecognized;
             while (this.nui == null && index < KinectSensor.KinectSensors.Count)
             {
                 this.nui = KinectSensor.KinectSensors[index];
@@ -76,6 +74,9 @@ namespace Game.Kinect
             catch (Exception)
             { return; }
             this.nui.SkeletonFrameReady += this.OnSkeletonFrameReady;
+            gestureController = new GestureController();
+            gestureController.GestureRecognized += OnGestureRecognized;
+            InitializeGestures();
         }
 
     private void OnGestureRecognized(object sender, GestureEventArgs e)
@@ -107,17 +108,17 @@ namespace Game.Kinect
         default:
             break;
     }
-    Debug.Write(Constants.isDumbbell.ToString());
-    Debug.Write(Constants.isBending.ToString());
-    Debug.Write(Constants.isPunching.ToString());
-    Debug.Write(Constants.isRunning.ToString());
-    Debug.Write(Constants.isSteppingRight.ToString());
-    Constants.ResetFlags();
-    Debug.Write(Constants.isDumbbell.ToString());
-    Debug.Write(Constants.isBending.ToString());
-    Debug.Write(Constants.isPunching.ToString());
-    Debug.Write(Constants.isRunning.ToString());
-    Debug.Write(Constants.isSteppingRight.ToString());
+        //Debug.Write(Constants.isDumbbell.ToString());
+        //Debug.Write(Constants.isBending.ToString());
+        //Debug.Write(Constants.isPunching.ToString());
+        //Debug.Write(Constants.isRunning.ToString());
+        //Debug.Write(Constants.isSteppingRight.ToString());
+        //Constants.ResetFlags();
+        //Debug.Write(Constants.isDumbbell.ToString());
+        //Debug.Write(Constants.isBending.ToString());
+        //Debug.Write(Constants.isPunching.ToString());
+        //Debug.Write(Constants.isRunning.ToString());
+        //Debug.Write(Constants.isSteppingRight.ToString());
     }
         /// <summary>
         /// Handler for skeleton ready handler.
@@ -249,11 +250,7 @@ namespace Game.Kinect
              RunningSegments[1] = runningGesture2;
              RunningSegments[2] = runningGesture1;
              RunningSegments[3] = runningGesture2;
-             this.gestureController.AddGesture(GestureType.RunningGesture, RunningSegments);
-
-        
-        
-        
+             this.gestureController.AddGesture(GestureType.RunningGesture, RunningSegments);        
         }
     }
 }
