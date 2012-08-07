@@ -199,5 +199,46 @@ namespace Game.Kinect
             else
                 return new Joint();
         }
+        public void InitializeGestures()
+        {
+             IRelativeGestureSegment[] StepRightSegments = new IRelativeGestureSegment[2];
+             StepRightGesture1 stepRightGesture1 = new StepRightGesture1();
+             StepRightGesture2 stepRightGesture2 = new StepRightGesture2();
+             StepRightSegments[0]=stepRightGesture1;
+             StepRightSegments[1]=stepRightGesture2;
+             this.gestureController.AddGesture(GestureType.StepRightGesture, StepRightSegments);
+             IRelativeGestureSegment[] BendSegments = new IRelativeGestureSegment[2];
+             BendGesture1 bendGesture1 = new BendGesture1();
+             BendGesture2 bendGesture2 = new BendGesture2();
+             BendSegments[0] = bendGesture1;
+             BendSegments[1] = bendGesture2;
+             this.gestureController.AddGesture(GestureType.BendGesture, BendSegments);
+             IRelativeGestureSegment[] PunchSegments = new IRelativeGestureSegment[2];
+             PunchGesture1 punchGesture1 = new PunchGesture1();
+             PunchGesture2 punchGesture2 = new PunchGesture2();
+             PunchSegments[0] = punchGesture1;
+             PunchSegments[1] = punchGesture2;
+             this.gestureController.AddGesture(GestureType.PunchGesture, PunchSegments);
+             IRelativeGestureSegment[] DumbbellSegments = new IRelativeGestureSegment[4];
+             DumbbellGesture1 dumbbellGesture1 = new DumbbellGesture1();
+             DumbbellGesture2 dumbbellGesture2 = new DumbbellGesture2();
+             DumbbellSegments[0] = dumbbellGesture1;
+             DumbbellSegments[1] = dumbbellGesture2;
+             DumbbellSegments[2] = dumbbellGesture1;
+             DumbbellSegments[3] = dumbbellGesture2;
+             this.gestureController.AddGesture(GestureType.DumbbellGesture, DumbbellSegments);
+             IRelativeGestureSegment[] RunningSegments = new IRelativeGestureSegment[2];
+             RunningGesture1 runningGesture1 = new RunningGesture1();
+             RunningGesture2 runningGesture2 = new RunningGesture2();
+             RunningSegments[0] = runningGesture1;
+             RunningSegments[1] = runningGesture2;
+             RunningSegments[2] = runningGesture1;
+             RunningSegments[3] = runningGesture2;
+             this.gestureController.AddGesture(GestureType.RunningGesture, RunningSegments);
+
+        
+        
+        
+        }
     }
 }
