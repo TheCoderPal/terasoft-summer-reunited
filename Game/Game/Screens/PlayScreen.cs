@@ -18,11 +18,11 @@ namespace Game.Screens
 
 
         #region background music attributes
-        private Song[] songs = new Song[3];
+        private Song[] songs = new Song[2];
         private bool songstart = false;
         private int playQueue = 1;
         #endregion
-
+        private GameScreen pauseScreen;
         private Player player;
         private ParallaxingBackground bgLayer1, bgLayer2, bgLayer3;
         Bar bar;
@@ -68,8 +68,8 @@ namespace Game.Screens
         {
             ContentManager Content = ScreenManager.Game.Content;
 
-            //songs[0] = Content.Load<Song>("Directory\\songtitle");
-            //songs[1] = Content.Load<Song>("Directory\\songtitle");
+            songs[0] = Content.Load<Song>("Audio\\song1");
+            songs[1] = Content.Load<Song>("Audio\\song2");
             //songs[2] = Content.Load<Song>("Directory\\songtitle");
             MediaPlayer.IsRepeating = true;
             player.LoadContent(Content);
@@ -130,42 +130,45 @@ namespace Game.Screens
             
             #endregion
 
-            //if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[0]))
+            //if (userAvatar.Avatar[0]==userAvatar.AllAvatars[0])
             //{
             //    //Freeze Screen, Show pause Screen
-            //    // this.FreezeScreen();
+            //    ScreenManager.AddScreen(new PauseScreen());
+            //     this.FreezeScreen();
             //    screenPaused = true;
             //}
             //else if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
             //{
             //    //exit pause screen, unfreeze screen
+            //    ScreenManager.RemoveScreen(new PauseScreen());
             //    this.UnfreezeScreen();
             //    screenPaused = false;
             //}
-            //if (MediaPlayer.State.Equals(MediaState.Stopped))
-            //{
-            //    switch (playQueue)
-            //    {
-            //        case 1:
-            //            {
-            //                MediaPlayer.Play(songs[0]);
-            //                playQueue = 2;
-            //                break;
-            //            }
-            //        case 2:
-            //            {
-            //                MediaPlayer.Play(songs[1]);
-            //                playQueue = 3;
-            //                break;
-            //            }
-            //        case 3:
-            //            {
-            //                MediaPlayer.Play(songs[2]);
-            //                playQueue = 1;
-            //                break;
-            //            }
-            //    }
-            //}
+            if (MediaPlayer.State.Equals(MediaState.Stopped))
+            {
+                switch (playQueue)
+                {
+                    case 1:
+                        {
+                            MediaPlayer.Play(songs[0]);
+                            playQueue = 2;
+                            break;
+                        }
+                    case 2:
+                        {
+                            MediaPlayer.Play(songs[1]);
+                            playQueue = 3;
+                            break;
+                        }
+                    //case 3:
+                    //    {
+                    //        MediaPlayer.Play(songs[2]);
+                    //        playQueue = 1;
+                    //        break;
+                    //    }
+                    default: break;
+                }
+            }
 
 
 
