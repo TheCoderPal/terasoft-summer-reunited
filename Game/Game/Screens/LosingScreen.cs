@@ -47,7 +47,7 @@ namespace Game.Screens
         {
             ContentManager Content = ScreenManager.Game.Content;
             backgroundImage = Content.Load<Texture2D>("Textures/losingScreen");
-            Font = Content.Load<SpriteFont>("HurryUp");
+            Font = Content.Load<SpriteFont>("Fontopo");
             if(highScore)LoadButtonsContent(Content);
 
             base.LoadContent();
@@ -381,12 +381,12 @@ namespace Game.Screens
             spriteBatch.Begin();
             spriteBatch.Draw(backgroundImage, Vector2.Zero, Color.White);
 
-            TextOrigin = Font.MeasureString(text.Split('\n')[1]) / 2;
 
             foreach (Button b in buttons)
                 b.Draw(spriteBatch);
 
             spriteBatch.DrawString(Font, text, new Vector2(200, 35), Color.White);
+            spriteBatch.DrawString(Font, textBox, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2 - 200, 255), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
