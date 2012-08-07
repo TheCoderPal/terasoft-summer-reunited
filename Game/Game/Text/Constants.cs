@@ -23,6 +23,7 @@ namespace Game.Text
         public const double handElbowDiff=5; // tolerance in the difference between hand and elbow x,y,z positions
         public const double minHipDiff = 3; //minimum distance the user has to crouch to detect the bend gesture
         public const double handElbowYDiff = 5; //minimum Y distance difference between the hand and the elbow to ddetect the dumbbell playing gesture.
+        public static double diffHandElbow;
 
         public static void ResetFlags()
         {

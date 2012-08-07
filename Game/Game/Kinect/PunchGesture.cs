@@ -8,19 +8,25 @@ namespace Game.Kinect
     {
         public GesturePartResult CheckGesture(Skeleton skeleton)
         {
-            if ((skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ElbowRight].Position.X+0.1) &&
-                (skeleton.Joints[JointType.HandRight].Position.X > skeleton.Joints[JointType.ElbowRight].Position.X-0.1)&&
-                (skeleton.Joints[JointType.HandRight].Position.Y > (skeleton.Joints[JointType.ElbowRight].Position.Y-0.1)) &&
-                (skeleton.Joints[JointType.HandRight].Position.Y < (skeleton.Joints[JointType.ElbowRight].Position.Y+0.1))&&
-                (skeleton.Joints[JointType.HandRight].Position.Y < (skeleton.Joints[JointType.ShoulderRight].Position.Y+0.1)) &&
-                (skeleton.Joints[JointType.HandRight].Position.Y > (skeleton.Joints[JointType.ShoulderRight].Position.Y-0.1)) &&
-                (skeleton.Joints[JointType.HandRight].Position.X > (skeleton.Joints[JointType.ShoulderRight].Position.X-0.1)) &&
-                (skeleton.Joints[JointType.HandRight].Position.X < (skeleton.Joints[JointType.ShoulderRight].Position.X+0.1)))
+            if ((skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ElbowRight].Position.X + 0.03) &&
+                (skeleton.Joints[JointType.HandRight].Position.X > skeleton.Joints[JointType.ElbowRight].Position.X - 0.03) &&
+                (skeleton.Joints[JointType.HandRight].Position.Y > (skeleton.Joints[JointType.ElbowRight].Position.Y - 0.03)) &&
+                (skeleton.Joints[JointType.HandRight].Position.Y < (skeleton.Joints[JointType.ElbowRight].Position.Y + 0.03))&&                
+                (skeleton.Joints[JointType.HandRight].Position.Y < (skeleton.Joints[JointType.ShoulderRight].Position.Y+0.03)) &&
+                (skeleton.Joints[JointType.HandRight].Position.Y > (skeleton.Joints[JointType.ShoulderRight].Position.Y-0.03)) &&
+                (skeleton.Joints[JointType.HandRight].Position.X > (skeleton.Joints[JointType.ShoulderRight].Position.X-0.03)) &&
+                (skeleton.Joints[JointType.HandRight].Position.X < (skeleton.Joints[JointType.ShoulderRight].Position.X+0.03)))
             {
-                return GesturePartResult.Suceed;
+                if (skeleton.Joints[JointType.HandRight].Position.Z < Constants.posZ )
+                {
+                    return GesturePartResult.Suceed;
+                }
+                return GesturePartResult.Pausing;
             }
             return GesturePartResult.Fail;
         }
     }
-}
+    }
+
+
 
