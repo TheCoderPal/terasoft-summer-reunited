@@ -1,41 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Kinect;
+﻿using Microsoft.Kinect;
+using Game.Text;
 
 namespace Game.Kinect
 {
-    public class BendGesture
+    class BendGesture1 : IRelativeGestureSegment
     {
-        static double posY;
-        class BendGesture1 : IRelativeGestureSegment
+        public GesturePartResult CheckGesture(Skeleton skeleton)
         {
-            public GesturePartResult CheckGesture(Skeleton skeleton)
-            {
-                posY = skeleton.Joints[JointType.HipCenter].Position.Y;
-                if (skeleton.Joints[JointType.Head].Position.Y > skeleton.Joints[JointType.HipCenter].Position.Y)
-                {
-                        return GesturePartResult.Suceed;
-                }
-                return GesturePartResult.Fail;
-            }
+            Constants.posY = skeleton.Joints[JointType.HipCenter].Position.Y;
+            return GesturePartResult.Suceed;
         }
-        class BendGesture2 : IRelativeGestureSegment
-        {
-            public GesturePartResult CheckGesture(Skeleton skeleton)
-            {
-                if (skeleton.Joints[JointType.Head].Position.Y > skeleton.Joints[JointType.HipCenter].Position.Y)
-                {
-                    if (skeleton.Joints[JointType.HipCenter].Position.Y < (posY-5))
-                    {
-                        return GesturePartResult.Suceed;
-                    }
-                    return GesturePartResult.Pausing;
-                }
-                return GesturePartResult.Fail;
-            }
-        }
-
     }
+    class BendGesture2 : IRelativeGestureSegment
+    {
+        public GesturePartResult CheckGesture(Skeleton skeleton)
+        {
+            if (skeleton.Joints[JointType.HipCenter].Position.Y < (Constants.posY - Constants.minHipDiff))
+            {
+                return GesturePartResult.Suceed;
+            }
+            else return GesturePartResult.Fail;
+        }
+    }
+
+
 }
