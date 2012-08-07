@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Game.Text;
 using Microsoft.Kinect;
 
 namespace Game.Kinect
 {
-   public class RunningGesture
-    {
-       static double posY;
        class RunningGesture1 : IRelativeGestureSegment
        {
            public GesturePartResult CheckGesture(Skeleton skeleton)
            {
-               posY = skeleton.Joints[JointType.HipCenter].Position.Y;
-               if (skeleton.Joints[JointType.KneeLeft].Position.Y > (skeleton.Joints[JointType.KneeRight].Position.Y+10))
+               Constants.posY = skeleton.Joints[JointType.HipCenter].Position.Y;
+               if (skeleton.Joints[JointType.KneeLeft].Position.Y > (skeleton.Joints[JointType.KneeRight].Position.Y+Constants.kneeDiff))
                {
                    return GesturePartResult.Suceed;
                }
@@ -25,9 +19,9 @@ namespace Game.Kinect
        {
            public GesturePartResult CheckGesture(Skeleton skeleton)
            {
-               if (skeleton.Joints[JointType.KneeRight].Position.Y > (skeleton.Joints[JointType.KneeLeft].Position.Y + 10))
+               if (skeleton.Joints[JointType.KneeRight].Position.Y > (skeleton.Joints[JointType.KneeLeft].Position.Y + Constants.kneeDiff))
                {
-                   if (skeleton.Joints[JointType.HipCenter].Position.Y > (posY + 5))
+                   if (skeleton.Joints[JointType.HipCenter].Position.Y > (Constants.posY + Constants.hipDiff))
                    {
                        return GesturePartResult.Suceed;
                    }
@@ -36,5 +30,5 @@ namespace Game.Kinect
                return GesturePartResult.Fail;
            }
        }
-    }
+    
 }
