@@ -8,6 +8,7 @@ using Game.Screens.Components;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
+using Game.Text;
 
 namespace Game.Screens
 {
@@ -40,7 +41,6 @@ namespace Game.Screens
         private Sprite shieldAcquired;
         private ContentManager Content;
         private SoundEffect[] soundEffects = new SoundEffect[6];
-
         private Color[] playerData;
         private Rectangle playerBounds;
 
@@ -184,13 +184,20 @@ namespace Game.Screens
                     currentSprite[i] = previousSprites[counter];
                     counter++;
                 }
-
                 counter = 10;
                 current = generator.generateMore();
                 for (int i = 0; i <= 9; i++)
                 {
+                    int height = 0;
+                    switch (current[i, 1])
+                    {
+                        case "0": height = 499; break;
+                        case "1": height = 399; break;
+                        case "2": height = 299; break;
+                    }
                     Texture2D texture = Content.Load<Texture2D>("Textures//Transparent");
                     Boolean transparent = false;
+                    int length = 50;
                     switch (current[i, 0])
                     {
                         case "banana": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
@@ -204,18 +211,10 @@ namespace Game.Screens
                         case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
                         case "sheild": texture = Content.Load<Texture2D>("Textures//shield"); break;
                         case "sword": texture = Content.Load<Texture2D>("Textures//sword"); break;
-                        case "gym": texture = Content.Load<Texture2D>("Textures//gym"); break;
+                        case "gym": texture = Content.Load<Texture2D>("Textures//gym"); length = 200; height = 349; break;
                         case "Empty": transparent = true; break;
                     }
-                    int height = 0;
-                    switch (current[i, 1])
-                    {
-                        case "0": height = 499; break;
-                        case "1": height = 399; break;
-                        case "2": height = 299; break;
-                        case "3": height = 0; break;
-                    }
-                    currentSprite[counter] = new Sprite(texture, new Rectangle(1280, height, 50, 50));
+                    currentSprite[counter] = new Sprite(texture, new Rectangle(1280, height, length, length));
                     currentSprite[counter].EnterName(current[i, 0]);
                     if (transparent)
                     {
@@ -229,13 +228,15 @@ namespace Game.Screens
 
             for (int i = 0; i <= 19; i++)
             {
-                if (IntersectPixels(playerBounds, playerData, new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), 50, 50), currentSprite[i].GetColorData()))
+                if (IntersectPixels(playerBounds, playerData, new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), currentSprite[i].GetWidth(), currentSprite[i].GetHeight()), currentSprite[i].GetColorData()))
                 {
                     if (!currentSprite[i].GetTransparent())
                     {
                         Effects(currentSprite[i].GetName(), currentSprite[i]);
-
-                        currentSprite[i].Collide();
+                        if (!currentSprite[i].GetName().Equals("gym"))
+                        {
+                            currentSprite[i].Collide();
+                        }
                     }
                 }
             }
@@ -270,7 +271,6 @@ namespace Game.Screens
             bgLayer2.Draw(spriteBatch);
             bgLayer3.Draw(spriteBatch);
 
-            player.Draw(spriteBatch);
 
             spriteBatch.End();
 
@@ -279,7 +279,13 @@ namespace Game.Screens
 
             //Shirin
             foreach (Sprite s in currentSprite)
+            {
                 s.Draw(spriteBatch);
+            }
+            SpriteBatch sprite = spriteBatch;
+            sprite.Begin();
+            player.Draw(sprite);
+            sprite.End();
             
             sword.Draw(spriteBatch);
             shield.Draw(spriteBatch);
@@ -358,6 +364,7 @@ namespace Game.Screens
                         sprite.PlaySoundEffect(soundEffects[5]); break;
                     case "sheild": player.AcquireShield(true); sprite.PlaySoundEffect(soundEffects[2]); break;
                     case "sword": player.AcquireSword(true); sprite.PlaySoundEffect(soundEffects[3]); break;
+                    case "gym": if (Constants.isSteppingRight) { this.FreezeScreen(); new ExcercisesScreen(); }; break;
                 }
             }
         }
