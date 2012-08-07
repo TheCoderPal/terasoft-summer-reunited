@@ -8,14 +8,13 @@ namespace Game.Kinect
             public GesturePartResult CheckGesture(Skeleton skeleton)
             {
                 Constants.posZ = skeleton.Joints[JointType.HandRight].Position.Z;
-                if (skeleton.Joints[JointType.HandRight].Position.X <= (skeleton.Joints[JointType.ElbowRight].Position.X + Constants.handElbowDiff) &&
-                        (skeleton.Joints[JointType.HandRight].Position.X >= (skeleton.Joints[JointType.ElbowRight].Position.X - Constants.handElbowDiff)) &&
-                        (skeleton.Joints[JointType.HandRight].Position.Z > (skeleton.Joints[JointType.ElbowRight].Position.Z + Constants.handElbowDiff)))
-                   {
-                       if
-                       (skeleton.Joints[JointType.HandRight].Position.Y <= (skeleton.Joints[JointType.ElbowRight].Position.Y + Constants.handElbowDiff) &&
-                       (skeleton.Joints[JointType.HandRight].Position.Y >= (skeleton.Joints[JointType.ElbowRight].Position.Y - Constants.handElbowDiff)))
-                       {
+      
+                if ((skeleton.Joints[JointType.HandRight].Position.Y < skeleton.Joints[JointType.ShoulderRight].Position.Y)
+                    &&(skeleton.Joints[JointType.HandRight].Position.Y > skeleton.Joints[JointType.HipCenter].Position.Y))
+                {
+                    if ((skeleton.Joints[JointType.HandRight].Position.X <skeleton.Joints[JointType.HipCenter].Position.X) &&
+                        (skeleton.Joints[JointType.HandRight].Position.Z < (skeleton.Joints[JointType.ElbowRight].Position.Z)))
+                    {
                         return GesturePartResult.Suceed;
                     }
                     return GesturePartResult.Pausing;
@@ -27,13 +26,12 @@ namespace Game.Kinect
         {
             public GesturePartResult CheckGesture(Skeleton skeleton)
             {
-                if (skeleton.Joints[JointType.HandRight].Position.Y <= (skeleton.Joints[JointType.ElbowRight].Position.Y + Constants.handElbowDiff) &&
-                    (skeleton.Joints[JointType.HandRight].Position.Y >= (skeleton.Joints[JointType.ElbowRight].Position.Y - Constants.handElbowDiff)))
+                if ((skeleton.Joints[JointType.HandRight].Position.Y < skeleton.Joints[JointType.ShoulderRight].Position.Y)
+                    &&(skeleton.Joints[JointType.HandRight].Position.Y > skeleton.Joints[JointType.HipCenter].Position.Y))
                 {
-                    if (skeleton.Joints[JointType.HandRight].Position.X <= (skeleton.Joints[JointType.ElbowRight].Position.X + Constants.handElbowDiff) &&
-                        (skeleton.Joints[JointType.HandRight].Position.X >= (skeleton.Joints[JointType.ElbowRight].Position.X - Constants.handElbowDiff)) && 
-                        (skeleton.Joints[JointType.HandRight].Position.Z > (skeleton.Joints[JointType.ElbowRight].Position.Z)) &&
-                        (skeleton.Joints[JointType.HandRight].Position.Z > (Constants.posZ + Constants.handElbowDiff)))
+                    if ((skeleton.Joints[JointType.HandRight].Position.X <skeleton.Joints[JointType.HipCenter].Position.X) &&
+                        (skeleton.Joints[JointType.HandRight].Position.Z < (skeleton.Joints[JointType.ElbowRight].Position.Z)) &&
+                        (skeleton.Joints[JointType.HandRight].Position.Z < (Constants.posZ + Constants.handElbowDiff)))
                     {
                         return GesturePartResult.Suceed;
                     }
