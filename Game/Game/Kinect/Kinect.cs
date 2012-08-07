@@ -69,6 +69,7 @@ namespace Game.Kinect
             }
             try
             {
+                this.skeletons = new Skeleton[this.nui.SkeletonStream.FrameSkeletonArrayLength];
                 this.nui.SkeletonStream.Enable();
             }
             catch (Exception)
@@ -126,42 +127,32 @@ namespace Game.Kinect
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private void OnSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+    private void OnSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+    {
+        // Get the frame.
+        using (SkeletonFrame frame = e.OpenSkeletonFrame())
         {
-            // Get the frame.
-            using (var frame = e.OpenSkeletonFrame())
+            if (frame != null)
             {
-                // Ensure we have a frame.
-                if (frame != null)
+                frame.CopySkeletonDataTo(this.skeletons);
+                for (int i = 0; i < this.skeletons.Length; i++)
                 {
-                    // trackedSkeleton = null;
-                    // Resize the skeletons array if a new size (normally only on first call).
-                    if (this.skeletons.Length != frame.SkeletonArrayLength)
+                    Skeleton skeleton = this.skeletons[i];
+                    if (skeleton.TrackingState == SkeletonTrackingState.Tracked)
                     {
-                        this.skeletons = new Skeleton[frame.SkeletonArrayLength];
+                        this.trackedSkeleton = skeleton;
                     }
-                    // Get the skeletons.
-                    frame.CopySkeletonDataTo(this.skeletons);
-                    foreach (var skeleton in this.skeletons)
-                    {
-                        // Only consider tracked skeletons.
-                        if (skeleton.TrackingState == SkeletonTrackingState.Tracked)
-                        {
-                            if (trackedSkeleton == null || skeleton.Position.Z < trackedSkeleton.Position.Z)
-                                trackedSkeleton = skeleton;
-                        }
-                    }
-                    //Tamer
-                      swapHand.activeRecognizer.Recognize(null, null, this.skeletons);
-                      //swapFlag = swapHand.requestFlag();
-                    if (trackedSkeleton != null)
-                    {
-                        JumpHelp();
-                        gestureController.UpdateAllGestures(trackedSkeleton);
-                    }
+                }
+                swapHand.activeRecognizer.Recognize(null, null, this.skeletons);
+                //swapFlag = swapHand.requestFlag();
+                if (trackedSkeleton != null)
+                {
+                    JumpHelp();
+                    gestureController.UpdateAllGestures(trackedSkeleton);
                 }
             }
         }
+    }
 
         private void JumpHelp()
         {

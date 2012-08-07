@@ -464,13 +464,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HurryUp.spritefont">
-      <Name>HurryUp</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Buttons\dumbbell.png">
       <Name>dumbbell</Name>
       <Importer>TextureImporter</Importer>
