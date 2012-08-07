@@ -65,7 +65,7 @@ namespace Game.Engine
                 for (int i = 0; i < 10; i++)
                 {
                     if (i == 0)
-                        ItemsList[i] = "Empty";
+                        ItemsList[i] = "gym";
                     else if (i == 3)
                     {
                         ItemsList[i] = getRandomItem(badItems, goodItems);
@@ -159,12 +159,20 @@ namespace Game.Engine
                 }
                 ItemsList = Randomize(ItemsList);
             }
+            if(counter%30==0 &&  counter!=0)
+                ItemsList[5] = "gym";
            
             string[,] returnedItems = new string[10,2];
             for (int i = 0; i <10;i++ )
                 returnedItems[i, 0] = ItemsList[i];
-            for(int i =0;i<10;i++)
-                returnedItems[i,1] = getRandom(3)+"";
+            for (int i = 0; i < 10; i++)
+            {  
+                if(returnedItems[i,0].Equals("gym"))
+                    returnedItems[i,1] = 3 +"";
+                else
+                returnedItems[i, 1] = getRandom(3) + "";
+
+            }
           
             counter++;
 
