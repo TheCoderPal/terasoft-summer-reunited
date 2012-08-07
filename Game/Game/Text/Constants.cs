@@ -24,6 +24,15 @@ namespace Game.Text
         public const double minHipDiff = 3; //minimum distance the user has to crouch to detect the bend gesture
         public const double handElbowYDiff = 5; //minimum Y distance difference between the hand and the elbow to ddetect the dumbbell playing gesture.
 
-
+        public static void ResetFlags()
+        {
+        isJumping=false;
+        isSwappingHand=false;
+        isBending=false;
+        isPunching=false;
+        isDumbbell=false;
+        isRunning=false;
+        isSteppingRight=false;
+        }
     }
 }
