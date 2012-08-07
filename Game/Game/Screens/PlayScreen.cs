@@ -15,7 +15,7 @@ namespace Game.Screens
     public class PlayScreen : GameScreen
     {
 
-        public bool screenPaused = false;
+        public static bool screenPaused = false;
 
 
         #region background music attributes
@@ -130,20 +130,19 @@ namespace Game.Screens
             
             #endregion
 
-            //if (userAvatar.Avatar[0]==userAvatar.AllAvatars[0])
-            //{
-            //    //Freeze Screen, Show pause Screen
-            //    ScreenManager.AddScreen(new PauseScreen());
-            //     this.FreezeScreen();
-            //    screenPaused = true;
-            //}
-            //else if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
-            //{
-            //    //exit pause screen, unfreeze screen
-            //    ScreenManager.RemoveScreen(new PauseScreen());
-            //    this.UnfreezeScreen();
-            //    screenPaused = false;
-            //}
+            if (userAvatar.Avatar[0] == userAvatar.AllAvatars[0])
+            {
+                //Freeze Screen, Show pause Screen
+                screenPaused = true;
+                ScreenManager.AddScreen(new PauseScreen());
+                this.FreezeScreen();
+            }
+            else if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
+            {
+                //exit pause screen, unfreeze screen
+                this.UnfreezeScreen();
+                screenPaused = false;
+            }
             if (MediaPlayer.State.Equals(MediaState.Stopped))
             {
                 switch (playQueue)

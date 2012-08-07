@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Game.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 
-namespace Game.UI
+namespace Game.Screens
 {
     class PauseScreen : GameScreen
     {
@@ -26,6 +23,8 @@ namespace Game.UI
         }
         public override void Update(GameTime gameTime)
         {
+            if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[2]) && PlayScreen.screenPaused == true)
+                this.Remove();
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
