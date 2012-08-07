@@ -8,9 +8,9 @@ namespace Game.Kinect
        {
            public GesturePartResult CheckGesture(Skeleton skeleton)
            {
-               if (skeleton.Joints[JointType.KneeLeft].Position.Y > skeleton.Joints[JointType.KneeRight].Position.Y)
+               if (skeleton.Joints[JointType.KneeLeft].Position.Y > skeleton.Joints[JointType.KneeRight].Position.Y+0.2)
                {
-                   return GesturePartResult.Pausing;
+                   return GesturePartResult.Suceed;
                }
                return GesturePartResult.Fail;
            }
@@ -19,9 +19,9 @@ namespace Game.Kinect
        {
            public GesturePartResult CheckGesture(Skeleton skeleton)
            {
-            if (skeleton.Joints[JointType.KneeRight].Position.Y > skeleton.Joints[JointType.KneeLeft].Position.Y)
+            if (skeleton.Joints[JointType.KneeRight].Position.Y > skeleton.Joints[JointType.KneeLeft].Position.Y+0.2)
                {
-                   return GesturePartResult.Pausing;
+                   return GesturePartResult.Suceed;
                }
                return GesturePartResult.Fail;
            }

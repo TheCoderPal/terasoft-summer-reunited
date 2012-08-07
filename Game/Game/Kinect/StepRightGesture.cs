@@ -12,7 +12,7 @@ namespace Game.Kinect
                     {
                         if (skeleton.Joints[JointType.HipCenter].Position.X > Constants.HipPosX+0.4)
                         {
-                            return GesturePartResult.Pausing;
+                            return GesturePartResult.Suceed;
                         }
                         return GesturePartResult.Pausing;
                     }

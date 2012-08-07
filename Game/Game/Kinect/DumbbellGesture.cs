@@ -15,7 +15,7 @@ namespace Game.Kinect
                     (skeleton.Joints[JointType.HandLeft].Position.X < skeleton.Joints[JointType.ShoulderLeft].Position.X) &&
                      (skeleton.Joints[JointType.HandLeft].Position.Y > skeleton.Joints[JointType.HandRight].Position.Y))
                 {
-                    return GesturePartResult.Pausing;
+                    return GesturePartResult.Suceed;
                 }
                 return GesturePartResult.Pausing;
             }
@@ -34,7 +34,7 @@ namespace Game.Kinect
                     (skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X) &&
                      (skeleton.Joints[JointType.HandRight].Position.Y > skeleton.Joints[JointType.HandLeft].Position.Y))
                 {
-                    return GesturePartResult.Pausing;
+                    return GesturePartResult.Suceed;
                 }
                 return GesturePartResult.Pausing;
             }
