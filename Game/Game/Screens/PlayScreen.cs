@@ -131,7 +131,7 @@ namespace Game.Screens
             }
             
             #endregion
-            /*
+            
             if (userAvatar.Avatar[0] == userAvatar.AllAvatars[0])
             {
                 //Freeze Screen, Show pause Screen
@@ -144,7 +144,7 @@ namespace Game.Screens
                 //exit pause screen, unfreeze screen
                 this.UnfreezeScreen();
                 screenPaused = false;
-            }*/
+            }
 
            
             if (MediaPlayer.State.Equals(MediaState.Stopped))
