@@ -240,6 +240,14 @@ namespace Game.Screens
                         {
                             currentSprite[i].Collide();
                         }
+                        else
+                        {
+                            if (Constants.isSteppingRight)
+                            {
+                                FreezeScreen();
+                                ScreenManager.AddScreen(new ExcercisesScreen());
+                            }
+                        }
                     }
                 }
             }
