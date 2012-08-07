@@ -7,9 +7,13 @@ namespace Game.Screens
 {
     public class ExcercisesScreen : GameScreen
     {
-        Sprite dumbbell;
-        Sprite treadmill;
+        Button dumbbell;
+        Button treadmill;
         Sprite background;
+        SpriteBatch spriteBatch;
+        ContentManager Content;
+        Game.Kinect.Kinect kinect;
+        HandCursor Hand;
 
         /// <summary>
         /// Author: Ahmed Shirin.
@@ -19,23 +23,60 @@ namespace Game.Screens
 
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
-
+            showAvatar = true;
+            treadmill = new Button();
+            dumbbell = new Button();
+            Hand = new HandCursor();
+            kinect = ScreenManager.Kinect;
+            dumbbell.Initialize("Buttons//dumbbell", kinect, new Vector2(140, 290));
+            treadmill.Initialize("Buttons//treadmill", kinect, new Vector2(800, 250));
+            Hand.Initialize(ScreenManager.Kinect);
+            dumbbell.Clicked += new Button.ClickedEventHandler(dumbbell_Clicked);
+            treadmill.Clicked += new Button.ClickedEventHandler(treadmill_Clicked);
+            base.Initialize();
         }
 
-        public void LoadContent(ContentManager Content)
+        void treadmill_Clicked(object sender, System.EventArgs a)
         {
+            throw new System.NotImplementedException();
+        }
+
+        void dumbbell_Clicked(object sender, System.EventArgs a)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void LoadContent()
+        {
+            Content = ScreenManager.Game.Content;
+            spriteBatch = ScreenManager.SpriteBatch;
+            dumbbell.LoadContent(Content);
+            treadmill.LoadContent(Content);
+            Hand.LoadContent(Content);
             background = new Sprite(Content.Load<Texture2D>("Textures//choosing_frame"), new Rectangle(0, 0, 1280, 720));
-            dumbbell = new Sprite(Content.Load<Texture2D>("Textures//dumbbell"), new Rectangle(140, 290, 300, 290));
-            treadmill = new Sprite(Content.Load<Texture2D>("Textures//treadmill"), new Rectangle(800, 250, 300, 350));
+            base.LoadContent();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Update(GameTime gameTime)
+        {
+            Hand.Update(gameTime);
+            dumbbell.Update(gameTime);
+            treadmill.Update(gameTime);
+            base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime)
         {
             background.Draw(spriteBatch);
+            SpriteBatch sprite = spriteBatch;
+            sprite.Begin();
             dumbbell.Draw(spriteBatch);
             treadmill.Draw(spriteBatch);
+            Hand.Draw(spriteBatch);
+            sprite.End();
+            base.Draw(gameTime);
         }
     }
 }
