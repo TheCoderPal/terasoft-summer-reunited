@@ -81,18 +81,23 @@ namespace Game.Kinect
     {
         case GestureType.BendGesture:
             Gesture = "BendGesture";
+            Constants.isBending = true;
             break;
         case GestureType.PunchGesture:
             Gesture = "PunchGesture";
+            Constants.isPunching = true;
             break;
         case GestureType.StepRightGesture:
             Gesture = "StepRightGesture";
+            Constants.isSteppingRight = true;
             break;
         case GestureType.RunningGesture:
             Gesture = "RunningGesture";
+            Constants.isRunning = true;
             break;
         case GestureType.DumbbellGesture:
             Gesture = "DumbbellGesture";
+            Constants.isDumbbell = true;
             break;
         default:
             break;
