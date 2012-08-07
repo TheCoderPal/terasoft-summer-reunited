@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Game.Text;
+using Microsoft.Kinect;
 
 namespace Game.UI
 {
@@ -27,6 +29,12 @@ namespace Game.UI
             : base(game)
         {
             this.Kinect = kinect;
+            if (Kinect.trackedSkeleton != null)
+            {
+                Constants.posY = Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.Y;
+                Constants.posZ = Kinect.trackedSkeleton.Joints[JointType.HandRight].Position.Z;
+                Constants.HipPosX = Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
+            }
             base.Initialize();
 
         }
