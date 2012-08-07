@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Game.Text;
+using System.Diagnostics;
 
 namespace Game.Engine
 {
@@ -133,7 +134,8 @@ namespace Game.Engine
 
         public Rectangle GetBoundingRectangle()
         {
-            return new Rectangle((int)Position.X, (int)Position.Y, playerAnimation.FrameWidth, playerAnimation.FrameHeight);
+            return new Rectangle((int)playerAnimation.Position.X - playerAnimation.FrameHeight/2, (int)playerAnimation.Position.Y-playerAnimation.FrameHeight/2, 
+                playerAnimation.FrameWidth, playerAnimation.FrameHeight);
         }
 
         public void AcquireSword(Boolean t)

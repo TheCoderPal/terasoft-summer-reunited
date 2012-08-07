@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 using Game.Text;
+using System.Diagnostics;
 
 namespace Game.Screens
 {
@@ -121,6 +122,7 @@ namespace Game.Screens
 
             player.Update(gameTime);
             playerData = player.GetColorData();
+            playerBounds = player.GetBoundingRectangle();
 
             if (player.CheckDeath())
             {
@@ -246,6 +248,7 @@ namespace Game.Screens
             if (globalCounter % 50 == 0)
             {
                 spriteCounter++;
+
             }
 
             for (int i = 0; i <= spriteCounter - 1; i++)
