@@ -16,6 +16,7 @@ namespace Game.Kinect
                 }
                 return GesturePartResult.Fail;
             }
+        }
             class StepRightGesture2 : IRelativeGestureSegment
             {
                 public GesturePartResult CheckGesture(Skeleton skeleton)
@@ -33,5 +34,3 @@ namespace Game.Kinect
 
             }
         }
-    
-}
