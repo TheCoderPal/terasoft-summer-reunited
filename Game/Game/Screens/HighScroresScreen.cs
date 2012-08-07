@@ -18,20 +18,52 @@ namespace Game.Screens
         private SpriteFont font;
         private string[] names;
         private string drawnScores,drawnNames,readedText;
-        private List<int> listscore = new List<int>();
-        private List<string> list = new List<string>();
-        public override void LoadContent()
+        private List<int> listscore;
+        private List<string> list;
+        private Texture2D backgroundImage,buttonImage;
+        Button OkButton;
+        HandCursor hand;
+        public HighScoresScreen()
+        {
+            OkButton = new Button();
+            hand = new HandCursor();
+            listscore = new List<int>();
+            list = new List<string>();
+          
+            OkButton.Clicked += new Button.ClickedEventHandler(menu_Clicked);
+        }
+        public override void Initialize()
         {
             content = ScreenManager.Game.Content;
             graphics = ScreenManager.GraphicsDevice;
             spriteBatch = ScreenManager.SpriteBatch;
             screenHeight = graphics.Viewport.Height;
             screenWidth = graphics.Viewport.Width;
+            OkButton.Initialize("Buttons//exit", ScreenManager.Kinect, new Vector2(screenWidth/1.5f,screenHeight/2.5f), 200, 200);
+            hand.Initialize(ScreenManager.Kinect);            
+            base.Initialize();
+        }
+        void menu_Clicked(object sender, System.EventArgs a)
+        {
+            this.Remove();
+            ScreenManager.AddScreen(new MainScreen());
+        }
+        public override void LoadContent()
+        {
+            backgroundImage = content.Load<Texture2D>("Textures/highScoresScreen");
             font = content.Load<SpriteFont>("SpriteFont1");
+           // buttonImage = content.Load<Texture2D>("Buttons/X");
             readedText = System.IO.File.ReadAllText("Text/HighScores.txt");
+            OkButton.LoadContent(content);
+            hand.LoadContent(content);
+            split();
+            base.LoadContent();
+        }
+
+        private void split()
+        {
             names = readedText.Split('\n');
             maxStringLength = 0;
-
             for (int i = 0; i < names.Length; i++)
             {
                 string[] temp = names[i].Split(',');
@@ -49,18 +81,22 @@ namespace Game.Screens
             {
                 drawnNames += i + "\n \n";
             }
-            base.LoadContent();
-        }
 
+        }
         public override void Update(GameTime gameTime)
         {
+            OkButton.Update(gameTime);
+            hand.Update(gameTime);
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
+            spriteBatch.Draw(backgroundImage, graphics.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(font,drawnScores, new Vector2(screenWidth/2f,screenHeight/6f),Color.White);
             spriteBatch.DrawString(font, drawnNames, new Vector2(screenWidth /2.5f,screenHeight/6f), Color.White);
+            OkButton.Draw(spriteBatch);
+            hand.Draw(spriteBatch);
           //Test  spriteBatch.DrawString(font,Constants.isSwappingHand+"", new Vector2(10,10), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
