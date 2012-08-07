@@ -27,6 +27,7 @@ namespace Game.UI
             : base(game)
         {
             this.Kinect = kinect;
+            kinect.InitializeGestures();
             base.Initialize();
 
         }
