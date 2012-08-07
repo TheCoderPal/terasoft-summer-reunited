@@ -51,7 +51,7 @@ namespace Game.Screens
             player.Initialize();
 
             bar = new Bar(100, 20, 15, 270, 30); 
-            score = new Score(100, 20, Color.WhiteSmoke);
+            score = new Score(900, 10, Color.Red);
 
             //Shirin
             generator = new ItemsGenerator();
