@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System;
 using System.ComponentModel;
 using Game.Text;
+using Microsoft.Xna.Framework;
 namespace Game.Kinect
 {
     /// <summary>
@@ -234,5 +235,6 @@ namespace Game.Kinect
              RunningSegments[1] = runningGesture2;
              this.gestureController.AddGesture(GestureType.RunningGesture, RunningSegments);
         }
+        
     }
 }
