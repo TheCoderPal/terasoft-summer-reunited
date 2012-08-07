@@ -10,7 +10,7 @@ namespace Game.Kinect
            {
                if (skeleton.Joints[JointType.KneeLeft].Position.Y > skeleton.Joints[JointType.KneeRight].Position.Y)
                {
-                   return GesturePartResult.Suceed;
+                   return GesturePartResult.Pausing;
                }
                return GesturePartResult.Fail;
            }
@@ -21,7 +21,7 @@ namespace Game.Kinect
            {
             if (skeleton.Joints[JointType.KneeRight].Position.Y > skeleton.Joints[JointType.KneeLeft].Position.Y)
                {
-                   return GesturePartResult.Suceed;
+                   return GesturePartResult.Pausing;
                }
                return GesturePartResult.Fail;
            }

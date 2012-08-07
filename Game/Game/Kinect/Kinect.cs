@@ -96,6 +96,7 @@ namespace Game.Kinect
         case GestureType.StepRightGesture:
             Gesture = "StepRightGesture";
             Constants.isSteppingRight = true;
+//            Constants.HipPosX = trackedSkeleton.Joints[JointType.HipCenter].Position.X;
             break;
         case GestureType.RunningGesture:
             Gesture = "RunningGesture";
@@ -225,11 +226,9 @@ namespace Game.Kinect
              BendGesture1 bendGesture1 = new BendGesture1();
              BendSegments[0] = bendGesture1;
              this.gestureController.AddGesture(GestureType.BendGesture, BendSegments);
-             IRelativeGestureSegment[] PunchSegments = new IRelativeGestureSegment[2];
+             IRelativeGestureSegment[] PunchSegments = new IRelativeGestureSegment[1];
              PunchGesture1 punchGesture1 = new PunchGesture1();
-             PunchGesture2 punchGesture2 = new PunchGesture2();
              PunchSegments[0] = punchGesture1;
-             PunchSegments[1] = punchGesture2;
              this.gestureController.AddGesture(GestureType.PunchGesture, PunchSegments);
              IRelativeGestureSegment[] DumbbellSegments = new IRelativeGestureSegment[2];
              DumbbellGesture1 dumbbellGesture1 = new DumbbellGesture1();

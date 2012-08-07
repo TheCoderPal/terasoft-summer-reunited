@@ -8,11 +8,11 @@ namespace Game.Kinect
             {
                 public GesturePartResult CheckGesture(Skeleton skeleton)
                 {
-                    if (skeleton.Joints[JointType.Head].Position.X >= (Constants.HipPosX))
+                    if (skeleton.Joints[JointType.Head].Position.X > (Constants.HipPosX+0.4))
                     {
-                        if (skeleton.Joints[JointType.HipCenter].Position.X >= Constants.HipPosX)
+                        if (skeleton.Joints[JointType.HipCenter].Position.X > Constants.HipPosX+0.4)
                         {
-                            return GesturePartResult.Suceed;
+                            return GesturePartResult.Pausing;
                         }
                         return GesturePartResult.Pausing;
                     }
