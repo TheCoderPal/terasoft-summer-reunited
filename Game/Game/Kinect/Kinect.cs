@@ -102,6 +102,7 @@ namespace Game.Kinect
         default:
             break;
     }
+    Constants.ResetFlags();
     }
         /// <summary>
         /// Handler for skeleton ready handler.
