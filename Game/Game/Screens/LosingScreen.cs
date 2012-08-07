@@ -61,7 +61,8 @@ namespace Game.Screens
             {
                 InitializeButtons();
 
-                text = "                          CONGRATULATIONS ! \n\n YOU MADE IT INTO TOP 10 ! PLEASE ENTER YOUR NAME :";
+                text = "                          CONGRATULATIONS ! \n\n YOU MADE IT INTO TOP 10 ! PLEASE ENTER YOUR NAME :\n\n" +
+                    "                         YOUR SCORE IS: " + score;
                 highScore = true;
             }
             else

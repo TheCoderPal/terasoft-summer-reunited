@@ -6,6 +6,7 @@ using Game.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Game.Text;
 
 namespace Game.Engine
 {
@@ -46,7 +47,7 @@ namespace Game.Engine
         public int Score { get { return score; } set { score = value; } }
 
         //Player items status
-        bool hasShield, hasSword;
+        bool hasShield, hasSword, wasJumping;
 
         public Player()
         {
@@ -55,16 +56,16 @@ namespace Game.Engine
             runAnimation = new SpriteAnimation();
             jumpAnimation = new SpriteAnimation();
             immunity = 100;
-            scale = 2f;
+            scale = 1f;
         }
 
         public void LoadContent(ContentManager Content)
         {
             runTexture = Content.Load<Texture2D>("Sprites/run");
             jumpTexture = Content.Load<Texture2D>("Sprites/jump"); 
-            Position = new Vector2(210, 515);
-            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 60, Color.White, scale, true);
-            jumpAnimation.Initialize(jumpTexture, Position, jumpTexture.Height, jumpTexture.Height, jumpTexture.Width / jumpTexture.Height, 60, Color.White, scale, false);
+            Position = new Vector2(150, 474);
+            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 50, Color.White, scale, true);
+            jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 60, Color.White, scale, false);
             playerAnimation = runAnimation;
         }
 
@@ -75,6 +76,22 @@ namespace Game.Engine
 
         public void Update(GameTime gameTime)
         {
+            if (Constants.isJumping)
+            {
+
+
+                State = PlayerStates.Jumping;
+                if (!playerAnimation.Active)
+                {
+                    Constants.isJumping = false;
+                    State = PlayerStates.Running;
+                    jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 60, Color.White, scale, false);
+                }
+
+            }
+            else
+                State = PlayerStates.Running;
+
             switch (State)
             {
                 case PlayerStates.Running: playerAnimation = runAnimation; break;

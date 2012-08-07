@@ -120,6 +120,8 @@ namespace Game.Screens
             bgLayer3.Update();
 
             player.Update(gameTime);
+            playerData = player.GetColorData();
+
             if (player.CheckDeath())
             {
                 this.Remove();
@@ -127,7 +129,7 @@ namespace Game.Screens
             }
             
             #endregion
-
+            /*
             if (userAvatar.Avatar[0] == userAvatar.AllAvatars[0])
             {
                 //Freeze Screen, Show pause Screen
@@ -140,7 +142,9 @@ namespace Game.Screens
                 //exit pause screen, unfreeze screen
                 this.UnfreezeScreen();
                 screenPaused = false;
-            }
+            }*/
+
+           
             if (MediaPlayer.State.Equals(MediaState.Stopped))
             {
                 switch (playQueue)
@@ -237,6 +241,7 @@ namespace Game.Screens
                     }
                 }
             }
+
 
             if (globalCounter % 50 == 0)
             {
