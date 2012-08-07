@@ -13,24 +13,26 @@ namespace Game.Screens
         private Rectangle textBox;
         private SpriteFont spriteFont;
         private Texture2D backgroundImage;
+        Button OkButton;
 
         public InstructionsScreen()
         {
             textBox = new Rectangle();
+            OkButton = new Button();
         }
 
         public void Initialize(string text)
         {
             Text = text;
-            textPosition = new Vector2(20, 30);
-            textBox = new Rectangle((int)textPosition.X, (int)textPosition.Y, 1200, 600);
+            textPosition = new Vector2(130, 145);
+            textBox = new Rectangle((int)textPosition.X, (int)textPosition.Y, 1020, 455);
         }
 
         public void LoadContent()
         {
             ContentManager Content = ScreenManager.Game.Content;
             //spriteFont = Content.Load<SpriteFont>("instructionsFont");
-            //backgroundImage = Content.Load<Texture2D>("Images/instructionsScreen");
+            backgroundImage = Content.Load<Texture2D>("Textures/instructionsScreen");
             Text = WrapText(spriteFont, Text, textBox.Width);
 
             base.LoadContent();

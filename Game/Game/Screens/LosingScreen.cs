@@ -43,7 +43,7 @@ namespace Game.Screens
         public void LoadContent() 
         {
             ContentManager Content = ScreenManager.Game.Content;
-            //backgroundImage = Content.Load<Texture2D>("");
+            //backgroundImage = Content.Load<Texture2D>("Textures/losingScreen");
 
             if(highScore)LoadButtonsContent();
 
@@ -189,6 +189,7 @@ namespace Game.Screens
             Y.Clicked += new Button.ClickedEventHandler(Y_Clicked);
             Z.Clicked += new Button.ClickedEventHandler(Z_Clicked);
 
+            A.Initialize("Buttons/A", this.ScreenManager.Kinect, new Vector2(317, 270));
             #endregion
         }
 
