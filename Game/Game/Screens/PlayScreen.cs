@@ -201,6 +201,7 @@ namespace Game.Screens
                         case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
                         case "sheild": texture = Content.Load<Texture2D>("Textures//shield"); break;
                         case "sword": texture = Content.Load<Texture2D>("Textures//sword"); break;
+                        case "gym": texture = Content.Load<Texture2D>("Textures//gym"); break;
                         case "Empty": transparent = true; break;
                     }
                     int height = 0;
@@ -209,6 +210,7 @@ namespace Game.Screens
                         case "0": height = 499; break;
                         case "1": height = 399; break;
                         case "2": height = 299; break;
+                        case "3": height = 0; break;
                     }
                     currentSprite[counter] = new Sprite(texture, new Rectangle(1280, height, 50, 50));
                     currentSprite[counter].EnterName(current[i, 0]);
