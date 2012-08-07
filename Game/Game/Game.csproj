@@ -132,6 +132,7 @@
     <Compile Include="Kinect\Kinect.cs" />
     <Compile Include="Kinect\PunchGesture.cs" />
     <Compile Include="Kinect\RunningGesture.cs" />
+    <Compile Include="Kinect\SkeletonAnalyzer.cs" />
     <Compile Include="Kinect\StepRightGesture.cs" />
     <Compile Include="Kinect\SwapHand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
