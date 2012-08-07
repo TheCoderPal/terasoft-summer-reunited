@@ -72,7 +72,8 @@ namespace Game.Screens
             }
 
             OKButton = new Button();
-            //OKButton.Initialize();
+            OKButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(this.ScreenManager.GraphicsDevice.Viewport.Width / 2 - 60, 500));
+            buttons.Add(OKButton);
             OKButton.Clicked += new Button.ClickedEventHandler(OKButton_Clicked);
             base.Initialize();
         }
@@ -88,13 +89,10 @@ namespace Game.Screens
 
         public override void Update(GameTime gameTime)
         {
-            if (highScore)
-            {
                 foreach (Button b in buttons)
                 {
                     b.Update(gameTime);
                 }
-            }
 
             base.Update(gameTime);
         }

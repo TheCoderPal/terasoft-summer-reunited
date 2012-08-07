@@ -48,7 +48,7 @@ namespace Game.Engine
         public int Score { get { return score; } set { score = value; } }
 
         //Player items status
-        bool hasShield, hasSword, wasJumping;
+        bool hasShield, hasSword;
 
         public Player()
         {
@@ -79,8 +79,6 @@ namespace Game.Engine
         {
             if (Constants.isJumping)
             {
-
-
                 State = PlayerStates.Jumping;
                 if (!playerAnimation.Active)
                 {
@@ -88,7 +86,6 @@ namespace Game.Engine
                     State = PlayerStates.Running;
                     jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 60, Color.White, scale, false);
                 }
-
             }
             else
                 State = PlayerStates.Running;
@@ -102,7 +99,7 @@ namespace Game.Engine
             playerAnimation.Update(gameTime);
 
             //Increment Score
-            score += 10;
+            score++;
         }
 
         public bool CheckDeath()

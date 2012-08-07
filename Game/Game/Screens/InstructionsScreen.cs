@@ -8,7 +8,7 @@ namespace Game.Screens
 {
     public class InstructionsScreen : GameScreen
     {
-        private string Text;
+        private string Text, TextToDraw;
         private Vector2 textPosition;
         private Rectangle textBox;
         private SpriteFont spriteFont;
@@ -21,32 +21,52 @@ namespace Game.Screens
             OkButton = new Button();
         }
 
-        public void Initialize(string text)
+        public override void Initialize()
         {
-            Text = text;
-            textPosition = new Vector2(130, 145);
+            textPosition = new Vector2(75, 145);
             textBox = new Rectangle((int)textPosition.X, (int)textPosition.Y, 1020, 455);
-
+            OkButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(this.ScreenManager.GraphicsDevice.Viewport.Width / 2 - 60, 500));
+            OkButton.Clicked += new Button.ClickedEventHandler(OkButton_Clicked);
             base.Initialize();
         }
 
-        public void LoadContent()
+        void OkButton_Clicked(object sender, System.EventArgs a)
+        {
+            this.Remove();
+            ScreenManager.AddScreen(new MainScreen());
+        }
+
+        public void SetText(string text)
+        {
+            Text = text;
+        }
+
+        public override void LoadContent()
         {
             ContentManager Content = ScreenManager.Game.Content;
-            //spriteFont = Content.Load<SpriteFont>("instructionsFont");
+            spriteFont = Content.Load<SpriteFont>("Fontopo");
             backgroundImage = Content.Load<Texture2D>("Textures/instructionsScreen");
-            Text = WrapText(spriteFont, Text, textBox.Width);
-
+            spriteFont.LineSpacing = 40;
+            TextToDraw = WrapText(spriteFont, Text, 1130);
+            OkButton.LoadContent(Content);
             base.LoadContent();
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Update(GameTime gameTime)
+        {
+            OkButton.Update(gameTime);
+
+            base.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime)
         {
             SpriteBatch spriteBatch = this.ScreenManager.SpriteBatch;
-
-            spriteBatch.Draw(backgroundImage, Vector2.Zero, Color.Transparent);
-            //spriteBatch.DrawString(spriteFont, Text, textPosition, Color.White);
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(backgroundImage, Vector2.Zero, Color.White);
+            spriteBatch.DrawString(spriteFont, TextToDraw, textPosition, Color.White);
+            OkButton.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 
