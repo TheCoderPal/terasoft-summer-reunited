@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Kinect;
+﻿using Microsoft.Kinect;
+using Game.Text;
 
 namespace Game.Kinect
 {
-    public class PunchGesture
-    {
-        static double posZ;
         class PunchGesture1 : IRelativeGestureSegment
         {
             public GesturePartResult CheckGesture(Skeleton skeleton)
             {
-                posZ = skeleton.Joints[JointType.HandRight].Position.Z;
-                if (skeleton.Joints[JointType.HandRight].Position.Y <= (skeleton.Joints[JointType.ElbowRight].Position.Y + 5) && (skeleton.Joints[JointType.HandRight].Position.Y >= (skeleton.Joints[JointType.ElbowRight].Position.Y - 5)))
-                {
-                    if (skeleton.Joints[JointType.HandRight].Position.X <= (skeleton.Joints[JointType.ElbowRight].Position.X + 5) && (skeleton.Joints[JointType.HandRight].Position.X >= (skeleton.Joints[JointType.ElbowRight].Position.X - 5)) && (skeleton.Joints[JointType.HandRight].Position.Z > (skeleton.Joints[JointType.ElbowRight].Position.Z)))
-                    {
+                Constants.posZ = skeleton.Joints[JointType.HandRight].Position.Z;
+                if (skeleton.Joints[JointType.HandRight].Position.X <= (skeleton.Joints[JointType.ElbowRight].Position.X + Constants.handElbowDiff) &&
+                        (skeleton.Joints[JointType.HandRight].Position.X >= (skeleton.Joints[JointType.ElbowRight].Position.X - Constants.handElbowDiff)) &&
+                        (skeleton.Joints[JointType.HandRight].Position.Z > (skeleton.Joints[JointType.ElbowRight].Position.Z + Constants.handElbowDiff)))
+                   {
+                       if
+                       (skeleton.Joints[JointType.HandRight].Position.Y <= (skeleton.Joints[JointType.ElbowRight].Position.Y + Constants.handElbowDiff) &&
+                       (skeleton.Joints[JointType.HandRight].Position.Y >= (skeleton.Joints[JointType.ElbowRight].Position.Y - Constants.handElbowDiff)))
+                       {
                         return GesturePartResult.Suceed;
                     }
                     return GesturePartResult.Pausing;
@@ -29,9 +27,13 @@ namespace Game.Kinect
         {
             public GesturePartResult CheckGesture(Skeleton skeleton)
             {
-                if (skeleton.Joints[JointType.HandRight].Position.Y <= (skeleton.Joints[JointType.ElbowRight].Position.Y + 5) && (skeleton.Joints[JointType.HandRight].Position.Y >= (skeleton.Joints[JointType.ElbowRight].Position.Y - 5)))
+                if (skeleton.Joints[JointType.HandRight].Position.Y <= (skeleton.Joints[JointType.ElbowRight].Position.Y + Constants.handElbowDiff) &&
+                    (skeleton.Joints[JointType.HandRight].Position.Y >= (skeleton.Joints[JointType.ElbowRight].Position.Y - Constants.handElbowDiff)))
                 {
-                    if (skeleton.Joints[JointType.HandRight].Position.X <= (skeleton.Joints[JointType.ElbowRight].Position.X + 5) && (skeleton.Joints[JointType.HandRight].Position.X >= (skeleton.Joints[JointType.ElbowRight].Position.X - 5)) && (skeleton.Joints[JointType.HandRight].Position.Z > (skeleton.Joints[JointType.ElbowRight].Position.Z)) && (skeleton.Joints[JointType.HandRight].Position.Z>(posZ+10)))
+                    if (skeleton.Joints[JointType.HandRight].Position.X <= (skeleton.Joints[JointType.ElbowRight].Position.X + Constants.handElbowDiff) &&
+                        (skeleton.Joints[JointType.HandRight].Position.X >= (skeleton.Joints[JointType.ElbowRight].Position.X - Constants.handElbowDiff)) && 
+                        (skeleton.Joints[JointType.HandRight].Position.Z > (skeleton.Joints[JointType.ElbowRight].Position.Z)) &&
+                        (skeleton.Joints[JointType.HandRight].Position.Z > (Constants.posZ + Constants.handElbowDiff)))
                     {
                         return GesturePartResult.Suceed;
                     }
@@ -40,7 +42,5 @@ namespace Game.Kinect
                 return GesturePartResult.Fail;
             }
         }
-    }
-
     }
 
