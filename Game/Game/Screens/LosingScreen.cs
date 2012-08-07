@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Text;
+using System.Diagnostics;
 
 namespace Game.Screens
 {
@@ -18,15 +19,17 @@ namespace Game.Screens
         private string text;
         private StringBuilder textBox;
         private bool highScore;
-        
+        private SpriteFont Font;
+        private Vector2 TextOrigin;
 
         Button A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z, OKButton;
 
         public LosingScreen(int Score)
         {
             scores = new List<string>();
+            buttons = new List<Button>();
             score = Score;
-            textBox = new StringBuilder();
+            textBox = new StringBuilder("", 6);
         }
 
         public bool CheckScore(int Score)
@@ -40,17 +43,17 @@ namespace Game.Screens
                 return false;
         }
 
-        public void LoadContent() 
+        public override void LoadContent() 
         {
             ContentManager Content = ScreenManager.Game.Content;
-            //backgroundImage = Content.Load<Texture2D>("Textures/losingScreen");
-
-            if(highScore)LoadButtonsContent();
+            backgroundImage = Content.Load<Texture2D>("Textures/losingScreen");
+            Font = Content.Load<SpriteFont>("HurryUp");
+            if(highScore)LoadButtonsContent(Content);
 
             base.LoadContent();
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             scores.AddRange(System.IO.File.ReadAllLines("Text/HighScores.txt"));
 
@@ -58,12 +61,13 @@ namespace Game.Screens
             {
                 InitializeButtons();
 
-                text = "Congratulations !\n You made it into top 10! Please enter your name : ";
+                text = "                          CONGRATULATIONS ! \n\n YOU MADE IT INTO TOP 10 ! PLEASE ENTER YOUR NAME :";
                 highScore = true;
             }
             else
             {
-                text = "Sorry ! \n You did not make it into the top 10 !";
+                text = "                                SORRY ! \n\n           YOU DID NOT MAKE IT INTO THE TOP 10 \n\n\n" +
+                    "                        YOUR SCORE IS: " + score;
             }
 
             OKButton = new Button();
@@ -81,7 +85,7 @@ namespace Game.Screens
             ScreenManager.AddScreen(new MainScreen());
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (highScore)
             {
@@ -108,6 +112,8 @@ namespace Game.Screens
         public void InitializeButtons()
         {
             #region Letter Buttons
+            Kinect.Kinect Kinect = this.ScreenManager.Kinect;
+
             A = new Button();
             B = new Button();
             C = new Button();
@@ -189,7 +195,35 @@ namespace Game.Screens
             Y.Clicked += new Button.ClickedEventHandler(Y_Clicked);
             Z.Clicked += new Button.ClickedEventHandler(Z_Clicked);
 
-            A.Initialize("Buttons/A", this.ScreenManager.Kinect, new Vector2(317, 270));
+            A.Initialize("Buttons/A", Kinect, new Vector2(317, 270));
+            B.Initialize("Buttons/B", Kinect, new Vector2(A.Position.X + 80, A.Position.Y));
+            C.Initialize("Buttons/C", Kinect, new Vector2(B.Position.X + 80, A.Position.Y));
+            D.Initialize("Buttons/D", Kinect, new Vector2(C.Position.X + 80, A.Position.Y));
+            E.Initialize("Buttons/E", Kinect, new Vector2(D.Position.X + 80, A.Position.Y));
+            F.Initialize("Buttons/F", Kinect, new Vector2(E.Position.X + 80, A.Position.Y));
+            G.Initialize("Buttons/G", Kinect, new Vector2(F.Position.X + 80, A.Position.Y));
+            H.Initialize("Buttons/H", Kinect, new Vector2(G.Position.X + 80, A.Position.Y));
+            I.Initialize("Buttons/I", Kinect, new Vector2(H.Position.X + 80, A.Position.Y));
+
+            J.Initialize("Buttons/J", Kinect, new Vector2(A.Position.X, A.Position.Y + 100));
+            K.Initialize("Buttons/K", Kinect, new Vector2(A.Position.X + 80, J.Position.Y));
+            L.Initialize("Buttons/L", Kinect, new Vector2(B.Position.X + 80, J.Position.Y));
+            M.Initialize("Buttons/M", Kinect, new Vector2(C.Position.X + 80, J.Position.Y));
+            N.Initialize("Buttons/N", Kinect, new Vector2(D.Position.X + 80, J.Position.Y));
+            O.Initialize("Buttons/O", Kinect, new Vector2(E.Position.X + 80, J.Position.Y));
+            P.Initialize("Buttons/P", Kinect, new Vector2(F.Position.X + 80, J.Position.Y));
+            Q.Initialize("Buttons/Q", Kinect, new Vector2(G.Position.X + 80, J.Position.Y));
+            R.Initialize("Buttons/R", Kinect, new Vector2(H.Position.X + 80, J.Position.Y));
+
+            S.Initialize("Buttons/S", Kinect, new Vector2(J.Position.X + 40, J.Position.Y + 100));
+            T.Initialize("Buttons/T", Kinect, new Vector2(S.Position.X + 80, S.Position.Y));
+            U.Initialize("Buttons/U", Kinect, new Vector2(T.Position.X + 80, S.Position.Y));
+            V.Initialize("Buttons/V", Kinect, new Vector2(U.Position.X + 80, S.Position.Y));
+            W.Initialize("Buttons/W", Kinect, new Vector2(V.Position.X + 80, S.Position.Y));
+            X.Initialize("Buttons/X", Kinect, new Vector2(W.Position.X + 80, S.Position.Y));
+            Y.Initialize("Buttons/Y", Kinect, new Vector2(X.Position.X + 80, S.Position.Y));
+            Z.Initialize("Buttons/Z", Kinect, new Vector2(Y.Position.X + 80, S.Position.Y));
+
             #endregion
         }
 
@@ -325,9 +359,11 @@ namespace Game.Screens
         }
         #endregion
 
-        public void LoadButtonsContent()
+        public void LoadButtonsContent(ContentManager Content)
         {
 
+            foreach (Button b in buttons)
+                b.LoadContent(Content);
         }
             
         private static int compareHighScores(string x1, string y1)
@@ -340,11 +376,21 @@ namespace Game.Screens
             else return 0;
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             spriteBatch.Begin();
+            spriteBatch.Draw(backgroundImage, Vector2.Zero, Color.White);
+
+            TextOrigin = Font.MeasureString(text.Split('\n')[1]) / 2;
+
+            foreach (Button b in buttons)
+                b.Draw(spriteBatch);
+
+            spriteBatch.DrawString(Font, text, new Vector2(200, 35), Color.White);
             spriteBatch.End();
+
+            base.Draw(gameTime);
         }
     }
 }

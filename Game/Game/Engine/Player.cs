@@ -32,6 +32,7 @@ namespace Game.Engine
 
         //Sprite Textures
         Texture2D runTexture, jumpTexture;
+        float scale;
 
         //Avatar's Position on screen.
         Vector2 Position;
@@ -54,6 +55,7 @@ namespace Game.Engine
             runAnimation = new SpriteAnimation();
             jumpAnimation = new SpriteAnimation();
             immunity = 100;
+            scale = 2f;
         }
 
         public void LoadContent(ContentManager Content)
@@ -61,8 +63,8 @@ namespace Game.Engine
             runTexture = Content.Load<Texture2D>("Sprites/run");
             jumpTexture = Content.Load<Texture2D>("Sprites/jump"); 
             Position = new Vector2(210, 515);
-            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 70, Color.White, 1f, true);
-            jumpAnimation.Initialize(jumpTexture, Position, jumpTexture.Height, jumpTexture.Height, jumpTexture.Width / jumpTexture.Height, 70, Color.White, 1f, false);
+            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 60, Color.White, scale, true);
+            jumpAnimation.Initialize(jumpTexture, Position, jumpTexture.Height, jumpTexture.Height, jumpTexture.Width / jumpTexture.Height, 60, Color.White, scale, false);
             playerAnimation = runAnimation;
         }
 

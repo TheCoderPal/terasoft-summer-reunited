@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Game.Kinect;
 using Microsoft.Kinect;
 using System;
+using System.Diagnostics;
 
 namespace Game.UI
 {
@@ -12,15 +13,16 @@ namespace Game.UI
 
         private Texture2D texture;
         private Vector2 position;
+        public Vector2 Position { get { return position; } set { position = value; } }
         private string texturePath;
         private int TextureWidth, TextureHeight;
-        private bool TextureSet;
 
         private Game.Kinect.Kinect kinect;
         private float timer = 0;
         private const float CLICK_TIME_OUT = 1000;
 
         private Rectangle BoundingRectangle;
+        private bool TextureBoundsSet = false;
 
         private Color hoverColor;
 
@@ -38,7 +40,7 @@ namespace Game.UI
             texturePath = Path;
             this.kinect = kinect;
             position = Position;
-            TextureSet = false;
+            TextureBoundsSet = false;
             hoverColor = new Color(255, 255, 255, 220);
         }
 
@@ -49,14 +51,19 @@ namespace Game.UI
             position = Position;
             TextureWidth = buttonWidth;
             TextureHeight = buttonHeight;
+            TextureBoundsSet = true;
             hoverColor = new Color(255, 255, 255, 220);
         }
 
         public void LoadContent(ContentManager Content)
         {
             texture = Content.Load<Texture2D>(texturePath);
-            if(TextureWidth == texture.Width && TextureHeight == texture.Height)
+            if (!TextureBoundsSet)
+            {
+                TextureWidth = texture.Width;
+                TextureHeight = texture.Height;
                 BoundingRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            }
             else
                 BoundingRectangle = new Rectangle((int)position.X, (int)position.Y, TextureWidth, TextureHeight);
         }

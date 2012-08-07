@@ -67,8 +67,10 @@ namespace Game.Screens
 
         void instructions_Clicked(object sender, System.EventArgs a)
         {
+            InstructionsScreen IScreen = new InstructionsScreen();
+            IScreen.Initialize("Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla ");
             this.Remove();
-            ScreenManager.AddScreen(new InstructionsScreen());
+            ScreenManager.AddScreen(IScreen);
         }
 
         void newGame_Clicked(object sender, System.EventArgs a)

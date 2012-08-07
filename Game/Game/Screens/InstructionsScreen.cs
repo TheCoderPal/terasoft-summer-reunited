@@ -26,6 +26,8 @@ namespace Game.Screens
             Text = text;
             textPosition = new Vector2(130, 145);
             textBox = new Rectangle((int)textPosition.X, (int)textPosition.Y, 1020, 455);
+
+            base.Initialize();
         }
 
         public void LoadContent()
@@ -38,10 +40,14 @@ namespace Game.Screens
             base.LoadContent();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime)
         {
-            //spriteBatch.Draw(backgroundImage, Vector2.Zero, Color.Transparent);
+            SpriteBatch spriteBatch = this.ScreenManager.SpriteBatch;
+
+            spriteBatch.Draw(backgroundImage, Vector2.Zero, Color.Transparent);
             //spriteBatch.DrawString(spriteFont, Text, textPosition, Color.White);
+
+            base.Draw(gameTime);
         }
 
         public string WrapText(SpriteFont spriteFont, string text, float maxLineWidth)
