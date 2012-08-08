@@ -31,7 +31,7 @@ namespace Game.Screens
             dumbbellSprite = Content.Load<Texture2D>("Sprites/dumbbell-sprite");
             dumbbellAnimation = new SpriteAnimation();
 
-            dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 100, 250, 12, 100, Color.White, 1f, true);    
+            dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 200, 262, 12, 100, Color.White, 1f, true);    
             base.Initialize();
         }
 
