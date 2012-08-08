@@ -58,6 +58,8 @@ namespace Game.Screens
             generator = new ItemsGenerator();
             current = generator.generateMore();
             currentSprite = new Sprite[20];
+
+            Constants.ResetFlags();
             base.Initialize();
         }
         /// <remarks>
