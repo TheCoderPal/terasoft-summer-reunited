@@ -85,7 +85,7 @@ namespace Game.Screens
 
         void OKButton_Clicked(object sender, EventArgs a)
         {
-            if (highScore)
+            if (CheckScore(score))
                 AddScore(score, textBox.ToString());
 
             this.Remove();
