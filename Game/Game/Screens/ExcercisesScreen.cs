@@ -42,7 +42,7 @@ namespace Game.Screens
         void treadmill_Clicked(object sender, System.EventArgs a)
         {
             this.Remove();
-            ScreenManager.AddScreen(new TreadmillScreen());
+            ScreenManager.AddScreen(new TreadmillScreen(playScreen));
         }
 
         void dumbbell_Clicked(object sender, System.EventArgs a)
