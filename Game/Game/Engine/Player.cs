@@ -73,7 +73,7 @@ namespace Game.Engine
             swordTexture = Content.Load<Texture2D>("Sprites/swap");
             Position = new Vector2(150, 474);
             runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 50, Color.White, scale, true);
-            jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 60, Color.White, scale, false);
+            jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 80, Color.White, scale, false);
             slidingAnimation.Initialize(slideTexture, new Vector2(Position.X, Position.Y + 60), slideTexture.Height, slideTexture.Height, slideTexture.Width / slideTexture.Height, 120, Color.White, scale, false);
             swordAnimation.Initialize(swordTexture, Position, swordTexture.Height, swordTexture.Height, swordTexture.Width / swordTexture.Height, 50, Color.White, scale, false);
             playerAnimation = runAnimation;
@@ -93,7 +93,7 @@ namespace Game.Engine
                 {
                     Constants.isJumping = false;
                     State = PlayerStates.Running;
-                    jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 60, Color.White, scale, false);
+                    jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 80, Color.White, scale, false);
                 }
             }
             else
