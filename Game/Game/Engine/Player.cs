@@ -21,7 +21,8 @@ namespace Game.Engine
             Running,
             Jumping,
             Sliding,
-            Dying
+            Dying,
+            hasSword
         }
 
         //
@@ -31,9 +32,11 @@ namespace Game.Engine
         SpriteAnimation playerAnimation;
         SpriteAnimation runAnimation;
         SpriteAnimation jumpAnimation;
+        SpriteAnimation slidingAnimation;
+        SpriteAnimation swordAnimation;
 
         //Sprite Textures
-        Texture2D runTexture, jumpTexture;
+        Texture2D runTexture, jumpTexture, slideTexture, swordTexture;
         float scale;
 
         //Avatar's Position on screen.
@@ -56,6 +59,8 @@ namespace Game.Engine
             State = PlayerStates.Running;
             runAnimation = new SpriteAnimation();
             jumpAnimation = new SpriteAnimation();
+            slidingAnimation = new SpriteAnimation();
+            swordAnimation = new SpriteAnimation();
             immunity = 100;
             scale = 1f;
         }
@@ -64,9 +69,13 @@ namespace Game.Engine
         {
             runTexture = Content.Load<Texture2D>("Sprites/run");
             jumpTexture = Content.Load<Texture2D>("Sprites/jump"); 
+            slideTexture = Content.Load<Texture2D>("Sprites/die");
+            swordTexture = Content.Load<Texture2D>("Sprites/swap");
             Position = new Vector2(150, 474);
             runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 50, Color.White, scale, true);
             jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 60, Color.White, scale, false);
+            slidingAnimation.Initialize(slideTexture, Position, slideTexture.Height, slideTexture.Height, slideTexture.Width / slideTexture.Height, 60, Color.White, scale, false);
+            swordAnimation.Initialize(swordTexture, Position, swordTexture.Height, swordTexture.Height, swordTexture.Width / swordTexture.Height, 50, Color.White, scale, false);
             playerAnimation = runAnimation;
         }
 
@@ -88,12 +97,39 @@ namespace Game.Engine
                 }
             }
             else
-                State = PlayerStates.Running;
+            {
+                if (Constants.isBending)
+                {
+                    State = PlayerStates.Sliding;
+                    if (!playerAnimation.Active)
+                    {
+                        Constants.isBending = false;
+                        State = PlayerStates.Running;
+                        slidingAnimation.Initialize(slideTexture, Position, slideTexture.Height, slideTexture.Height, slideTexture.Width / slideTexture.Height, 60, Color.White, scale, false);
+                    }
+                }
+                else
+                {
+                    if (Constants.isSwappingHand)
+                    {
+                        State = PlayerStates.hasSword;
+                        if (!playerAnimation.Active)
+                        {
+                            Constants.isSwappingHand = false;
+                            State = PlayerStates.Running;
+                            swordAnimation.Initialize(swordTexture, Position, swordTexture.Height, swordTexture.Height, swordTexture.Width / swordTexture.Height, 50, Color.White, scale, false);
+                        }
+                    }
+                }
+            }
+                
 
             switch (State)
             {
                 case PlayerStates.Running: playerAnimation = runAnimation; break;
                 case PlayerStates.Jumping: playerAnimation = jumpAnimation; break;
+                case PlayerStates.Sliding: playerAnimation = slidingAnimation; break;
+                case PlayerStates.hasSword: playerAnimation = swordAnimation; break;
                 default: playerAnimation = runAnimation; break;
             }
             playerAnimation.Update(gameTime);
