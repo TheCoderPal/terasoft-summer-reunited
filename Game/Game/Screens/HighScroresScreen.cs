@@ -53,7 +53,8 @@ namespace Game.Screens
             backgroundImage = content.Load<Texture2D>("Textures/highScoresScreen");
             font = content.Load<SpriteFont>("SpriteFont1");
            // buttonImage = content.Load<Texture2D>("Buttons/X");
-            readedText = System.IO.File.ReadAllText("Text/HighScores.txt");
+            //readedText = System.IO.File.ReadAllText("Text/HighScores.txt");
+            names = System.IO.File.ReadAllLines("Text/HighScores.txt");
             OkButton.LoadContent(content);
             hand.LoadContent(content);
             split();
@@ -62,7 +63,7 @@ namespace Game.Screens
 
         private void split()
         {
-            names = readedText.Split('\n');
+            //names = readedText.Split('\n');
             maxStringLength = 0;
             for (int i = 0; i < names.Length; i++)
             {

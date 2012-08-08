@@ -65,18 +65,18 @@ namespace Game.Screens
             {
                 InitializeButtons();
 
-                text = "                          CONGRATULATIONS ! \n\n YOU MADE IT INTO TOP 10 ! PLEASE ENTER YOUR NAME :\n\n" +
+                text = "                          CONGRATULATIONS ! \n YOU MADE IT INTO TOP 10 ! PLEASE ENTER YOUR NAME :\n\n" +
                     "                         YOUR SCORE IS: " + score;
                 highScore = true;
             }
             else
             {
-                text = "                                SORRY ! \n\n           YOU DID NOT MAKE IT INTO THE TOP 10 \n\n\n" +
+                text = "                                SORRY ! \n           YOU DID NOT MAKE IT INTO THE TOP 10 \n\n" +
                     "                        YOUR SCORE IS: " + score;
             }
 
             OKButton = new Button();
-            OKButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(this.ScreenManager.GraphicsDevice.Viewport.Width / 2 - 60, 500));
+            OKButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(1050, 330));
             buttons.Add(OKButton);
             OKButton.Clicked += new Button.ClickedEventHandler(OKButton_Clicked);
 
@@ -404,8 +404,8 @@ namespace Game.Screens
             foreach (Button b in buttons)
                 b.Draw(spriteBatch);
 
-            spriteBatch.DrawString(Font, text, new Vector2(200, 35), Color.White);
-            spriteBatch.DrawString(Font, textBox, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2 - 200, 255), Color.White);
+            spriteBatch.DrawString(Font, text, new Vector2(290, 35), Color.White);
+            spriteBatch.DrawString(Font, textBox, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2 - 200, 220), Color.White);
             Hand.Draw(spriteBatch);
             spriteBatch.End();
 

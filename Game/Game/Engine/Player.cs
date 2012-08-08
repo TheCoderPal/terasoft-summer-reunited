@@ -110,7 +110,7 @@ namespace Game.Engine
                 }
                 else
                 {
-                    if (Constants.isSwappingHand)
+                    if (Constants.isSwappingHand && hasSword)
                     {
                         State = PlayerStates.hasSword;
                         if (!playerAnimation.Active)

@@ -18,10 +18,12 @@ namespace Game.Screens
         int counter = 0;
         PlayScreen playScreen;
         int lifts = 0;
+        Bar bar;
 
         public DumbbellScreen(PlayScreen playScreen)
         {
             this.playScreen = playScreen;
+            bar = playScreen.bar;
         }
 
         public override void Initialize()
@@ -59,12 +61,13 @@ namespace Game.Screens
                 this.Remove();
                 for (int i = 0; i <= lifts-1; i++)
                 {
-                    playScreen.GetPlayer().Collided(2);
+                    playScreen.GetPlayer().Collided(10);
                 }
                 playScreen.UnfreezeScreen();
             }
 
             counter++;
+            playScreen.bar.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -75,6 +78,7 @@ namespace Game.Screens
             sprite.Begin();
             dumbbellAnimation.Draw(spriteBatch);
             sprite.End();
+            playScreen.bar.Draw(spriteBatch);
             base.Draw(gameTime);
         }
     }

@@ -165,7 +165,7 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="Text\HighScores.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

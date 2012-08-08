@@ -19,10 +19,12 @@ namespace Game.Screens
         int counter = 0;
         int running = 0;
         PlayScreen playScreen;
+        Bar bar;
 
         public TreadmillScreen(PlayScreen playScreen)
         {
             this.playScreen = playScreen;
+            bar = playScreen.bar;
         }
 
         public override void Initialize()
@@ -31,7 +33,6 @@ namespace Game.Screens
             spriteBatch = ScreenManager.SpriteBatch;
             treadmillSprite = Content.Load<Texture2D>("Sprites/Run");
             treadmillAnimation = new SpriteAnimation();
-
             treadmillAnimation.Initialize(treadmillSprite, new Vector2(600, 500), treadmillSprite.Height, treadmillSprite.Height, treadmillSprite.Width / treadmillSprite.Height, 50, Color.White, 1f, true);
             base.Initialize();
         }
@@ -61,12 +62,14 @@ namespace Game.Screens
                 this.Remove();
                 for (int i = 0; i <= running - 1; i++)
                 {
-                    playScreen.GetPlayer().Collided(2);
+                    playScreen.GetPlayer().Collided(10);
                 }
                 playScreen.UnfreezeScreen();
             }
 
             counter++;
+         //   bar.Update(gameTime);
+            playScreen.bar.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -78,6 +81,7 @@ namespace Game.Screens
             sprite.Begin();
             treadmillAnimation.Draw(spriteBatch);
             sprite.End();
+            playScreen.bar.Draw(spriteBatch);
             base.Draw(gameTime);
         }
     }

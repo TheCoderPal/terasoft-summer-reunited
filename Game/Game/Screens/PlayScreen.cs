@@ -25,7 +25,7 @@ namespace Game.Screens
         #endregion
         private Player player;
         private ParallaxingBackground bgLayer1, bgLayer2, bgLayer3;
-        Bar bar;
+        public Bar bar;
         Score score;
 
         //Shirin
@@ -359,21 +359,21 @@ namespace Game.Screens
                     case "level1": if (!player.HasShield())
                         {
                             if (!player.HasSword()) { player.Collided(-5); }
-                            else { player.Collided(-2); player.AcquireSword(false); };
+                            else { player.Collided(-2); player.AcquireSword(true); };
                         }
                         else { player.AcquireShield(false); };
                         sprite.PlaySoundEffect(soundEffects[5]); break;
                     case "level2": if (!player.HasShield())
                         {
                             if (!player.HasSword()) { player.Collided(-8); }
-                            else { player.Collided(-4); player.AcquireSword(false); };
+                            else { player.Collided(-4); player.AcquireSword(true); };
                         }
                         else { player.AcquireShield(false); };
                         sprite.PlaySoundEffect(soundEffects[5]); break;
                     case "level3": if (!player.HasShield())
                         {
                             if (!player.HasSword()) { player.Collided(-12); }
-                            else { player.Collided(-6); player.AcquireSword(false); };
+                            else { player.Collided(-6); player.AcquireSword(true); };
                         }
                         else { player.AcquireShield(false); };
                         sprite.PlaySoundEffect(soundEffects[5]); break;

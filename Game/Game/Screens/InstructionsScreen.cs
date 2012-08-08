@@ -27,7 +27,7 @@ namespace Game.Screens
         {
             textPosition = new Vector2(75, 145);
             textBox = new Rectangle((int)textPosition.X, (int)textPosition.Y, 1020, 455);
-            OkButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(this.ScreenManager.GraphicsDevice.Viewport.Width / 2 - 60, 500));
+            OkButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(1050, 10));
             OkButton.Clicked += new Button.ClickedEventHandler(OkButton_Clicked);
 
             Hand.Initialize(ScreenManager.Kinect);

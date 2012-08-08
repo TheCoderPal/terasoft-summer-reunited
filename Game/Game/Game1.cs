@@ -39,8 +39,8 @@ namespace Game
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+           // screenManager.AddScreen(new MainScreen());
             screenManager.AddScreen(new MainScreen());
-
           //  score.LoadContent(Content);//Tamer Test
             
         }
