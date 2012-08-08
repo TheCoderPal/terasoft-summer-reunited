@@ -69,10 +69,10 @@ namespace Game.Screens
         {
             ContentManager Content = ScreenManager.Game.Content;
 
-            songs[0] = Content.Load<Song>("Audio\\song1");
+            songs[0] = Content.Load<Song>("Audio\\song");
             songs[1] = Content.Load<Song>("Audio\\song2");
             //songs[2] = Content.Load<Song>("Directory\\songtitle");
-            MediaPlayer.IsRepeating = true;
+            MediaPlayer.IsRepeating = false;
             player.LoadContent(Content);
 
             //Shirin
