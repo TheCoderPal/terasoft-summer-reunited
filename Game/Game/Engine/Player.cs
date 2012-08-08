@@ -13,7 +13,7 @@ namespace Game.Engine
 {
 
 
-    class Player
+    public class Player
     {
         //Enumerator on player state
         enum PlayerStates
