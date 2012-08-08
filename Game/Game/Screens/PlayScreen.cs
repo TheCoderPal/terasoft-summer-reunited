@@ -245,7 +245,7 @@ namespace Game.Screens
                             if (Constants.isSteppingRight)
                             {
                                 FreezeScreen();
-                                ScreenManager.AddScreen(new ExcercisesScreen());
+                                ScreenManager.AddScreen(new ExcercisesScreen(this));
                             }
                         }
                     }
@@ -377,9 +377,14 @@ namespace Game.Screens
                         sprite.PlaySoundEffect(soundEffects[5]); break;
                     case "sheild": player.AcquireShield(true); sprite.PlaySoundEffect(soundEffects[2]); break;
                     case "sword": player.AcquireSword(true); sprite.PlaySoundEffect(soundEffects[3]); break;
-                    case "gym": if (Constants.isSteppingRight) { this.FreezeScreen(); new ExcercisesScreen(); }; break;
+                   // case "gym": if (Constants.isSteppingRight) { this.FreezeScreen(); new ExcercisesScreen(); }; break;
                 }
             }
+        }
+
+        public Player GetPlayer()
+        {
+            return this.player;
         }
     }
 }

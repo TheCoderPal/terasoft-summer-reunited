@@ -14,13 +14,14 @@ namespace Game.Screens
         ContentManager Content;
         Game.Kinect.Kinect kinect;
         HandCursor Hand;
+        PlayScreen playScreen;
 
         /// <summary>
         /// Author: Ahmed Shirin.
         /// </summary>
-        public ExcercisesScreen()
+        public ExcercisesScreen(PlayScreen playScreen)
         {
-
+            this.playScreen = playScreen;
         }
 
         public override void Initialize()
@@ -47,7 +48,7 @@ namespace Game.Screens
         void dumbbell_Clicked(object sender, System.EventArgs a)
         {
             this.Remove();
-            ScreenManager.AddScreen(new DumbbellScreen());
+            ScreenManager.AddScreen(new DumbbellScreen(playScreen));
         }
 
         public override void LoadContent()
