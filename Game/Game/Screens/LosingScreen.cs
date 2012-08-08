@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Text;
 using System.Diagnostics;
+using System.IO;
 
 namespace Game.Screens
 {
@@ -102,16 +103,28 @@ namespace Game.Screens
 
             base.Update(gameTime);
         }
+
         public void AddScore(int Score, string Name)
         {
-            scores.Add(Name + "," + Score + ",");
+            string path = "Text/HighScores.txt";
+
+            scores.Add(Name + "," + Score);
 
             scores.Sort(compareHighScores);
 
             scores.RemoveAt(scores.Count - 1);
 
-            System.IO.File.WriteAllLines("Text/HighScores.txt", scores);
+            StreamWriter sw = new StreamWriter(path, false);
 
+            foreach (string s in scores)
+            {
+                sw.WriteLine(s);
+                Debug.WriteLine("Adding " + s);
+            }
+
+            sw.Close();
+
+            sw.Dispose();
         }
 
         public void InitializeButtons()
@@ -376,8 +389,8 @@ namespace Game.Screens
             string[] x = x1.Split(',');
             string[] y = y1.Split(',');
 
-            if(Int32.Parse(x[1]) > Int32.Parse(y[1])) return 1;
-            else if (Int32.Parse(x[1]) < Int32.Parse(y[1])) return -1;
+            if(Int32.Parse(x[1]) > Int32.Parse(y[1])) return -1;
+            else if (Int32.Parse(x[1]) < Int32.Parse(y[1])) return 1;
             else return 0;
         }
 
