@@ -1,4 +1,4 @@
-﻿// (c) Copyright Microsoft Corporation.
+ // (c) Copyright Microsoft Corporation.
 // This source is subject to the Microsoft Public License (Ms-PL).
 // Please see http://go.microsoft.com/fwlink/?LinkID=131993 for details.
 // All other rights reserved.
@@ -14,7 +14,7 @@ namespace Game.Kinect
         {
             Microsoft.Kinect.SkeletonPoint pos = new SkeletonPoint()
             {
-                X = Scale(width, skeletonMaxX, joint.Position.X),
+                X = Scale(width, skeletonMaxX/3, joint.Position.X),
                 Y = Scale(height, skeletonMaxY, -joint.Position.Y),
                 Z = joint.Position.Z
             };
