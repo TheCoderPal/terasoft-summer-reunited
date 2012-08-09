@@ -1,4 +1,4 @@
-﻿using Game.UI;
+ using Game.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -39,7 +39,7 @@ namespace Game.Screens
             spriteBatch = ScreenManager.SpriteBatch;
             screenHeight = graphics.Viewport.Height;
             screenWidth = graphics.Viewport.Width;
-            OkButton.Initialize("Buttons//exit", ScreenManager.Kinect, new Vector2(screenWidth/1.5f,screenHeight/2.5f), 200, 200);
+            OkButton.Initialize("Buttons//exit", ScreenManager.Kinect, new Vector2(screenWidth/1.5f,screenHeight/3.5f), 200, 200);
             hand.Initialize(ScreenManager.Kinect);            
             base.Initialize();
         }
