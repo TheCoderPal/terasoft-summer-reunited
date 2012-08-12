@@ -24,6 +24,7 @@ namespace Game.UI
         private Rectangle BoundingRectangle;
         private bool TextureBoundsSet = false;
 
+        private bool clicked;
         private Color hoverColor;
 
         //Event firing
@@ -74,13 +75,34 @@ namespace Game.UI
             Point handPoint = new Point((int)rightHand.Position.X, (int)rightHand.Position.Y);
             if (BoundingRectangle.Contains(handPoint))
             {
-                timer += gameTime.ElapsedGameTime.Milliseconds;
 
-                if (timer >= CLICK_TIME_OUT)
+                //timer += gameTime.ElapsedGameTime.Milliseconds;
+
+                //if (timer >= CLICK_TIME_OUT)
+                //{
+                //    timer -= 100;
+                //    if (Clicked != null)
+                //        Clicked(this, null);
+                //}
+
+                if (timer == 0 || !clicked)
                 {
-                    timer -= 100;
-                    if (Clicked != null)
-                        Clicked(this, null);
+                    timer += gameTime.ElapsedGameTime.Milliseconds;
+
+                    if (timer >= CLICK_TIME_OUT)
+                    {
+                        timer -= 100;
+                        if (Clicked != null)
+                            Clicked(this, null);
+                        clicked = true;
+                    }
+                }
+                else
+                {
+                    if (timer != 0)
+                        timer -= 200;
+                    else
+                        clicked = false;
                 }
             }
             else
