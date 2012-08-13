@@ -19,7 +19,7 @@ namespace Game.UI
 
         private Game.Kinect.Kinect kinect;
         private float timer = 0;
-        private const float CLICK_TIME_OUT = 2500;
+        private const float CLICK_TIME_OUT = 2400;
 
         private Rectangle BoundingRectangle;
         private bool TextureBoundsSet = false;
@@ -73,41 +73,27 @@ namespace Game.UI
         {
             Joint rightHand = kinect.GetCursorPosition();
             Point handPoint = new Point((int)rightHand.Position.X, (int)rightHand.Position.Y);
-            if (BoundingRectangle.Contains(handPoint))
-            {
-
-                //timer += gameTime.ElapsedGameTime.Milliseconds;
-
-                //if (timer >= CLICK_TIME_OUT)
-                //{
-                //    timer -= 100;
-                //    if (Clicked != null)
-                //        Clicked(this, null);
-                //}
-
-                if (timer == 0 || !clicked)
+            
+            if (timer > 0 && clicked)
+                timer -= 200;
+            else {
+                if (timer >= CLICK_TIME_OUT)
                 {
-                    timer += gameTime.ElapsedGameTime.Milliseconds;
-
-                    if (timer >= CLICK_TIME_OUT)
-                    {
-                        timer -= 100;
-                        if (Clicked != null)
-                            Clicked(this, null);
-                        clicked = true;
-                    }
+                    timer -= 100;
+                    if (Clicked != null)
+                        Clicked(this, null);
+                    clicked = true;
                 }
                 else
                 {
-                    if (timer != 0)
-                        timer -= 200;
-                    else
+                    if (timer > 0 && timer <= CLICK_TIME_OUT)
+                    {
+                        if (BoundingRectangle.Contains(handPoint))
+                            timer += gameTime.ElapsedGameTime.Milliseconds;
+                    }
+                    else if (timer <= 0)
                         clicked = false;
                 }
-            }
-            else
-            {
-                timer = 0;
             }
         }
 
