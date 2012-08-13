@@ -73,10 +73,18 @@ namespace Game.UI
         {
             Joint rightHand = kinect.GetCursorPosition();
             Point handPoint = new Point((int)rightHand.Position.X, (int)rightHand.Position.Y);
-            
-            if (timer > 0 && clicked)
-                timer -= 200;
-            else {
+
+            if (BoundingRectangle.Contains(handPoint))
+            {
+                if (clicked)
+                {
+                    timer -= 200;
+                }
+                else
+                {
+                    timer += gameTime.ElapsedGameTime.Milliseconds;
+                }
+
                 if (timer >= CLICK_TIME_OUT)
                 {
                     timer -= 100;
@@ -84,16 +92,13 @@ namespace Game.UI
                         Clicked(this, null);
                     clicked = true;
                 }
-                else
-                {
-                    if (timer > 0 && timer <= CLICK_TIME_OUT)
-                    {
-                        if (BoundingRectangle.Contains(handPoint))
-                            timer += gameTime.ElapsedGameTime.Milliseconds;
-                    }
-                    else if (timer <= 0)
-                        clicked = false;
-                }
+                else if (timer <= 0)
+                    clicked = false;
+
+            }
+            else
+            {
+                timer = 0;
             }
         }
 
