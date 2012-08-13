@@ -19,7 +19,7 @@ namespace Game.UI
 
         private Game.Kinect.Kinect kinect;
         private float timer = 0;
-        private const float CLICK_TIME_OUT = 2400;
+        private const float CLICK_TIME_OUT = 1400;
 
         private Rectangle BoundingRectangle;
         private bool TextureBoundsSet = false;
