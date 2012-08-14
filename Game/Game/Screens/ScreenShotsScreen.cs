@@ -17,24 +17,26 @@ namespace Game.Screens
         Texture2D backgroundImage;
         Button saveButton, nextButton;
         int index, playerScore;
+        HandCursor hand;
 
         public ScreenShotsScreen(List<byte[]> colorDataList, int score)
         {
             this.colorDataList = colorDataList;
             saveButton = new Button();
             nextButton = new Button();
-            backgroundImage = new Texture2D(ScreenManager.GraphicsDevice, ScreenManager.Kinect.GetFrameWidth(), ScreenManager.Kinect.GetFrameHeight());
+            hand = new HandCursor();
             playerScore = score;
         }
 
         public override void Initialize()
         {
             index = 0;
-            backgroundImage.SetData(colorDataList[index]);
             saveButton.Initialize("Buttons/save", ScreenManager.Kinect, Vector2.Zero);
             nextButton.Initialize("Buttons/next", ScreenManager.Kinect, new Vector2(200, 200));
             saveButton.Clicked += new Button.ClickedEventHandler(saveButton_Clicked);
             nextButton.Clicked += new Button.ClickedEventHandler(nextButton_Clicked);
+
+            hand.Initialize(ScreenManager.Kinect);
             base.Initialize();
         }
 
@@ -73,8 +75,12 @@ namespace Game.Screens
 
         public override void LoadContent()
         {
+            backgroundImage = new Texture2D(ScreenManager.GraphicsDevice, ScreenManager.Kinect.GetFrameWidth(), ScreenManager.Kinect.GetFrameHeight());
+            backgroundImage.SetData(colorDataList[index]);
             saveButton.LoadContent(ScreenManager.Game.Content);
             nextButton.LoadContent(ScreenManager.Game.Content);
+
+            hand.LoadContent(ScreenManager.Game.Content);
             base.LoadContent();
         }
 
@@ -83,6 +89,7 @@ namespace Game.Screens
             saveButton.Update(gameTime);
             nextButton.Update(gameTime);
 
+            hand.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -95,6 +102,7 @@ namespace Game.Screens
                 , Color.White);
             nextButton.Draw(spriteBatch);
             saveButton.Draw(spriteBatch);
+            hand.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

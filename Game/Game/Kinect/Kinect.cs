@@ -249,31 +249,20 @@ namespace Game.Kinect
             {
                 byte[] colorPixels = new byte[this.nui.ColorStream.FramePixelDataLength];
                 frame.CopyPixelDataTo(colorPixels);
-                return colorPixels;
+
+                byte[] bgraColorPixels = new byte[this.nui.ColorStream.FramePixelDataLength];
+
+                for (int i = 0; i < colorPixels.Length; i += 4)
+                {
+                    bgraColorPixels[i] = colorPixels[i + 2];
+                    bgraColorPixels[i + 1] = colorPixels[i + 1];
+                    bgraColorPixels[i + 2] = colorPixels[i];
+                    bgraColorPixels[i + 3] = (byte)255;
+                }
+
+                return bgraColorPixels;
             }
             return null;
-        }
-
-        /// <summary>
-        /// Returns a BitmapEncoder containing the frame from the sensor
-        /// </summary>
-        /// <returns>BitmapEncoder containing the color frame.</returns>
-        /// Author : Omar Abdulaal
-        public BitmapEncoder GetBitmap(byte[] colorData)
-        {
-            BitmapEncoder encoder = new PngBitmapEncoder();
-            WriteableBitmap colorBitmap = new WriteableBitmap(this.nui.ColorStream.FrameWidth, this.nui.ColorStream.FrameHeight, 
-                96.0, 96.0, PixelFormats.Bgr32, null);
-
-            colorBitmap.WritePixels(
-                new Int32Rect(0, 0, colorBitmap.PixelWidth, colorBitmap.PixelHeight),
-                colorData,
-                colorBitmap.PixelWidth * sizeof(int),
-                0);
-
-            encoder.Frames.Add(BitmapFrame.Create(colorBitmap));
-
-            return encoder;
         }
 
         public int GetFrameWidth()
