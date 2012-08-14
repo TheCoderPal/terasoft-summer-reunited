@@ -7,6 +7,7 @@ namespace Game.Text
 {
     class Constants
     {
+        public static double jumpFraction = 1.2;
         public static bool isJumping;
         public static bool isSwappingHand;
         public static bool isBending;
