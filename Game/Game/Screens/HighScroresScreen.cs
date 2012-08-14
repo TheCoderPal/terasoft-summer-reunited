@@ -15,20 +15,20 @@ namespace Game.Screens
         private ContentManager content;
         private SpriteFont font;
         private string[] names;
-        private string drawnScores,drawnNames,readedText;
-        private List<int> listscore;
+        private string drawnScores,drawnNames;
+        private List<int> listScore;
         private List<string> list;
-        private Texture2D backgroundImage,buttonImage;
-        Button OkButton;
-        HandCursor hand;
+        private Texture2D backgroundImage;
+        private Button okButton;
+        private HandCursor hand;
         public HighScoresScreen()
         {
-            OkButton = new Button();
+            okButton = new Button();
             hand = new HandCursor();
-            listscore = new List<int>();
+            listScore = new List<int>();
             list = new List<string>();
           
-            OkButton.Clicked += new Button.ClickedEventHandler(menu_Clicked);
+            okButton.Clicked += new Button.ClickedEventHandler(menu_Clicked);
         }
         public override void Initialize()
         {
@@ -37,7 +37,7 @@ namespace Game.Screens
             spriteBatch = ScreenManager.SpriteBatch;
             screenHeight = graphics.Viewport.Height;
             screenWidth = graphics.Viewport.Width;
-            OkButton.Initialize("Buttons//exit", ScreenManager.Kinect, new Vector2(screenWidth/1.5f,screenHeight/3.5f), 200, 200);
+            okButton.Initialize("Buttons//exit", ScreenManager.Kinect, new Vector2(screenWidth/1.5f,screenHeight/3.5f), 200, 200);
             hand.Initialize(ScreenManager.Kinect);            
             base.Initialize();
         }
@@ -51,25 +51,25 @@ namespace Game.Screens
             backgroundImage = content.Load<Texture2D>("Textures/highScoresScreen");
             font = content.Load<SpriteFont>("newFont");
             names = System.IO.File.ReadAllLines("Text/HighScores.txt");
-            OkButton.LoadContent(content);
+            okButton.LoadContent(content);
             hand.LoadContent(content);
-            split();
+            Split();
             base.LoadContent();
         }
 
-        private void split()
+        private void Split()
         {
             maxStringLength = 0;
             for (int i = 0; i < names.Length; i++)
             {
                 string[] temp = names[i].Split(',');
                 list.Add(temp[0]);
-                listscore.Add(Int32.Parse(temp[1]));
+                listScore.Add(Int32.Parse(temp[1]));
 
                 if (font.MeasureString(temp[0]).X > maxStringLength)
                     maxStringLength = font.MeasureString(temp[0]).X;
             }
-            foreach (int i in listscore)
+            foreach (int i in listScore)
             {
                 drawnScores += i + "\n \n";
             }
@@ -81,7 +81,7 @@ namespace Game.Screens
         }
         public override void Update(GameTime gameTime)
         {
-            OkButton.Update(gameTime);
+            okButton.Update(gameTime);
             hand.Update(gameTime);
             base.Update(gameTime);
         }
@@ -91,7 +91,7 @@ namespace Game.Screens
             spriteBatch.Draw(backgroundImage, graphics.Viewport.Bounds, Color.White);
             spriteBatch.DrawString(font,drawnScores, new Vector2(screenWidth/1.8f,screenHeight/6f),Color.White);
             spriteBatch.DrawString(font, drawnNames, new Vector2(screenWidth /2.7f,screenHeight/6f), Color.White);
-            OkButton.Draw(spriteBatch);
+            okButton.Draw(spriteBatch);
             hand.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);

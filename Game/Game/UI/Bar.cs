@@ -14,11 +14,11 @@ namespace Game.UI
         public Color goodPartColor { get; set; }
         public Color badPartColor { get; set; }
 
-        public int getCurrentValue()
+        public int GetCurrentValue()
         {
             return currentValue;
         }
-        public void setCurrentValue(int value)
+        public void SetCurrentValue(int value)
         {
             if (value > maxValue)
                 currentValue = maxValue;

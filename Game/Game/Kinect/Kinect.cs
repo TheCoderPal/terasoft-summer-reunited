@@ -1,14 +1,9 @@
-﻿using Microsoft.Kinect;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using Game.Text;
-using Microsoft.Xna.Framework;
-using System.Windows.Media.Imaging;
 using Microsoft.Kinect;
-using System.Windows.Media;
-using System.Windows;
 
 namespace Game.Kinect
 {

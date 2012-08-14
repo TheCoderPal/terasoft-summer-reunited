@@ -37,8 +37,8 @@ namespace Game
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-           // screenManager.AddScreen(new MainScreen());
             screenManager.AddScreen(new MainScreen());
+           // screenManager.AddScreen(new LosingScreen(1000000));
         }
 
         protected override void UnloadContent()

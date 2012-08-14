@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Game.Text;
 using Microsoft.Samples.Kinect.SwipeGestureRecognizer;
-using Game.Text;
 namespace Game.Kinect
 {
     /// <summary>

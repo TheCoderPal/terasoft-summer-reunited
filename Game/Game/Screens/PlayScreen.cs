@@ -61,7 +61,7 @@ namespace Game.Screens
 
             //Shirin
             generator = new ItemsGenerator();
-            current = generator.generateMore();
+            current = generator.GenerateMore();
             currentSprite = new Sprite[20];
 
             Constants.ResetFlags();
@@ -218,7 +218,7 @@ namespace Game.Screens
                     counter++;
                 }
                 counter = 10;
-                current = generator.generateMore();
+                current = generator.GenerateMore();
                 for (int i = 0; i <= 9; i++)
                 {
                     int height = 0;
@@ -297,7 +297,7 @@ namespace Game.Screens
             globalCounter++;
 
 
-            bar.setCurrentValue(player.Immunity);
+            bar.SetCurrentValue(player.Immunity);
             score.score = player.Score;
             base.Update(gameTime);
         }
