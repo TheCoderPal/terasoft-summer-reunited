@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Game.Engine;
 using Game.UI;
-using Game.Screens.Components;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;

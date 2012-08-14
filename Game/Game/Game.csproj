@@ -112,15 +112,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\Collectible.cs" />
-    <Compile Include="Engine\Food.cs" />
-    <Compile Include="Engine\Gym.cs" />
-    <Compile Include="Engine\Item.cs" />
     <Compile Include="Engine\ItemsGenerator.cs" />
     <Compile Include="Engine\Player.cs" />
-    <Compile Include="Engine\Shield.cs" />
-    <Compile Include="Engine\Sword.cs" />
-    <Compile Include="Engine\Virus.cs" />
     <Compile Include="Kinect\BendGesture.cs" />
     <Compile Include="Kinect\DumbbellGesture.cs" />
     <Compile Include="Kinect\Gesture.cs" />
@@ -138,8 +131,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Screens\Components\ItemsUI.cs" />
-    <Compile Include="Screens\Components\TrackUI.cs" />
     <Compile Include="Screens\DumbbellScreen.cs" />
     <Compile Include="Screens\ExcercisesScreen.cs" />
     <Compile Include="Screens\HighScroresScreen.cs" />
