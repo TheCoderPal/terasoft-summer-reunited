@@ -71,7 +71,15 @@ namespace Game.Kinect
             try
             {
                 this.skeletons = new Skeleton[this.nui.SkeletonStream.FrameSkeletonArrayLength];
-                this.nui.SkeletonStream.Enable();
+                var parameters = new TransformSmoothParameters
+                {
+                    Smoothing = 0.75f,
+                    Correction = 0.0f,
+                    Prediction = 0.0f,
+                    JitterRadius = 0.05f,
+                    MaxDeviationRadius = 0.04f
+                };
+                this.nui.SkeletonStream.Enable(parameters);
             }
             catch (Exception)
             { return; }
