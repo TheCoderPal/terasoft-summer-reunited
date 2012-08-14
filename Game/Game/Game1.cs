@@ -13,8 +13,6 @@ namespace Game
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         ScreenManager screenManager;
-        //Score score; //Tamer Test
-
         public Kinect.Kinect Kinect;
 
         public Game1()
@@ -41,8 +39,6 @@ namespace Game
             spriteBatch = new SpriteBatch(GraphicsDevice);
            // screenManager.AddScreen(new MainScreen());
             screenManager.AddScreen(new MainScreen());
-          //  score.LoadContent(Content);//Tamer Test
-            
         }
 
         protected override void UnloadContent()
@@ -60,9 +56,6 @@ namespace Game
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //drawings
-           // bar.Draw(spriteBatch); //Tamer Test
-           // score.Draw(spriteBatch); //Tamer Test
             base.Draw(gameTime); 
         }
     }

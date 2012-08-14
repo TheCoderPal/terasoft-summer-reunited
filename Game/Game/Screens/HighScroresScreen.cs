@@ -1,11 +1,9 @@
- using Game.UI;
-using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using Game.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using System.Collections.Generic;
-using System;
-using System.Text;
-using Game.Text;
+using Microsoft.Xna.Framework.Graphics;
 namespace Game.Screens
 {
     public class HighScoresScreen : GameScreen
@@ -51,9 +49,7 @@ namespace Game.Screens
         public override void LoadContent()
         {
             backgroundImage = content.Load<Texture2D>("Textures/highScoresScreen");
-            font = content.Load<SpriteFont>("SpriteFont1");
-           // buttonImage = content.Load<Texture2D>("Buttons/X");
-            //readedText = System.IO.File.ReadAllText("Text/HighScores.txt");
+            font = content.Load<SpriteFont>("newFont");
             names = System.IO.File.ReadAllLines("Text/HighScores.txt");
             OkButton.LoadContent(content);
             hand.LoadContent(content);
@@ -63,7 +59,6 @@ namespace Game.Screens
 
         private void split()
         {
-            //names = readedText.Split('\n');
             maxStringLength = 0;
             for (int i = 0; i < names.Length; i++)
             {
@@ -94,11 +89,10 @@ namespace Game.Screens
         {
             spriteBatch.Begin();
             spriteBatch.Draw(backgroundImage, graphics.Viewport.Bounds, Color.White);
-            spriteBatch.DrawString(font,drawnScores, new Vector2(screenWidth/2f,screenHeight/6f),Color.White);
-            spriteBatch.DrawString(font, drawnNames, new Vector2(screenWidth /2.5f,screenHeight/6f), Color.White);
+            spriteBatch.DrawString(font,drawnScores, new Vector2(screenWidth/1.8f,screenHeight/6f),Color.White);
+            spriteBatch.DrawString(font, drawnNames, new Vector2(screenWidth /2.7f,screenHeight/6f), Color.White);
             OkButton.Draw(spriteBatch);
             hand.Draw(spriteBatch);
-          //Test  spriteBatch.DrawString(font,Constants.isSwappingHand+"", new Vector2(10,10), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }

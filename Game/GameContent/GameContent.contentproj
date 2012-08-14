@@ -539,11 +539,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="newFont.spritefont">
+      <Name>newFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="newFont2.spritefont">
+      <Name>newFont2</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Buttons\next.png">
       <Name>next</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Buttons\save.png">
       <Name>save</Name>
       <Importer>TextureImporter</Importer>

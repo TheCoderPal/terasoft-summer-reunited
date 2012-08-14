@@ -23,7 +23,7 @@ namespace Game.UI
          public int score { get; set; }
          public void LoadContent(ContentManager Content)
         {
-            font = Content.Load<SpriteFont>("SpriteFont1");
+            font = Content.Load<SpriteFont>("newFont2");
         }
         public void Update(GameTime gameTime)
         {

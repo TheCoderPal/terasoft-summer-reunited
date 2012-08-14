@@ -56,8 +56,8 @@ namespace Game.Screens
             bgLayer3 = new ParallaxingBackground();
             player.Initialize();
 
-            bar = new Bar(100, 20, 15, 270, 30); 
-            score = new Score(900, 10, Color.Red);
+            bar = new Bar(100, 20, 15, 270, 30);
+            score = new Score(870, 10, Color.Peru);
 
             //Shirin
             generator = new ItemsGenerator();
