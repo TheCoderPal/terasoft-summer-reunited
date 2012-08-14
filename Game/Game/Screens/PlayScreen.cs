@@ -378,36 +378,35 @@ namespace Game.Screens
             {
                 switch (name)
                 {
-                    case "banana": player.Collided(3); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "apple": player.Collided(5); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "orange": player.Collided(7); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "hamburg": player.Collided(-8); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "fries": player.Collided(-6); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "hotdog": player.Collided(-4); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "banana": player.Collided(Constants.healthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "apple": player.Collided(Constants.healthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "orange": player.Collided(Constants.healthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "hamburg": player.Collided(Constants.unhealthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "fries": player.Collided(Constants.unhealthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "hotdog": player.Collided(Constants.unhealthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "level1": if (!player.HasShield())
                         {
-                            if (!player.HasSword()) { player.Collided(-5); }
-                            else { player.Collided(-2); player.AcquireSword(true); };
+                            if (!player.HasSword()) { player.Collided(Constants.level1); }
+                            else { player.Collided(Constants.sword1); player.AcquireSword(true); };
                         }
                         else { player.AcquireShield(false); };
                         sprite.PlaySoundEffect(soundEffects[5]); break;
                     case "level2": if (!player.HasShield())
                         {
-                            if (!player.HasSword()) { player.Collided(-8); }
-                            else { player.Collided(-4); player.AcquireSword(true); };
+                            if (!player.HasSword()) { player.Collided(Constants.level2); }
+                            else { player.Collided(Constants.sword2); player.AcquireSword(true); };
                         }
                         else { player.AcquireShield(false); };
                         sprite.PlaySoundEffect(soundEffects[5]); break;
                     case "level3": if (!player.HasShield())
                         {
-                            if (!player.HasSword()) { player.Collided(-12); }
-                            else { player.Collided(-6); player.AcquireSword(true); };
+                            if (!player.HasSword()) { player.Collided(Constants.level3); }
+                            else { player.Collided(Constants.sword3); player.AcquireSword(true); };
                         }
                         else { player.AcquireShield(false); };
                         sprite.PlaySoundEffect(soundEffects[5]); break;
                     case "sheild": player.AcquireShield(true); sprite.PlaySoundEffect(soundEffects[2]); break;
                     case "sword": player.AcquireSword(true); sprite.PlaySoundEffect(soundEffects[3]); break;
-                   // case "gym": if (Constants.isSteppingRight) { this.FreezeScreen(); new ExcercisesScreen(); }; break;
                 }
             }
         }
