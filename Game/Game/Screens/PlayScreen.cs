@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Audio;
 using Game.Text;
 using System.Diagnostics;
+using System.Windows.Media.Imaging;
 
 namespace Game.Screens
 {
@@ -22,6 +23,9 @@ namespace Game.Screens
         private Song[] songs = new Song[2];
         private int playQueue = 1;
         #endregion
+        
+        private List<byte[]> colorDataList;
+
         private Player player;
         private ParallaxingBackground bgLayer1, bgLayer2, bgLayer3;
         public Bar bar;
@@ -44,6 +48,8 @@ namespace Game.Screens
 
         public override void Initialize()
         {
+            colorDataList = new List<byte[]>();
+            
             player = new Player();
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
@@ -127,10 +133,33 @@ namespace Game.Screens
 
             if (player.CheckDeath())
             {
-                this.Remove();
-                ScreenManager.AddScreen(new LosingScreen(player.Score));
+                if (colorDataList.Count == 0)
+                {
+                    this.Remove();
+                    ScreenManager.AddScreen(new LosingScreen(player.Score));
+                }
+                else
+                {
+                    this.Remove();
+                    ScreenManager.AddScreen(new ScreenShotsScreen(colorDataList, player.Score));
+                }
             }
-            
+
+
+            if (Constants.isJumping && colorDataList.Count == 0)
+            {
+                byte[] colorData = ScreenManager.Kinect.GetColorPixels(30);
+                if(colorData != null)
+                    colorDataList.Add(colorData);
+            }
+
+            if (Constants.isRunning && colorDataList.Count == 1)
+            {
+                byte[] colorData = ScreenManager.Kinect.GetColorPixels(30);
+                if (colorData != null)
+                    colorDataList.Add(colorData);
+            }
+
             #endregion
             
             if (userAvatar.Avatar[0] == userAvatar.AllAvatars[0])
@@ -387,5 +416,7 @@ namespace Game.Screens
         {
             return this.player;
         }
+
+        
     }
 }

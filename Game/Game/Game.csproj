@@ -61,6 +61,7 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Kinect, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Samples.Kinect.SwipeGestureRecognizer">
       <HintPath>Properties\Microsoft.Samples.Kinect.SwipeGestureRecognizer.dll</HintPath>
@@ -95,6 +96,7 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -110,6 +112,7 @@
     <Reference Include="System.Net">
       <Private>False</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\ItemsGenerator.cs" />
@@ -139,6 +142,7 @@
     <Compile Include="Screens\MainScreen.cs" />
     <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\PlayScreen.cs" />
+    <Compile Include="Screens\ScreenShotsScreen.cs" />
     <Compile Include="Screens\TreadmillScreen.cs" />
     <Compile Include="Text\Constants.cs" />
     <Compile Include="UI\Bar.cs" />

@@ -5,6 +5,11 @@ using System;
 using System.ComponentModel;
 using Game.Text;
 using Microsoft.Xna.Framework;
+using System.Windows.Media.Imaging;
+using Microsoft.Kinect;
+using System.Windows.Media;
+using System.Windows;
+
 namespace Game.Kinect
 {
     /// <summary>
@@ -80,6 +85,7 @@ namespace Game.Kinect
                     MaxDeviationRadius = 0.04f
                 };
                 this.nui.SkeletonStream.Enable(parameters);
+                this.nui.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             }
             catch (Exception)
             { return; }
@@ -216,6 +222,70 @@ namespace Game.Kinect
             else
                 return new Joint();
         }
+
+        /// <summary>
+        /// Returns the next color frame from the Kinect Sensor
+        /// </summary>
+        /// <returns>ColorImageFrame containing the frame captured from the sensor.</returns>
+        /// Author : Omar Abdulaal
+        public ColorImageFrame GetColorFrame(int milliseconds)
+        {
+            if (this.nui != null)
+            {
+                return this.nui.ColorStream.OpenNextFrame(milliseconds);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the color frame data as an array.
+        /// </summary>
+        /// <param name="milliseconds">Number of milliseconds to wait for frame</param>
+        /// <returns>Byte[] Containing color data.</returns>
+        public byte[] GetColorPixels(int milliseconds)
+        {
+            ColorImageFrame frame = this.GetColorFrame(milliseconds);
+            if (frame != null)
+            {
+                byte[] colorPixels = new byte[this.nui.ColorStream.FramePixelDataLength];
+                frame.CopyPixelDataTo(colorPixels);
+                return colorPixels;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns a BitmapEncoder containing the frame from the sensor
+        /// </summary>
+        /// <returns>BitmapEncoder containing the color frame.</returns>
+        /// Author : Omar Abdulaal
+        public BitmapEncoder GetBitmap(byte[] colorData)
+        {
+            BitmapEncoder encoder = new PngBitmapEncoder();
+            WriteableBitmap colorBitmap = new WriteableBitmap(this.nui.ColorStream.FrameWidth, this.nui.ColorStream.FrameHeight, 
+                96.0, 96.0, PixelFormats.Bgr32, null);
+
+            colorBitmap.WritePixels(
+                new Int32Rect(0, 0, colorBitmap.PixelWidth, colorBitmap.PixelHeight),
+                colorData,
+                colorBitmap.PixelWidth * sizeof(int),
+                0);
+
+            encoder.Frames.Add(BitmapFrame.Create(colorBitmap));
+
+            return encoder;
+        }
+
+        public int GetFrameWidth()
+        {
+            return this.nui.ColorStream.FrameWidth;
+        }
+
+        public int GetFrameHeight()
+        {
+            return this.nui.ColorStream.FrameHeight;
+        }
+
         public void InitializeGestures()
         {
              IRelativeGestureSegment[] StepRightSegments = new IRelativeGestureSegment[1];
