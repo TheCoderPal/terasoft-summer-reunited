@@ -25,6 +25,20 @@ namespace Game.Text
         public const double handElbowYDiff = 5; //minimum Y distance difference between the hand and the elbow to ddetect the dumbbell playing gesture.
         public static double diffHandElbow;
         public static double elbowPosY;
+        public static int healthy1 = 3;
+        public static int healthy2 = 5;
+        public static int healthy3 = 7;
+        public static int unhealthy1 = -4;
+        public static int unhealthy2 = -6;
+        public static int unhealthy3 = -8;
+        public static int level1 = -5;
+        public static int level2 = -8;
+        public static int level3 = -12;
+        public static int sword1 = -2;
+        public static int sword2 = -4;
+        public static int sword3 = -6;
+
+
 
         public static void ResetFlags()
         {
