@@ -11,6 +11,13 @@ namespace Game.UI
         private List<GameScreen> screens = new List<GameScreen>();
         private List<GameScreen> screensToUpdate = new List<GameScreen>();
         private SpriteBatch spriteBatch;
+        public int framesCount;
+        public Skeleton newSkeleton;
+        public int FramesCount
+        {
+            get { return framesCount; }
+            set { framesCount = value; }
+        }
 
         public Kinect.Kinect Kinect;
 
@@ -29,14 +36,6 @@ namespace Game.UI
             : base(game)
         {
             this.Kinect = kinect;
-            if (Kinect.trackedSkeleton != null)
-            {
-                Constants.posY = Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.Y;
-                Constants.posZ = Kinect.trackedSkeleton.Joints[JointType.ElbowRight].Position.Z;
-                Constants.elbowPosY = Kinect.trackedSkeleton.Joints[JointType.ElbowRight].Position.Y;
-                Constants.diffHandElbow = Kinect.trackedSkeleton.Joints[JointType.HandRight].Position.Z - Kinect.trackedSkeleton.Joints[JointType.ElbowRight].Position.Z;
-                Constants.HipPosX = Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
-            }
             base.Initialize();
 
         }
@@ -66,8 +65,6 @@ namespace Game.UI
         public override void Update(GameTime gameTime)
         {
             screensToUpdate.Clear();
-
-
             foreach (GameScreen screen in screens)
             {
                 if (!screen.IsFrozen)
@@ -90,6 +87,9 @@ namespace Game.UI
                     screen.Update(gameTime);
                 }
             }
+            framesCount++;
+            if (framesCount % 30 == 0)
+                newSkeleton = Kinect.trackedSkeleton;
         }
         /// <summary>
         /// Updates the screens managed by the screenManager.
