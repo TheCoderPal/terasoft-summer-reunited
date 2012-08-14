@@ -23,6 +23,7 @@ namespace Game.Screens
             this.colorDataList = colorDataList;
             saveButton = new Button();
             nextButton = new Button();
+            backgroundImage = new Texture2D(ScreenManager.GraphicsDevice, ScreenManager.Kinect.GetFrameWidth(), ScreenManager.Kinect.GetFrameHeight());
             playerScore = score;
         }
 
