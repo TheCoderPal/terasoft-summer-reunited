@@ -90,8 +90,11 @@ namespace Game.UI
             }
             framesCount++;
             newSkeleton = Kinect.trackedSkeleton;
-            if (framesCount % (60*5) == 0 && Kinect.trackedSkeleton != null)
-                setSkeletonJoints();
+            if (framesCount % (60 * 4) == 0)
+                if (Kinect.trackedSkeleton != null)
+                    setSkeletonJoints();
+                else
+                    Constants.oldSkeleton = Kinect.trackedSkeleton;
         }
         public void setSkeletonJoints()
         {
