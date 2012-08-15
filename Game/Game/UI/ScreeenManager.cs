@@ -45,6 +45,7 @@ namespace Game.UI
         /// </summary>
         protected override void LoadContent()
         {
+            newSkeleton = Kinect.trackedSkeleton;
             spriteBatch = new SpriteBatch(GraphicsDevice);
             foreach (GameScreen screen in screens)
                 screen.LoadContent();
@@ -88,7 +89,7 @@ namespace Game.UI
                 }
             }
             framesCount++;
-            if (framesCount % 30 == 0)
+            if (framesCount % 30 == 0 && Kinect.trackedSkeleton!=null)
                 newSkeleton = Kinect.trackedSkeleton;
         }
         /// <summary>
