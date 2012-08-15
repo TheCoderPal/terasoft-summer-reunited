@@ -30,9 +30,11 @@ namespace Game.Engine
         private SpriteAnimation jumpAnimation;
         private SpriteAnimation slidingAnimation;
         private SpriteAnimation swordAnimation;
+        private SpriteAnimation dieAnimation;
+        private SpriteAnimation punchAnimation;
 
         //Sprite Textures
-        private Texture2D runTexture, jumpTexture, slideTexture, swordTexture;
+        private Texture2D runTexture, jumpTexture, slideTexture, swordTexture, punchTexture;
         private float scale;
 
         //Avatar's Position on screen.
@@ -57,6 +59,7 @@ namespace Game.Engine
             jumpAnimation = new SpriteAnimation();
             slidingAnimation = new SpriteAnimation();
             swordAnimation = new SpriteAnimation();
+            dieAnimation = new SpriteAnimation();
             immunity = 100;
             scale = 1f;
         }
@@ -65,13 +68,15 @@ namespace Game.Engine
         {
             runTexture = Content.Load<Texture2D>("Sprites/run");
             jumpTexture = Content.Load<Texture2D>("Sprites/jump"); 
-            slideTexture = Content.Load<Texture2D>("Sprites/die");
+            slideTexture = Content.Load<Texture2D>("Sprites/bend");
             swordTexture = Content.Load<Texture2D>("Sprites/swap");
+            dieTexture = Content.Load<Texture2D>("Sprites/die");
             Position = new Vector2(150, 474);
             runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 50, Color.White, scale, true);
             jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 80, Color.White, scale, false);
             slidingAnimation.Initialize(slideTexture, new Vector2(Position.X, Position.Y + 60), slideTexture.Height, slideTexture.Height, slideTexture.Width / slideTexture.Height, 120, Color.White, scale, false);
             swordAnimation.Initialize(swordTexture, Position, swordTexture.Height, swordTexture.Height, swordTexture.Width / swordTexture.Height, 50, Color.White, scale, false);
+            dieAnimation.Initialize(dieTexture, Position, dieTexture.Height, dieTexture.Height, dieTexture.Width / dieTexture.Height, 40, Color.White, scale, false);
             playerAnimation = runAnimation;
         }
 
@@ -82,38 +87,45 @@ namespace Game.Engine
 
         public void Update(GameTime gameTime)
         {
-            if (Constants.isJumping)
+            if (immunity <= 0)
             {
-                State = PlayerStates.Jumping;
-                if (!playerAnimation.Active)
-                {
-                    Constants.isJumping = false;
-                    State = PlayerStates.Running;
-                    jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 80, Color.White, scale, false);
-                }
+                State = PlayerStates.Dying;
             }
             else
             {
-                if (Constants.isBending)
+                if (Constants.isJumping)
                 {
-                    State = PlayerStates.Sliding;
+                    State = PlayerStates.Jumping;
                     if (!playerAnimation.Active)
                     {
-                        Constants.isBending = false;
+                        Constants.isJumping = false;
                         State = PlayerStates.Running;
-                        slidingAnimation.Initialize(slideTexture, new Vector2(Position.X, Position.Y + 60), slideTexture.Height, slideTexture.Height, slideTexture.Width / slideTexture.Height, 120, Color.White, scale, false);
+                        jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 80, Color.White, scale, false);
                     }
                 }
                 else
                 {
-                    if (Constants.isSwappingHand && hasSword)
+                    if (Constants.isBending)
                     {
-                        State = PlayerStates.hasSword;
+                        State = PlayerStates.Sliding;
                         if (!playerAnimation.Active)
                         {
-                            Constants.isSwappingHand = false;
+                            Constants.isBending = false;
                             State = PlayerStates.Running;
-                            swordAnimation.Initialize(swordTexture, Position, swordTexture.Height, swordTexture.Height, swordTexture.Width / swordTexture.Height, 50, Color.White, scale, false);
+                            slidingAnimation.Initialize(slideTexture, new Vector2(Position.X, Position.Y + 60), slideTexture.Height, slideTexture.Height, slideTexture.Width / slideTexture.Height, 120, Color.White, scale, false);
+                        }
+                    }
+                    else
+                    {
+                        if (Constants.isSwappingHand && hasSword)
+                        {
+                            State = PlayerStates.hasSword;
+                            if (!playerAnimation.Active)
+                            {
+                                Constants.isSwappingHand = false;
+                                State = PlayerStates.Running;
+                                swordAnimation.Initialize(swordTexture, Position, swordTexture.Height, swordTexture.Height, swordTexture.Width / swordTexture.Height, 50, Color.White, scale, false);
+                            }
                         }
                     }
                 }
@@ -126,6 +138,7 @@ namespace Game.Engine
                 case PlayerStates.Jumping: playerAnimation = jumpAnimation; break;
                 case PlayerStates.Sliding: playerAnimation = slidingAnimation; break;
                 case PlayerStates.hasSword: playerAnimation = swordAnimation; break;
+                case PlayerStates.Dying: playerAnimation = dieAnimation; break;
                 default: playerAnimation = runAnimation; break;
             }
             playerAnimation.Update(gameTime);
@@ -136,7 +149,7 @@ namespace Game.Engine
 
         public bool CheckDeath()
         {
-            return immunity <= 0;
+            return immunity <= 0 && State == PlayerStates.Dying && !playerAnimation.Active;
         }
 
         public void Draw(SpriteBatch spriteBatch)
