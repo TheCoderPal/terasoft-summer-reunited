@@ -96,10 +96,11 @@ namespace Game.UI
         public void setSkeletonJoints()
         {
             Constants.oldSkeleton = newSkeleton;
-            Constants.hipPosX = newSkeleton.Joints[JointType.HipCenter].Position.X;
-            Constants.hipPosY = newSkeleton.Joints[JointType.HipCenter].Position.Y;
-            Constants.rightHandPosZ = newSkeleton.Joints[JointType.HandRight].Position.Z;
-            Constants.rightElbowPosY = newSkeleton.Joints[JointType.ElbowRight].Position.Y;
+            Constants.hipPosX = (int)newSkeleton.Joints[JointType.HipCenter].Position.X;
+            Constants.hipPosY = (int)newSkeleton.Joints[JointType.HipCenter].Position.Y;
+            Constants.rightHandPosZ = (int)newSkeleton.Joints[JointType.HandRight].Position.Z;
+            Constants.rightElbowPosY = (int)newSkeleton.Joints[JointType.ElbowRight].Position.Y;
+            Constants.facePosY = (int)newSkeleton.Joints[JointType.Head].Position.Y;
         }
         /// <summary>
         /// Updates the screens managed by the screenManager.

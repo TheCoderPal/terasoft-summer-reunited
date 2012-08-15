@@ -10,11 +10,11 @@ namespace Game.Kinect
                 {
                     if (skeleton.Joints[JointType.Head].Position.X > (Constants.hipPosX+0.4))
                     {
-                        if (skeleton.Joints[JointType.HipCenter].Position.X > Constants.hipPosX+0.4)
+                        if (skeleton.Joints[JointType.HipCenter].Position.X > Constants.hipPosX + 0.4)
                         {
                             return GesturePartResult.Suceed;
                         }
-                        return GesturePartResult.Pausing;
+                        else return GesturePartResult.Fail;
                     }
                     return GesturePartResult.Fail;
                 }

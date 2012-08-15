@@ -10,7 +10,7 @@ namespace Game.Kinect
         {
             SkeletonAnalyzer analyzer = new SkeletonAnalyzer();
             analyzer.SetBodySegments(skeleton.Joints[JointType.KneeLeft], skeleton.Joints[JointType.HipCenter], skeleton.Joints[JointType.KneeRight]);
-            if (skeleton.Joints[JointType.HipCenter].Position.Y < (Constants.hipPosY+0.2))
+            if (skeleton.Joints[JointType.HipCenter].Position.Y < (Constants.hipPosY+0.5))
             {
                 if(analyzer.GetBodySegmentAngle(skeleton.Joints)> -140)
                 return GesturePartResult.Suceed;
