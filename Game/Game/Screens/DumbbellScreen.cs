@@ -12,7 +12,7 @@ namespace Game.Screens
     {
         Sprite background;
         SpriteAnimation dumbbellAnimation;
-        Texture2D dumbbellSprite;
+        Texture2D dumbbellSprite, avatar, bubbleBox;
         SpriteBatch spriteBatch;
         ContentManager Content;
         int counter = 0;
@@ -40,6 +40,8 @@ namespace Game.Screens
         public override void LoadContent()
         {
             background = new Sprite(Content.Load<Texture2D>("Textures//Gym-Interior"), new Rectangle(0, 0, 1280, 720));
+            avatar = Content.Load<Texture2D>("Textures/avatar");
+            bubbleBox = Content.Load<Texture2D>("Textures/bubbleBoxDumb");
             base.LoadContent();
         }
 
@@ -77,6 +79,8 @@ namespace Game.Screens
             sprite.Begin();
             spriteBatch.DrawString(font, "Lifts: " + lifts, new Vector2(400, 10), Color.Red);
             dumbbellAnimation.Draw(spriteBatch);
+            spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width * 2, avatar.Height * 2), Color.White);
+            spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380, bubbleBox.Width, bubbleBox.Height * 2), Color.White);
             sprite.End();
             playScreen.bar.Draw(spriteBatch);
             base.Draw(gameTime);
