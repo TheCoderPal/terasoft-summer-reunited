@@ -13,34 +13,31 @@ namespace Game.Screens
 {
     public class LosingScreen : GameScreen
     {
-        List<string> scores;
-        List<Button> buttons;
-        Texture2D backgroundImage;
-        HandCursor Hand;
+        private List<string> scores;
+        private List<Button> buttons;
+        private Texture2D backgroundImage;
+        private HandCursor hand;
         private int score;
         private string text;
         private StringBuilder textBox;
         private bool highScore;
-        private SpriteFont Font;
-        private Vector2 TextOrigin;
+        private SpriteFont font;
+        private Vector2 textOrigin;
 
-        Button A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z, OKButton;
+        private Button A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z, OKButton;
 
         public LosingScreen(int Score)
         {
             scores = new List<string>();
             buttons = new List<Button>();
-            Hand = new HandCursor();
+            hand = new HandCursor();
             score = Score;
             textBox = new StringBuilder("", 6);
         }
 
         public bool CheckScore(int Score)
         {
-            if (scores.Count < 10)
-                return true;
-
-            if (Score > Int32.Parse(scores[scores.Count - 1].Split(',')[1]))
+            if (Score > Int32.Parse(scores[scores.Count - 1].Split(',')[1]) || scores.Count < 10)
                 return true;
             else
                 return false;
@@ -50,10 +47,10 @@ namespace Game.Screens
         {
             ContentManager Content = ScreenManager.Game.Content;
             backgroundImage = Content.Load<Texture2D>("Textures/losingScreen");
-            Font = Content.Load<SpriteFont>("Fontopo");
-            if(highScore)LoadButtonsContent(Content);
+            font = Content.Load<SpriteFont>("Fontopo");
+            if (CheckScore(score)) LoadButtonsContent(Content);
 
-            Hand.LoadContent(Content);
+            hand.LoadContent(Content);
             base.LoadContent();
         }
 
@@ -67,7 +64,6 @@ namespace Game.Screens
 
                 text = "                          CONGRATULATIONS ! \n YOU MADE IT INTO TOP 10 ! PLEASE ENTER YOUR NAME :\n\n" +
                     "                         YOUR SCORE IS: " + score;
-                highScore = true;
             }
             else
             {
@@ -80,7 +76,7 @@ namespace Game.Screens
             buttons.Add(OKButton);
             OKButton.Clicked += new Button.ClickedEventHandler(OKButton_Clicked);
 
-            Hand.Initialize(ScreenManager.Kinect);
+            hand.Initialize(ScreenManager.Kinect);
             base.Initialize();
         }
 
@@ -95,7 +91,7 @@ namespace Game.Screens
 
         public override void Update(GameTime gameTime)
         {
-            Hand.Update(gameTime);
+            hand.Update(gameTime);
                 foreach (Button b in buttons)
                 {
                     b.Update(gameTime);
@@ -114,17 +110,16 @@ namespace Game.Screens
 
             scores.RemoveAt(scores.Count - 1);
 
-            StreamWriter sw = new StreamWriter(path, false);
+            StreamWriter fileWriter = new StreamWriter(path, false);
 
             foreach (string s in scores)
             {
-                sw.WriteLine(s);
-                Debug.WriteLine("Adding " + s);
+                fileWriter.WriteLine(s);
             }
 
-            sw.Close();
+            fileWriter.Close();
 
-            sw.Dispose();
+            fileWriter.Dispose();
         }
 
         public void InitializeButtons()
@@ -404,9 +399,9 @@ namespace Game.Screens
             foreach (Button b in buttons)
                 b.Draw(spriteBatch);
 
-            spriteBatch.DrawString(Font, text, new Vector2(290, 35), Color.White);
-            spriteBatch.DrawString(Font, textBox, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2 - 200, 220), Color.White);
-            Hand.Draw(spriteBatch);
+            spriteBatch.DrawString(font, text, new Vector2(290, 35), Color.White);
+            spriteBatch.DrawString(font, textBox, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width / 2 - 200, 220), Color.White);
+            hand.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
