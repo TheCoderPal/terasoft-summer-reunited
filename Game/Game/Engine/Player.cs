@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Game.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Game.Text;
-using System.Diagnostics;
 
 namespace Game.Engine
 {
@@ -26,21 +22,21 @@ namespace Game.Engine
         }
 
         //
-        PlayerStates State;
+        private PlayerStates State;
 
         //Animation of the avatar.
-        SpriteAnimation playerAnimation;
-        SpriteAnimation runAnimation;
-        SpriteAnimation jumpAnimation;
-        SpriteAnimation slidingAnimation;
-        SpriteAnimation swordAnimation;
+        private SpriteAnimation playerAnimation;
+        private SpriteAnimation runAnimation;
+        private SpriteAnimation jumpAnimation;
+        private SpriteAnimation slidingAnimation;
+        private SpriteAnimation swordAnimation;
 
         //Sprite Textures
-        Texture2D runTexture, jumpTexture, slideTexture, swordTexture;
-        float scale;
+        private Texture2D runTexture, jumpTexture, slideTexture, swordTexture;
+        private float scale;
 
         //Avatar's Position on screen.
-        Vector2 Position;
+        private Vector2 Position;
 
         //Player health.
         private int immunity;
@@ -51,7 +47,7 @@ namespace Game.Engine
         public int Score { get { return score; } set { score = value; } }
 
         //Player items status
-        bool hasShield, hasSword;
+        private bool hasShield, hasSword;
 
         public Player()
         {
