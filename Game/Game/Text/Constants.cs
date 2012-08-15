@@ -17,11 +17,6 @@ namespace Game.Text
         public static bool isRunning;
         public static bool isSteppingRight;
         public static Skeleton oldSkeleton;
-        public static int hipPosX; // Skeleton initial X position needed for step right gesture.
-        public static int hipPosY;
-        public static int rightHandPosZ;
-        public static int facePosY;
-        public static int rightElbowPosY;
         public static int healthy1 = 3;
         public static int healthy2 = 5;
         public static int healthy3 = 7;

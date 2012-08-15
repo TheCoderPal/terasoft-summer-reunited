@@ -8,13 +8,18 @@ namespace Game.Kinect
     {
         public GesturePartResult CheckGesture(Skeleton skeleton)
         {
+            Joint rightHand = Constants.oldSkeleton.Joints[JointType.HandRight];
+            Joint rightElbow = Constants.oldSkeleton.Joints[JointType.ElbowRight];
+            Joint rightShoulder = Constants.oldSkeleton.Joints[JointType.ShoulderRight];
+            Joint newRightHand=skeleton.Joints[JointType.HandRight];
+            Joint newRightElbow = skeleton.Joints[JointType.ElbowRight];
             SkeletonAnalyzer analyzer = new SkeletonAnalyzer();
             analyzer.SetBodySegments(skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.ElbowRight], skeleton.Joints[JointType.ShoulderRight]);
-            if ((skeleton.Joints[JointType.HandRight].Position.Z > Constants.rightHandPosZ) && (skeleton.Joints[JointType.ElbowRight].Position.Z > Constants.rightHandPosZ)&&
-                (skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X+0.5) &&
-                (skeleton.Joints[JointType.HandRight].Position.X > skeleton.Joints[JointType.HipCenter].Position.X)
-                &&(skeleton.Joints[JointType.HandRight].Position.Y > Constants.rightElbowPosY))
-
+            if ((newRightHand.Position.Z > rightHand.Position.Z) && 
+                (newRightElbow.Position.Z > rightElbow.Position.Z) &&
+               (rightHand.Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X + 0.5) &&
+               (rightHand.Position.X > skeleton.Joints[JointType.HipCenter].Position.X)&&
+               (rightHand.Position.Y > rightElbow.Position.Y))
             {
                 if (analyzer.GetBodySegmentAngle(skeleton.Joints) >= -4.0 && analyzer.GetBodySegmentAngle(skeleton.Joints) <= 4.0)
                     return GesturePartResult.Suceed;
