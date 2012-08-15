@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Game.Kinect;
 using Microsoft.Kinect;
 using System;
-using System.Diagnostics;
 
 namespace Game.UI
 {
@@ -15,14 +13,14 @@ namespace Game.UI
         private Vector2 position;
         public Vector2 Position { get { return position; } set { position = value; } }
         private string texturePath;
-        private int TextureWidth, TextureHeight;
+        private int textureWidth, textureHeight;
 
         private Game.Kinect.Kinect kinect;
         private float timer = 0;
         private const float CLICK_TIME_OUT = 1400;
 
-        private Rectangle BoundingRectangle;
-        private bool TextureBoundsSet = false;
+        private Rectangle boundingRectangle;
+        private bool textureBoundsSet = false;
 
         private bool clicked;
         private Color hoverColor;
@@ -41,7 +39,7 @@ namespace Game.UI
             texturePath = Path;
             this.kinect = kinect;
             position = Position;
-            TextureBoundsSet = false;
+            textureBoundsSet = false;
             hoverColor = new Color(255, 255, 255, 220);
         }
 
@@ -50,23 +48,23 @@ namespace Game.UI
             texturePath = Path;
             this.kinect = kinect;
             position = Position;
-            TextureWidth = buttonWidth;
-            TextureHeight = buttonHeight;
-            TextureBoundsSet = true;
+            textureWidth = buttonWidth;
+            textureHeight = buttonHeight;
+            textureBoundsSet = true;
             hoverColor = new Color(255, 255, 255, 220);
         }
 
         public void LoadContent(ContentManager Content)
         {
             texture = Content.Load<Texture2D>(texturePath);
-            if (!TextureBoundsSet)
+            if (!textureBoundsSet)
             {
-                TextureWidth = texture.Width;
-                TextureHeight = texture.Height;
-                BoundingRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+                textureWidth = texture.Width;
+                textureHeight = texture.Height;
+                boundingRectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             }
             else
-                BoundingRectangle = new Rectangle((int)position.X, (int)position.Y, TextureWidth, TextureHeight);
+                boundingRectangle = new Rectangle((int)position.X, (int)position.Y, textureWidth, textureHeight);
         }
 
         public void Update(GameTime gameTime)
@@ -74,7 +72,7 @@ namespace Game.UI
             Joint rightHand = kinect.GetCursorPosition();
             Point handPoint = new Point((int)rightHand.Position.X, (int)rightHand.Position.Y);
 
-            if (BoundingRectangle.Contains(handPoint))
+            if (boundingRectangle.Contains(handPoint))
             {
                 if (clicked)
                 {
@@ -104,7 +102,7 @@ namespace Game.UI
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, BoundingRectangle, Color.White);
+            spriteBatch.Draw(texture, boundingRectangle, Color.White);
 
             if (timer > 0 && timer < CLICK_TIME_OUT)
             {
