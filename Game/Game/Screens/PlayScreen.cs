@@ -388,9 +388,15 @@ namespace Game.Screens
                     case "tomato": player.Collided(Constants.healthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "carrot": player.Collided(Constants.healthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "strawberry": player.Collided(Constants.healthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "orange": player.Collided(Constants.healthy4); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "pineapple": player.Collided(Constants.healthy5); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "broccoli": player.Collided(Constants.healthy6); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "fries": player.Collided(Constants.unhealthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "hamburger": player.Collided(Constants.unhealthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "pizza": player.Collided(Constants.unhealthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "donut": player.Collided(Constants.unhealthy4); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "muffin": player.Collided(Constants.unhealthy5); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "hotdog": player.Collided(Constants.unhealthy6); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "level1": if (!player.HasShield())
                         {
                             if (!player.HasSword()) { player.Collided(Constants.level1); }
