@@ -237,9 +237,15 @@ namespace Game.Screens
                         case "tomato": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
                         case "carrot": texture = Content.Load<Texture2D>("Textures//healthy2"); break;
                         case "strawberry": texture = Content.Load<Texture2D>("Textures//healthy3"); break;
+                        case "orange": texture = Content.Load<Texture2D>("Textures//healthy4"); break;
+                        case "pineapple": texture = Content.Load<Texture2D>("Textures//healthy5"); break;
+                        case "broccoli": texture = Content.Load<Texture2D>("Textures//healthy6"); break;
                         case "fries": texture = Content.Load<Texture2D>("Textures//unhealthy1"); break;
                         case "hamburger": texture = Content.Load<Texture2D>("Textures//unhealthy2"); break;
                         case "pizza": texture = Content.Load<Texture2D>("Textures//unhealthy3"); break;
+                        case "donut": texture = Content.Load<Texture2D>("Textures//unhealthy4"); break;
+                        case "muffin": texture = Content.Load<Texture2D>("Textures//unhealthy5"); break;
+                        case "hotdog": texture = Content.Load<Texture2D>("Textures//unhealthy6"); break;
                         case "level1": texture = Content.Load<Texture2D>("Textures//virus1"); break;
                         case "level2": texture = Content.Load<Texture2D>("Textures//virus2"); break;
                         case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
