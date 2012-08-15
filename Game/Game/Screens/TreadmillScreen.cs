@@ -48,27 +48,26 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             treadmillAnimation.Update(gameTime);
-            if (counter % 50 == 0)
+                        
+            if (Constants.isRunning)
             {
-                if (Constants.isRunning)
-                {
-                    running++;
-                    Constants.ResetFlags();
-                }
+                running++;
+                Constants.ResetFlags();
             }
+            
 
             if (counter == 600)
             {
                 this.Remove();
                 for (int i = 0; i <= running - 1; i++)
                 {
-                    playScreen.GetPlayer().Collided(10);
+                    playScreen.GetPlayer().Collided(1);
                 }
                 playScreen.UnfreezeScreen();
             }
 
             counter++;
-         //   bar.Update(gameTime);
+            bar.Update(gameTime);
             playScreen.bar.Update(gameTime);
             base.Update(gameTime);
         }
@@ -78,7 +77,9 @@ namespace Game.Screens
             background.Draw(spriteBatch);
             treadmill.Draw(spriteBatch);
             SpriteBatch sprite = spriteBatch;
+            SpriteFont font = Content.Load<SpriteFont>("Fontopo");   
             sprite.Begin();
+            spriteBatch.DrawString(font, "Meters: " + running, new Vector2(400, 10), Color.Red);
             treadmillAnimation.Draw(spriteBatch);
             sprite.End();
             playScreen.bar.Draw(spriteBatch);

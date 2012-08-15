@@ -80,7 +80,8 @@ namespace Game.Screens
             MediaPlayer.IsRepeating = false;
             player.LoadContent(Content);
 
-            //Shirin
+            #region Shirin
+
             sword = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(335, 7, 50, 50));
             shield = new Sprite(Content.Load<Texture2D>("Textures//shield"), new Rectangle(420, 0, 60, 60));
             swordAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(325, 10, 60, 60));
@@ -99,7 +100,7 @@ namespace Game.Screens
             soundEffects[4] = Content.Load<SoundEffect>("Audio//SwordSlash");
             soundEffects[5] = Content.Load<SoundEffect>("Audio//VirusHit");
 
-
+            #endregion
 
             bgLayer1.Initialize(Content, "Background/Layer 1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             bgLayer2.Initialize(Content, "Background/Layer 2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
@@ -205,9 +206,9 @@ namespace Game.Screens
 
 
 
-            //Shirin
 
-            
+            #region Shirin
+
             if (globalCounter == 500)
             {
                 Sprite[] previousSprites = currentSprite;
@@ -282,11 +283,9 @@ namespace Game.Screens
                 }
             }
 
-
             if (globalCounter % 50 == 0)
             {
                 spriteCounter++;
-
             }
 
             for (int i = 0; i <= spriteCounter - 1; i++)
@@ -295,6 +294,8 @@ namespace Game.Screens
             }
 
             globalCounter++;
+
+            #endregion
 
 
             bar.SetCurrentValue(player.Immunity);

@@ -47,21 +47,19 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             dumbbellAnimation.Update(gameTime);
-            if (counter % 50 == 0)
+            
+            if (Constants.isDumbbell)
             {
-                if (Constants.isDumbbell)
-                {
-                    lifts++;
-                    Constants.ResetFlags();
-                }
-            }
+                lifts++;
+                Constants.ResetFlags();
+            }           
 
             if (counter == 600)
             {
                 this.Remove();
                 for (int i = 0; i <= lifts-1; i++)
                 {
-                    playScreen.GetPlayer().Collided(10);
+                    playScreen.GetPlayer().Collided(5);
                 }
                 playScreen.UnfreezeScreen();
             }
@@ -74,8 +72,10 @@ namespace Game.Screens
         public override void Draw(GameTime gameTime)
         {
             background.Draw(spriteBatch);
+            SpriteFont font = Content.Load<SpriteFont>("Fontopo");            
             SpriteBatch sprite = spriteBatch;
             sprite.Begin();
+            spriteBatch.DrawString(font, "Lifts: " + lifts, new Vector2(400, 10), Color.Red);
             dumbbellAnimation.Draw(spriteBatch);
             sprite.End();
             playScreen.bar.Draw(spriteBatch);
