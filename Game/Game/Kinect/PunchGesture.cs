@@ -10,10 +10,10 @@ namespace Game.Kinect
         {
             SkeletonAnalyzer analyzer = new SkeletonAnalyzer();
             analyzer.SetBodySegments(skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.ElbowRight], skeleton.Joints[JointType.ShoulderRight]);
-            if ((skeleton.Joints[JointType.HandRight].Position.Z > Constants.posZ) && (skeleton.Joints[JointType.ElbowRight].Position.Z > Constants.posZ)&&
+            if ((skeleton.Joints[JointType.HandRight].Position.Z > Constants.rightHandPosZ) && (skeleton.Joints[JointType.ElbowRight].Position.Z > Constants.rightHandPosZ)&&
                 (skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X+0.5) &&
                 (skeleton.Joints[JointType.HandRight].Position.X > skeleton.Joints[JointType.HipCenter].Position.X)
-                &&(skeleton.Joints[JointType.HandRight].Position.Y > Constants.elbowPosY))
+                &&(skeleton.Joints[JointType.HandRight].Position.Y > Constants.rightElbowPosY))
 
             {
                 if (analyzer.GetBodySegmentAngle(skeleton.Joints) >= -4.0 && analyzer.GetBodySegmentAngle(skeleton.Joints) <= 4.0)

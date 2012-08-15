@@ -89,8 +89,17 @@ namespace Game.UI
                 }
             }
             framesCount++;
-            if (framesCount % 30 == 0 && Kinect.trackedSkeleton!=null)
-                newSkeleton = Kinect.trackedSkeleton;
+            newSkeleton = Kinect.trackedSkeleton;
+            if (framesCount % 60 == 0 && Kinect.trackedSkeleton != null)
+                setSkeletonJoints();
+        }
+        public void setSkeletonJoints()
+        {
+            Constants.oldSkeleton = newSkeleton;
+            Constants.hipPosX = newSkeleton.Joints[JointType.HipCenter].Position.X;
+            Constants.hipPosY = newSkeleton.Joints[JointType.HipCenter].Position.Y;
+            Constants.rightHandPosZ = newSkeleton.Joints[JointType.HandRight].Position.Z;
+            Constants.rightElbowPosY = newSkeleton.Joints[JointType.ElbowRight].Position.Y;
         }
         /// <summary>
         /// Updates the screens managed by the screenManager.
