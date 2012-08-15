@@ -3,8 +3,6 @@ using Game;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Kinect;
-using Game.Kinect;
 
 namespace Game.Screens
 {
@@ -14,11 +12,6 @@ namespace Game.Screens
         Button newGame;
         Button instructions;
         Button highscores;
-        Skeleton skeleton;
-        SkeletonAnalyzer analyzer;
-        SpriteFont font;
-        int angle = 0;
-        string message = "";
         Button exit;
         Sprite newGameLabel;
         Sprite instructionsLabel;
@@ -92,7 +85,6 @@ namespace Game.Screens
 
         public override void LoadContent()
         {
-            analyzer = new SkeletonAnalyzer();
             Content = ScreenManager.Game.Content;
             spriteBatch = ScreenManager.SpriteBatch;
             newGame.LoadContent(Content);
@@ -111,14 +103,6 @@ namespace Game.Screens
 
         public override void Update(GameTime gameTime)
         {
-            if (ScreenManager.newSkeleton != null)
-            {
-                skeleton = ScreenManager.newSkeleton;
-                analyzer.SetBodySegments(skeleton.Joints[JointType.KneeLeft], skeleton.Joints[JointType.HipCenter], skeleton.Joints[JointType.KneeRight]);
-                angle = (int)analyzer.GetBodySegmentAngle(skeleton.Joints);
-            }
-            font = ScreenManager.Game.Content.Load<SpriteFont>("SpriteFont1");
-            message = "The angle between the 3 joints is" + angle;
             Hand.Update(gameTime);
             newGame.Update(gameTime);
             instructions.Update(gameTime);
@@ -133,7 +117,6 @@ namespace Game.Screens
             SpriteBatch sprite = spriteBatch;
             sprite.Begin();
             newGame.Draw(spriteBatch);
-            spriteBatch.DrawString(font, "The angle between the 3 joints is" + angle , Vector2.Zero, Color.Orange);
             instructions.Draw(spriteBatch);
             highscores.Draw(spriteBatch);
             exit.Draw(spriteBatch);
@@ -146,5 +129,6 @@ namespace Game.Screens
 
             base.Draw(gameTime);
         }
+
     }
 }
