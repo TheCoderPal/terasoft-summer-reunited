@@ -20,9 +20,15 @@ namespace Game.Text
         public static int healthy1 = 3;
         public static int healthy2 = 5;
         public static int healthy3 = 7;
+        public static int healthy4 = 9;
+        public static int healthy5 = 11;
+        public static int healthy6 = 13;
         public static int unhealthy1 = -4;
         public static int unhealthy2 = -6;
         public static int unhealthy3 = -8;
+        public static int unhealthy4 = -10;
+        public static int unhealthy5 = -12;
+        public static int unhealthy6 = -14;
         public static int level1 = -5;
         public static int level2 = -8;
         public static int level3 = -12;
