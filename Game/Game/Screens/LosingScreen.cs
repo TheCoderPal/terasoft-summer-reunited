@@ -48,7 +48,7 @@ namespace Game.Screens
             ContentManager Content = ScreenManager.Game.Content;
             backgroundImage = Content.Load<Texture2D>("Textures/losingScreen");
             font = Content.Load<SpriteFont>("Fontopo");
-            if (CheckScore(score)) LoadButtonsContent(Content);
+            LoadButtonsContent(Content);
 
             hand.LoadContent(Content);
             base.LoadContent();
@@ -57,6 +57,11 @@ namespace Game.Screens
         public override void Initialize()
         {
             scores.AddRange(System.IO.File.ReadAllLines("Text/HighScores.txt"));
+
+            OKButton = new Button();
+            OKButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(1050, 330));
+            buttons.Add(OKButton);
+            OKButton.Clicked += new Button.ClickedEventHandler(OKButton_Clicked);
 
             if (CheckScore(score))
             {
@@ -71,10 +76,6 @@ namespace Game.Screens
                     "                        YOUR SCORE IS: " + score;
             }
 
-            OKButton = new Button();
-            OKButton.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(1050, 330));
-            buttons.Add(OKButton);
-            OKButton.Clicked += new Button.ClickedEventHandler(OKButton_Clicked);
 
             hand.Initialize(ScreenManager.Kinect);
             base.Initialize();
