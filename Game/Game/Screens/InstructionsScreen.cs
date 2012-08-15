@@ -1,8 +1,8 @@
-﻿using Game.UI;
+﻿using System.Text;
+using Game.UI;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Text;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Game.Screens
 {
@@ -13,8 +13,8 @@ namespace Game.Screens
         private Rectangle textBox;
         private SpriteFont spriteFont;
         private Texture2D backgroundImage;
-        Button OkButton;
-        HandCursor Hand;
+        private Button OkButton;
+        private HandCursor Hand;
 
         public InstructionsScreen()
         {
@@ -80,7 +80,7 @@ namespace Game.Screens
         {
             string[] words = text.Split(' ');
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
 
             float lineWidth = 0f;
 
@@ -92,17 +92,17 @@ namespace Game.Screens
 
                 if (lineWidth + size.X < maxLineWidth)
                 {
-                    sb.Append(word + " ");
+                    builder.Append(word + " ");
                     lineWidth += size.X + spaceWidth;
                 }
                 else
                 {
-                    sb.Append("\n" + word + " ");
+                    builder.Append("\n" + word + " ");
                     lineWidth = size.X + spaceWidth;
                 }
             }
 
-            return sb.ToString();
+            return builder.ToString();
         }
     }
 }
