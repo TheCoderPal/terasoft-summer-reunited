@@ -104,7 +104,6 @@ namespace Game.Kinect
         case GestureType.StepRightGesture:
             Gesture = "StepRightGesture";
             Constants.isSteppingRight = true;
-//            Constants.HipPosX = trackedSkeleton.Joints[JointType.HipCenter].Position.X;
             break;
         case GestureType.RunningGesture:
             Gesture = "RunningGesture";
@@ -117,17 +116,6 @@ namespace Game.Kinect
         default:
             break;
     }
-        //Debug.Write(Constants.isDumbbell.ToString());
-        //Debug.Write(Constants.isBending.ToString());
-        //Debug.Write(Constants.isPunching.ToString());
-        //Debug.Write(Constants.isRunning.ToString());
-        //Debug.Write(Constants.isSteppingRight.ToString());
-        //Constants.ResetFlags();
-        //Debug.Write(Constants.isDumbbell.ToString());
-        //Debug.Write(Constants.isBending.ToString());
-        //Debug.Write(Constants.isPunching.ToString());
-        //Debug.Write(Constants.isRunning.ToString());
-        //Debug.Write(Constants.isSteppingRight.ToString());
     }
         /// <summary>
         /// Handler for skeleton ready handler.
