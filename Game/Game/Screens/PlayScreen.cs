@@ -234,12 +234,12 @@ namespace Game.Screens
                     int length = 50;
                     switch (current[i, 0])
                     {
-                        case "banana": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
-                        case "apple": texture = Content.Load<Texture2D>("Textures//healthy2"); break;
-                        case "orange": texture = Content.Load<Texture2D>("Textures//healthy3"); break;
-                        case "hamburg": texture = Content.Load<Texture2D>("Textures//unhealthy1"); break;
-                        case "fries": texture = Content.Load<Texture2D>("Textures//unhealthy2"); break;
-                        case "hotdog": texture = Content.Load<Texture2D>("Textures//unhealthy3"); break;
+                        case "tomato": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
+                        case "carrot": texture = Content.Load<Texture2D>("Textures//healthy2"); break;
+                        case "strawberry": texture = Content.Load<Texture2D>("Textures//healthy3"); break;
+                        case "fries": texture = Content.Load<Texture2D>("Textures//unhealthy1"); break;
+                        case "hamburger": texture = Content.Load<Texture2D>("Textures//unhealthy2"); break;
+                        case "pizza": texture = Content.Load<Texture2D>("Textures//unhealthy3"); break;
                         case "level1": texture = Content.Load<Texture2D>("Textures//virus1"); break;
                         case "level2": texture = Content.Load<Texture2D>("Textures//virus2"); break;
                         case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
@@ -379,12 +379,12 @@ namespace Game.Screens
             {
                 switch (name)
                 {
-                    case "banana": player.Collided(Constants.healthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "apple": player.Collided(Constants.healthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "orange": player.Collided(Constants.healthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "hamburg": player.Collided(Constants.unhealthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "fries": player.Collided(Constants.unhealthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "hotdog": player.Collided(Constants.unhealthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "tomato": player.Collided(Constants.healthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "carrot": player.Collided(Constants.healthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "strawberry": player.Collided(Constants.healthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "fries": player.Collided(Constants.unhealthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "hamburger": player.Collided(Constants.unhealthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "pizza": player.Collided(Constants.unhealthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "level1": if (!player.HasShield())
                         {
                             if (!player.HasSword()) { player.Collided(Constants.level1); }

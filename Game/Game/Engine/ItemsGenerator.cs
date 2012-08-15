@@ -8,8 +8,8 @@ namespace Game.Engine
     /// </summary>
     class ItemsGenerator
     {
-       private string[] goodItems = { "banana", "apple", "orange" };
-       private string[] badItems = { "hamburg", "fries", "hotdog" };
+       private string[] goodItems = { "tomato", "carrot","strawberry","pineapple","broccoli","orange"};
+       private string[] badItems = { "fries", "hamburger","pizza","donut","muffin","hotdog"};
        private string[] weapons = { "sheild", "sword" };
        private string[] viruses = { "level1","level2","level3"};
        private string[] level1 = { "level1"};
@@ -20,7 +20,7 @@ namespace Game.Engine
        private int  counter;
 		public ItemsGenerator()
 		{
-            counter = 60;
+            counter = 0;
             random = new Random();
 		}
         public string[,] GenerateMore()
