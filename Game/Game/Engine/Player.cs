@@ -163,7 +163,7 @@ namespace Game.Engine
 
         public Rectangle GetBoundingRectangle()
         {
-            return new Rectangle((int)playerAnimation.Position.X - playerAnimation.FrameHeight/2, (int)playerAnimation.Position.Y-playerAnimation.FrameHeight/2, 
+            return new Rectangle(((int)playerAnimation.Position.X - playerAnimation.FrameHeight/2), ((int)playerAnimation.Position.Y-playerAnimation.FrameHeight/2), 
                 playerAnimation.FrameWidth, playerAnimation.FrameHeight);
         }
 
