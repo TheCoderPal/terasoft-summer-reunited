@@ -8,8 +8,6 @@ namespace Game.Kinect
     {
         public GesturePartResult CheckGesture(Skeleton skeleton)
         {
-            if (Constants.oldSkeleton != null)
-            {
                 Joint rightHand = Constants.oldSkeleton.Joints[JointType.HandRight];
                 Joint rightElbow = Constants.oldSkeleton.Joints[JointType.ElbowRight];
                 Joint rightShoulder = Constants.oldSkeleton.Joints[JointType.ShoulderRight];
@@ -29,9 +27,7 @@ namespace Game.Kinect
                 }
                 else
                     return GesturePartResult.Fail;
-            }
-            return GesturePartResult.Fail;
-        }
+         }
     }
 }
 

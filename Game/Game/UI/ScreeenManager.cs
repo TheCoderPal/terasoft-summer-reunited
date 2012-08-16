@@ -11,14 +11,6 @@ namespace Game.UI
         private List<GameScreen> screens = new List<GameScreen>();
         private List<GameScreen> screensToUpdate = new List<GameScreen>();
         private SpriteBatch spriteBatch;
-        public int framesCount;
-        public Skeleton newSkeleton;
-        public int FramesCount
-        {
-            get { return framesCount; }
-            set { framesCount = value; }
-        }
-
         public Kinect.Kinect Kinect;
 
         /// <summary>
@@ -45,7 +37,6 @@ namespace Game.UI
         /// </summary>
         protected override void LoadContent()
         {
-            newSkeleton = Kinect.trackedSkeleton;
             spriteBatch = new SpriteBatch(GraphicsDevice);
             foreach (GameScreen screen in screens)
                 screen.LoadContent();
@@ -88,17 +79,6 @@ namespace Game.UI
                     screen.Update(gameTime);
                 }
             }
-            framesCount++;
-            newSkeleton = Kinect.trackedSkeleton;
-            if (framesCount % (60 * 4) == 0)
-                if (Kinect.trackedSkeleton != null)
-                    setSkeletonJoints();
-                else
-                    Constants.oldSkeleton = Kinect.trackedSkeleton;
-        }
-        public void setSkeletonJoints()
-        {
-            Constants.oldSkeleton = newSkeleton;
         }
         /// <summary>
         /// Updates the screens managed by the screenManager.

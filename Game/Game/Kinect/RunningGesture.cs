@@ -8,8 +8,6 @@ namespace Game.Kinect
     {
         public GesturePartResult CheckGesture(Skeleton skeleton)
         {
-            if (Constants.oldSkeleton != null)
-            {
                 Joint leftAnkle = Constants.oldSkeleton.Joints[JointType.AnkleLeft];
                 Joint leftKnee = Constants.oldSkeleton.Joints[JointType.KneeLeft];
                 Joint newLeftAnkle = skeleton.Joints[JointType.AnkleLeft];
@@ -22,15 +20,11 @@ namespace Game.Kinect
                 }
                 return GesturePartResult.Fail;
             }
-            return GesturePartResult.Fail;
-            }
     }
     class RunningGesture2 : IRelativeGestureSegment
     {
         public GesturePartResult CheckGesture(Skeleton skeleton)
         {
-            if (Constants.oldSkeleton != null)
-            {
                 Joint rightAnkle = Constants.oldSkeleton.Joints[JointType.AnkleRight];
                 Joint rightKnee = Constants.oldSkeleton.Joints[JointType.KneeRight];
                 Joint newRightAnkle = skeleton.Joints[JointType.AnkleRight];
@@ -41,8 +35,6 @@ namespace Game.Kinect
                     return GesturePartResult.Suceed;
                 return GesturePartResult.Fail;
             }
-            return GesturePartResult.Fail;
-        }
     }
 }
     

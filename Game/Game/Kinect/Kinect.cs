@@ -15,6 +15,12 @@ namespace Game.Kinect
         private GestureController gestureController;
         private string _gesture;
         public event PropertyChangedEventHandler PropertyChanged;
+        public int framesCount;
+        public int FramesCount
+        {
+            get { return framesCount; }
+            set { framesCount = value; }
+        }
         public String Gesture
         {
             get { return _gesture; }
@@ -141,7 +147,14 @@ namespace Game.Kinect
                 swapHand.activeRecognizer.Recognize(null, null, this.skeletons);
                 if (trackedSkeleton != null)
                 {
+                    framesCount++;
                     JumpHelp();
+                    if (framesCount == 1)
+                        Constants.oldSkeleton = trackedSkeleton;
+                    if (framesCount % (60 * 3) == 0)
+                    {
+                        Constants.oldSkeleton = trackedSkeleton;
+                    }
                     gestureController.UpdateAllGestures(trackedSkeleton);
                 }
             }

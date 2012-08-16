@@ -8,8 +8,6 @@ namespace Game.Kinect
     {
         public GesturePartResult CheckGesture(Skeleton skeleton)
         {
-            if (Constants.oldSkeleton != null)
-            {
                 if (skeleton.Joints[JointType.HandLeft].Position.Z < skeleton.Joints[JointType.ElbowLeft].Position.Z)
                 {
                     // Hands between shoulder and hip
@@ -24,15 +22,11 @@ namespace Game.Kinect
                 }
                 return GesturePartResult.Fail;
             }
-            return GesturePartResult.Fail;
-        }
     }
     class DumbbellGesture2 : IRelativeGestureSegment
     {
         public GesturePartResult CheckGesture(Skeleton skeleton)
         {
-            if (Constants.oldSkeleton != null)
-            {
                 if (skeleton.Joints[JointType.HandRight].Position.Z < skeleton.Joints[JointType.ElbowRight].Position.Z)
                 {
                     // Hands between shoulder and hip
@@ -44,8 +38,6 @@ namespace Game.Kinect
                     }
                     return GesturePartResult.Pausing;
                 }
-                return GesturePartResult.Fail;
-            }
             return GesturePartResult.Fail;
         }
     }
