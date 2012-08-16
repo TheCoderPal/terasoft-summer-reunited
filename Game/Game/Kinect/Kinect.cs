@@ -194,6 +194,78 @@ namespace Game.Kinect
         {
             return skeletons;
         }
+        public static List<float> Fill_Joint_Pos(Skeleton skeleton, Joint joint, string dimension)
+        {
+            switch(dimension)
+            {
+                case "x":
+            List<float> xPos=new List<float>();
+            xPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.X), 1));
+            xPos.Add((float)Math.Round((skeleton.Joints[JointType.KneeLeft].Position.X), 1));
+            xPos.Add((float)Math.Round((skeleton.Joints[JointType.KneeRight].Position.X), 1));
+            xPos.Add((float)Math.Round((skeleton.Joints[JointType.KneeRight].Position.X), 1));
+            RemoveDuplicatesAndReturnMaxAndMin(xPos);
+            return xPos;
+                case "y":
+            List<float> yPos=new List<float>();
+            yPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Y), 1));
+            yPos.Add((float)Math.Round((skeleton.Joints[JointType.KneeLeft].Position.Y), 1));
+            yPos.Add((float)Math.Round((skeleton.Joints[JointType.KneeRight].Position.Y), 1));
+            yPos.Add((float)Math.Round((skeleton.Joints[JointType.KneeRight].Position.Y), 1));
+            RemoveDuplicatesAndReturnMaxAndMin(yPos);
+            return yPos;
+
+            case "z":
+            List<float> zPos=new List<float>();
+            zPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Z), 1));
+            zPos.Add((float)Math.Round((skeleton.Joints[JointType.KneeLeft].Position.Z), 1));
+            zPos.Add((float)Math.Round((skeleton.Joints[JointType.KneeRight].Position.Z), 1));
+            zPos.Add((float)Math.Round((skeleton.Joints[JointType.KneeRight].Position.Z), 1));
+            RemoveDuplicatesAndReturnMaxAndMin(zPos);
+            return zPos;
+            default: return new List<float>();
+
+        }
+        }
+        public static string RemoveDuplicatesAndReturnMaxAndMin(List<float> list)
+        {
+            float min=0;
+            float max=0;
+            if (list.Count != 0)
+            {
+                if (list.Count == 1)
+                {
+                    min = list[0]; //set the first input to be minimum
+                }
+                else
+                {
+                    if (list[list.Count - 1] == list[list.Count - 2]) // if the next input inlist equal the one b4 .. discard the one b4
+                    {
+
+                        if (list[list.Count - 1] == max)
+                        {
+                            max = list[list.Count - 1];
+                        }
+                        if (list[list.Count - 1] == min)
+                        {
+                            min = list[list.Count - 1];
+                        }
+                        list.RemoveAt(list.Count - 2);
+                    }
+                    else
+                    {
+                        if (list[list.Count - 1] > list[list.Count - 2]) // if the next input greater than the one b4 .. set it to max
+                        {
+                            max = list[list.Count - 1];
+                            list.RemoveAt(list.Count - 2);
+                        }
+                        min = list[list.Count - 1];
+                        list.RemoveAt(list.Count - 2);
+                    }
+                }
+            }
+            return min + "," + max;
+        }
         
         /// <summary>
         /// Returns right hand position scaled to screen.
