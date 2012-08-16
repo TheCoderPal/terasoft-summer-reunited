@@ -1,5 +1,9 @@
 ﻿using Game.Text;
 using Microsoft.Kinect;
+using System.Collections.Generic;
+using System.Text;
+using System;
+using System.Globalization;
 
 namespace Game.Kinect
 {
@@ -7,14 +11,22 @@ namespace Game.Kinect
     {
         public GesturePartResult CheckGesture(Skeleton skeleton)
         {
-            SkeletonAnalyzer analyzer = new SkeletonAnalyzer();
-            analyzer.SetBodySegments(skeleton.Joints[JointType.HandRight], skeleton.Joints[JointType.ElbowRight], skeleton.Joints[JointType.ShoulderRight]);
-            if ((skeleton.Joints[JointType.HandRight].Position.Z > Constants.posZ) && (skeleton.Joints[JointType.ElbowRight].Position.Z > Constants.posZ) &&
-                (skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X + 0.5) &&
-                (skeleton.Joints[JointType.HandRight].Position.X > skeleton.Joints[JointType.HipCenter].Position.X)
-                && (skeleton.Joints[JointType.HandRight].Position.Y > Constants.elbowPosY))
+            //List<float> handPos = Kinect.Fill_Joint_Pos(skeleton, skeleton.Joints[JointType.HandRight], "x");
+            //float min=0f;
+            //float max=0f;
+            //SkeletonAnalyzer analyzer = new SkeletonAnalyzer();
+            SkeletonAnalyzer analyzer2 = new SkeletonAnalyzer();
+            //if (!Constants.minmax.Equals(""))
+            //{
+            //    string[] minmax = Constants.minmax.Split(',');
+            //     min = float.Parse(minmax[0], CultureInfo.InvariantCulture);
+            //     max = float.Parse(minmax[1], CultureInfo.InvariantCulture);
+            //}
+            analyzer2.SetBodySegments(skeleton.Joints[JointType.ElbowRight], skeleton.Joints[JointType.ShoulderRight], skeleton.Joints[JointType.HipCenter]);
+            if ((skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X + 0.5) &&
+                (skeleton.Joints[JointType.HandRight].Position.X > skeleton.Joints[JointType.HipCenter].Position.X))
             {
-                if (analyzer.GetBodySegmentAngle(skeleton.Joints) >= -4.0 && analyzer.GetBodySegmentAngle(skeleton.Joints) <= 4.0)
+                    if (analyzer2.GetBodySegmentAngle(skeleton.Joints) > 10 && analyzer2.GetBodySegmentAngle(skeleton.Joints) <60)
                     return GesturePartResult.Suceed;
                 return GesturePartResult.Pausing;
             }

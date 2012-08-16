@@ -223,8 +223,8 @@ namespace Game.Kinect
                 }
 
             }
+            Constants.minmax = ToString(min, max);
             return xPos;
-            ToString(min, max);
                 case "y":
             List<float> yPos=new List<float>();
             for (int i = 0; i < 10; i++)
@@ -246,7 +246,7 @@ namespace Game.Kinect
                 }
 
             }
-            ToString(min, max);
+            Constants.minmax = ToString(min, max);
             return yPos;
 
             case "z":
@@ -270,7 +270,7 @@ namespace Game.Kinect
                 }
 
             }
-            ToString(min, max);
+           Constants.minmax= ToString(min, max);
             return zPos;
             default: return new List<float>();
 

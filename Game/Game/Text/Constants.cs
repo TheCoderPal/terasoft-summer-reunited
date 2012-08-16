@@ -8,6 +8,7 @@ namespace Game.Text
         public static bool isJumping;
         public static bool isSwappingHand;
         public static bool isBending;
+        public static string minmax;
         public static bool isPunching;
         public static bool isDumbbell;
         public static bool isRunning;
