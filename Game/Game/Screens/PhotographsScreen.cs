@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game.Screens
 {
-    class ScreenShotsScreen : GameScreen
+    class PhotographsScreen : GameScreen
     {
         List<byte[]> colorDataList;
         Texture2D backgroundImage;
@@ -17,7 +17,7 @@ namespace Game.Screens
         int index, playerScore;
         HandCursor hand;
 
-        public ScreenShotsScreen(List<byte[]> colorDataList, int score)
+        public PhotographsScreen(List<byte[]> colorDataList, int score)
         {
             this.colorDataList = colorDataList;
             saveButton = new Button();
@@ -29,8 +29,8 @@ namespace Game.Screens
         public override void Initialize()
         {
             index = 0;
-            saveButton.Initialize("Buttons/save", ScreenManager.Kinect, Vector2.Zero);
-            nextButton.Initialize("Buttons/next", ScreenManager.Kinect, new Vector2(200, 200));
+            saveButton.Initialize("Buttons/save", ScreenManager.Kinect, new Vector2(1050, 210));
+            nextButton.Initialize("Buttons/next", ScreenManager.Kinect, new Vector2(1050, 360));
             saveButton.Clicked += new Button.ClickedEventHandler(saveButton_Clicked);
             nextButton.Clicked += new Button.ClickedEventHandler(nextButton_Clicked);
 
@@ -73,7 +73,8 @@ namespace Game.Screens
 
         public override void LoadContent()
         {
-            backgroundImage = new Texture2D(ScreenManager.GraphicsDevice, ScreenManager.Kinect.GetFrameWidth(), ScreenManager.Kinect.GetFrameHeight());
+            backgroundImage = new Texture2D(ScreenManager.GraphicsDevice, 
+                ScreenManager.Kinect.GetFrameWidth(), ScreenManager.Kinect.GetFrameHeight());
             backgroundImage.SetData(colorDataList[index]);
             saveButton.LoadContent(ScreenManager.Game.Content);
             nextButton.LoadContent(ScreenManager.Game.Content);
@@ -96,8 +97,8 @@ namespace Game.Screens
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
-            spriteBatch.Draw(backgroundImage, new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height)
-                , Color.White);
+            spriteBatch.Draw(backgroundImage, 
+                new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height), Color.White);
             nextButton.Draw(spriteBatch);
             saveButton.Draw(spriteBatch);
             hand.Draw(spriteBatch);
