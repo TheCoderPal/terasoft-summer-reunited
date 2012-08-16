@@ -34,7 +34,7 @@ namespace Game.Engine
         private SpriteAnimation punchAnimation;
 
         //Sprite Textures
-        private Texture2D runTexture, jumpTexture, slideTexture, swordTexture, punchTexture;
+        private Texture2D runTexture, jumpTexture, slideTexture, swordTexture, punchTexture, dieTexture;
         private float scale;
 
         //Avatar's Position on screen.
