@@ -143,7 +143,7 @@
     <Compile Include="Screens\MainScreen.cs" />
     <Compile Include="Screens\PauseScreen.cs" />
     <Compile Include="Screens\PlayScreen.cs" />
-    <Compile Include="Screens\ScreenShotsScreen.cs" />
+    <Compile Include="Screens\PhotographsScreen.cs" />
     <Compile Include="Screens\TreadmillScreen.cs" />
     <Compile Include="Text\Constants.cs" />
     <Compile Include="UI\Bar.cs" />
