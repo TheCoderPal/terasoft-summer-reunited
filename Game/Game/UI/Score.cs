@@ -30,9 +30,7 @@ namespace Game.UI
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
             spriteBatch.DrawString(font, "SCORE: " + score,new Vector2(positionX,positionY),color);
-            spriteBatch.End();
         }
 
 

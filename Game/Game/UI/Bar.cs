@@ -45,10 +45,9 @@ namespace Game.UI
         public void Update(GameTime gameTime)
         {
         }
-
+        
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
             Rectangle source = new Rectangle(0, 45, activeBar.Width, 44);
             //Draw the negative space for the health bar
             spriteBatch.Draw(activeBar, new Rectangle(barPositionX, barPositionY, widthBar, heightBar), source, badPartColor);
@@ -57,7 +56,6 @@ namespace Game.UI
             //Draw the box around the health bar
             spriteBatch.Draw(activeBar, new Rectangle(barPositionX, barPositionY, widthBar, heightBar),
                        new Rectangle(0, 0, activeBar.Width, 44), Color.White);
-            spriteBatch.End();
         }
     }
 }

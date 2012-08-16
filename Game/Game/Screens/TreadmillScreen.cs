@@ -76,8 +76,8 @@ namespace Game.Screens
             treadmillAnimation.Draw(spriteBatch);
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width*2, avatar.Height*2),Color.White);
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380,bubbleBox.Width,bubbleBox.Height*2),Color.White);
-            sprite.End();
             playScreen.bar.Draw(spriteBatch);
+            sprite.End();
             base.Draw(gameTime);
         }
     }

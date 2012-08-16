@@ -156,7 +156,7 @@ namespace Game.Screens
                 else
                 {
                     this.Remove();
-                    ScreenManager.AddScreen(new ScreenShotsScreen(colorDataList, player.Score));
+                    ScreenManager.AddScreen(new PhotographsScreen(colorDataList, player.Score));
                 }
             }
 
@@ -371,12 +371,9 @@ namespace Game.Screens
 
             if(displayAlert)
                 spriteBatch.Draw(alertTexture, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width/2 - alertTexture.Width/2, 0), Color.White);
-
-            spriteBatch.End();
-
             bar.Draw(spriteBatch);
             score.Draw(spriteBatch);
-
+            spriteBatch.End();
             //Shirin
             foreach (Sprite s in currentSprite)
             {
