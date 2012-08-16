@@ -16,7 +16,7 @@ namespace Game.Screens
         string message;
         Texture2D gradientTexture;
 
-        public PauseScreen() { message = "You have 3 seconds to get back or you die, LOL JK"; }
+        public PauseScreen() { message = "No player detected, Game paused"; }
         public PauseScreen(string message) { this.message = message; }
 
         public override void LoadContent()

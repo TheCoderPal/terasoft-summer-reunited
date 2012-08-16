@@ -13,6 +13,11 @@ namespace Game.Text
         public static bool isRunning;
         public static bool isSteppingRight;
         public static Skeleton oldSkeleton;
+        public static double HipPosX; // Skeleton initial X position needed for step right gesture.
+        public static double posY; //initial hip Y position to make sure the skeleton is running
+        public static double posZ; //initial Z position of right hand needed for the punch gestureo ddetect the dumbbell playing gesture.
+        public static double diffHandElbow;
+        public static double elbowPosY;
         public static int healthy1 = 3;
         public static int healthy2 = 5;
         public static int healthy3 = 7;

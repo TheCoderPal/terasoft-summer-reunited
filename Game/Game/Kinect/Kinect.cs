@@ -151,7 +151,7 @@ namespace Game.Kinect
                     JumpHelp();
                     if (framesCount == 1)
                         Constants.oldSkeleton = trackedSkeleton;
-                    if (framesCount % (60 * 3) == 0)
+                    else if (framesCount % (40) == 0)
                     {
                         Constants.oldSkeleton = trackedSkeleton;
                     }
