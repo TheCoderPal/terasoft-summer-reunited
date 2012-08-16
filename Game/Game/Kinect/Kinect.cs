@@ -198,63 +198,86 @@ namespace Game.Kinect
         }
         public static List<float> Fill_Joint_Pos(Skeleton skeleton, Joint joint, string dimension)
         {
+            float min=0;
+            float max=0;
             switch(dimension)
             {
                 case "x":
             List<float> xPos=new List<float>();
-            xPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.X), 1));
-            xPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.X), 1));
-            xPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.X), 1));
-            xPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.X), 1));
-            RemoveDuplicatesAndReturnMaxAndMin(xPos);
+            for (int i = 0; i < 10; i++)
+            {
+                xPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.X), 1));
+                if (xPos.Count == 1)
+                {
+                    min = xPos[xPos.Count - 1];
+                    max = xPos[xPos.Count - 1];
+                }
+                else if (xPos.Count > 1)
+                {
+                    if (xPos[xPos.Count - 1] == xPos[xPos.Count - 2])
+                        xPos.RemoveAt(xPos.Count - 2);
+                    if (xPos[xPos.Count - 1] > max)
+                        max = xPos[xPos.Count - 1];
+                    if (xPos[xPos.Count - 1] < min)
+                        min = xPos[xPos.Count - 1];
+                }
+
+            }
             return xPos;
+            ToString(min, max);
                 case "y":
             List<float> yPos=new List<float>();
-            yPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Y), 1));
-            yPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Y), 1));
-            yPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Y), 1));
-            yPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Y), 1));
-            RemoveDuplicatesAndReturnMaxAndMin(yPos);
+            for (int i = 0; i < 10; i++)
+            {
+                yPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Y), 1));
+                if (yPos.Count == 1)
+                {
+                    min = yPos[yPos.Count - 1];
+                    max = yPos[yPos.Count - 1];
+                }
+                else if (yPos.Count > 1)
+                {
+                    if (yPos[yPos.Count - 1] == yPos[yPos.Count - 2])
+                        yPos.RemoveAt(yPos.Count - 2);
+                    if (yPos[yPos.Count - 1] > max)
+                        max = yPos[yPos.Count - 1];
+                    if (yPos[yPos.Count - 1] < min)
+                        min = yPos[yPos.Count - 1];
+                }
+
+            }
+            ToString(min, max);
             return yPos;
 
             case "z":
             List<float> zPos=new List<float>();
-            zPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Z), 1));
-            zPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Z), 1));
-            zPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Z), 1));
-            zPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Z), 1));
-            RemoveDuplicatesAndReturnMaxAndMin(zPos);
+            for (int i = 0; i < 10; i++)
+            {
+                zPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Z), 1));
+                if (zPos.Count == 1)
+                {
+                    min = zPos[zPos.Count - 1];
+                    max = zPos[zPos.Count - 1];
+                }
+                else if (zPos.Count > 1)
+                {
+                    if (zPos[zPos.Count - 1] == zPos[zPos.Count - 2])
+                        zPos.RemoveAt(zPos.Count - 2);
+                    if (zPos[zPos.Count - 1] > max)
+                        max = zPos[zPos.Count - 1];
+                    if (zPos[zPos.Count - 1] < min)
+                        min = zPos[zPos.Count - 1];
+                }
+
+            }
+            ToString(min, max);
             return zPos;
             default: return new List<float>();
 
         }
         }
-        public static string RemoveDuplicatesAndReturnMaxAndMin(List<float> list)
+        public static string ToString(float min, float max)
         {
-            float min=0;
-            float max=0;
-            if (list.Count != 0)
-            {
-                min = list[0]; //set the first input to be minimum
-                max = list[0];
-                if (list[list.Count - 1] == list[list.Count - 2]) // if the next input inlist equal the one b4 .. discard the one b4
-                {
-                    list.RemoveAt(list.Count - 2);
-                }
-                else
-                {
-                    if (list[list.Count - 1] > list[list.Count - 2]) // if the next input greater than the one b4 .. set it to max
-                    {
-                        max = list[list.Count - 1];
-                    }
-                    else
-                    {
-                        min = list[list.Count - 1];
-                    }
-                    list.RemoveAt(list.Count - 2);
-                }
-            }
-            
             return min + "," + max;
         }
         
