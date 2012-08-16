@@ -83,7 +83,7 @@ namespace Game.Screens
             player.LoadContent(Content);
 
             
-            immunityAudio = Content.Load<SoundEffect>("Audio\\Immunity");
+            immunityAudio = Content.Load<SoundEffect>("Audio\\Immunity2");
 
             #region Shirin
 
