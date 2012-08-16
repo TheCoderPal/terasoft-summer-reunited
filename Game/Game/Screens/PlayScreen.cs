@@ -21,7 +21,10 @@ namespace Game.Screens
         private Song[] songs = new Song[2];
         private int playQueue = 1;
         #endregion
-        
+
+
+        private SoundEffect immunityAudio;
+        private int updateImmunityCounter;
         private List<byte[]> colorDataList;
 
         private Player player;
@@ -46,8 +49,8 @@ namespace Game.Screens
 
         public override void Initialize()
         {
+
             colorDataList = new List<byte[]>();
-            
             player = new Player();
             bgLayer1 = new ParallaxingBackground();
             bgLayer2 = new ParallaxingBackground();
@@ -56,6 +59,7 @@ namespace Game.Screens
 
             bar = new Bar(100, 20, 15, 270, 30);
             score = new Score(870, 10, Color.Peru);
+            updateImmunityCounter = 0;
 
             //Shirin
             generator = new ItemsGenerator();
@@ -77,6 +81,9 @@ namespace Game.Screens
             //songs[2] = Content.Load<Song>("Directory\\songtitle");
             MediaPlayer.IsRepeating = false;
             player.LoadContent(Content);
+
+            
+            immunityAudio = Content.Load<SoundEffect>("Audio\\Immunity");
 
             #region Shirin
 
@@ -174,7 +181,12 @@ namespace Game.Screens
                 this.UnfreezeScreen();
                 screenPaused = false;
             }
-
+            updateImmunityCounter++;
+            if (player.Immunity < 30 &&updateImmunityCounter>0)
+            {
+                immunityAudio.Play();
+                updateImmunityCounter = -300;
+            }
            
             if (MediaPlayer.State.Equals(MediaState.Stopped))
             {
