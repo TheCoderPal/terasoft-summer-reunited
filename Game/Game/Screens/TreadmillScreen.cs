@@ -15,7 +15,6 @@ namespace Game.Screens
         SpriteBatch spriteBatch;
         ContentManager Content;
         int counter = 0;
-        int running = 0;
         PlayScreen playScreen;
         Bar bar;
 
@@ -31,6 +30,7 @@ namespace Game.Screens
             spriteBatch = ScreenManager.SpriteBatch;
             treadmillSprite = Content.Load<Texture2D>("Sprites/Run");
             treadmillAnimation = new SpriteAnimation();
+            Constants.ResetDumbbellsAndRun();
             treadmillAnimation.Initialize(treadmillSprite, new Vector2(600, 500), treadmillSprite.Height, treadmillSprite.Height, treadmillSprite.Width / treadmillSprite.Height, 50, Color.White, 1f, true);
             base.Initialize();
         }
@@ -48,20 +48,12 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             treadmillAnimation.Update(gameTime);
-                        
-            if (Constants.isRunning)
-            {
-                running++;
-                Constants.ResetFlags();
-            }
-            
-
             if (counter == 600)
             {
                this.Remove();
-                for (int i = 0; i <= running - 1; i++)
+                for (int i = 0; i <= Constants.numberOfRuns- 1; i++)
                 {
-                    playScreen.GetPlayer().Collided(1);
+                    playScreen.GetPlayer().Collided(Constants.runningEffect);
                 }
                playScreen.UnfreezeScreen();
             }
@@ -79,7 +71,8 @@ namespace Game.Screens
             SpriteBatch sprite = spriteBatch;
             SpriteFont font = Content.Load<SpriteFont>("Fontopo");   
             sprite.Begin();
-            spriteBatch.DrawString(font, "Meters: " + running, new Vector2(400, 10), Color.Red);
+            spriteBatch.DrawString(font, "Meters: " +Constants.numberOfRuns + "", new Vector2(400, 10), Color.Red);
+            spriteBatch.DrawString(font, "Immunity Gained: " + Constants.numberOfRuns*Constants.runningEffect + "", new Vector2(600, 10), Color.Red);
             treadmillAnimation.Draw(spriteBatch);
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width*2, avatar.Height*2),Color.White);
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380,bubbleBox.Width,bubbleBox.Height*2),Color.White);

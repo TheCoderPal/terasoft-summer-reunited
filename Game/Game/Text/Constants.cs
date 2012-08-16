@@ -33,11 +33,16 @@ namespace Game.Text
         public static int level1 = -5;
         public static int level2 = -8;
         public static int level3 = -12;
-        public static int sword1 = -2;
-        public static int sword2 = -4;
-        public static int sword3 = -6;
+        public static int numberOfDumbbells;
+        public static int numberOfRuns;
+        public static int dumbbellEffect = 5;
+        public static int runningEffect = 1;
 
-
+        public static void ResetDumbbellsAndRun()
+        {
+            numberOfDumbbells = 0;
+            numberOfRuns = 0;
+        }
 
         public static void ResetFlags()
         {

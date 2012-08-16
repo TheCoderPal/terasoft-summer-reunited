@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Game.UI
@@ -12,8 +13,9 @@ namespace Game.UI
         String name;
         Boolean soundEffectPlayed;
         Boolean transparent;
-        Boolean collided;       
-
+        Boolean collided;
+        Boolean virusHit;
+        Boolean virusSlashed;
         public Sprite(Texture2D tex, Rectangle area)
         {
             this.texture = tex;
@@ -44,12 +46,9 @@ namespace Game.UI
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (!collided)
-            {
-                spriteBatch.Begin();
-                spriteBatch.Draw(texture, area, null, Color.White);
-                spriteBatch.End();
-            }
+            spriteBatch.Begin();
+            spriteBatch.Draw(texture, area, null, Color.White);
+            spriteBatch.End();
         }
 
         public void EnterName(String name)
@@ -72,8 +71,32 @@ namespace Game.UI
             return this.transparent;
         }
 
-        public void Collide()
+        public void Collide(ContentManager Content, String name)
         {
+            if (!virusHit && GetY()==399)
+            {
+                switch (name)
+                {
+                    case "gym": break;
+                    case "level1": texture = Content.Load<Texture2D>("Textures//splash1"); break;
+                    case "level2":
+                        if (!virusSlashed)
+                        {
+                            texture = Content.Load<Texture2D>("Textures//splash3");
+                        }
+                        else
+                        {
+                            texture = Content.Load<Texture2D>("Textures//splash1");
+                        }
+                        break;
+                    case "level3": texture = Content.Load<Texture2D>("Textures//splash2"); break;
+                    default: texture = Content.Load<Texture2D>("Textures//Transparent"); break;
+                }
+            }
+            else
+            {
+                texture = Content.Load<Texture2D>("Textures//Transparent");
+            }
             collided = true;
         }
 
@@ -101,6 +124,16 @@ namespace Game.UI
                 effect.Play();
             }
             soundEffectPlayed = true;
+        }
+
+        public void HitVirus()
+        {
+            virusHit = true;
+        }
+
+        public void SlashVirus()
+        {
+            virusSlashed = true;
         }
 
         public int GetWidth()

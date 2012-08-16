@@ -266,14 +266,31 @@ namespace Game.Screens
 
             for (int i = 0; i <= 19; i++)
             {
-                if (IntersectPixels(playerBounds, playerData, new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), currentSprite[i].GetWidth(), currentSprite[i].GetHeight()), currentSprite[i].GetColorData()))
+                Rectangle itemBounds = new Rectangle(currentSprite[i].GetX(), currentSprite[i].GetY(), currentSprite[i].GetWidth(), currentSprite[i].GetHeight());
+                String name = currentSprite[i].GetName();
+                if (IntersectPixels(playerBounds, playerData, itemBounds, currentSprite[i].GetColorData()))
                 {
                     if (!currentSprite[i].GetTransparent())
                     {
-                        Effects(currentSprite[i].GetName(), currentSprite[i]);
-                        if (!currentSprite[i].GetName().Equals("gym"))
+                        if (name.Equals("level1") || name.Equals("level2") || name.Equals("level3"))
                         {
-                            currentSprite[i].Collide();
+                            if (Constants.isSwappingHand && player.HasSword() && currentSprite[i].GetY() == 399)
+                            {
+                                currentSprite[i].SlashVirus();
+                            }
+                            else
+                            {
+                                if (!Constants.isPunching)
+                                {
+                                    currentSprite[i].HitVirus();
+                                }
+                            }
+                         
+                        }
+                        Effects(name, currentSprite[i]);
+                        if (!name.Equals("gym"))
+                        {
+                            currentSprite[i].Collide(Content, name);
                         }
                         else
                         {
@@ -395,31 +412,113 @@ namespace Game.Screens
                     case "donut": player.Collided(Constants.unhealthy4); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "muffin": player.Collided(Constants.unhealthy5); sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "hotdog": player.Collided(Constants.unhealthy6); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "level1": if (!player.HasShield())
+                    case "level1":
+                        if (!player.HasShield())
                         {
-                            if (!player.HasSword()) { player.Collided(Constants.level1); }
-                            else { player.Collided(Constants.sword1); player.AcquireSword(true); };
+                            if (!player.HasSword() || !Constants.isSwappingHand)
+                            {
+                                if (!Constants.isPunching)
+                                {
+                                    player.Collided(Constants.level1);
+                                }
+                                else
+                                {
+                                    if (sprite.GetY() != 399)
+                                    {
+                                        player.Collided(Constants.level1);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (sprite.GetY() != 399)
+                                {
+                                    player.Collided(Constants.level1);
+                                }
+                            }
                         }
-                        else { player.AcquireShield(false); };
+                        else
+                        {
+                            player.AcquireShield(false);
+                        }
                         sprite.PlaySoundEffect(soundEffects[5]); break;
-                    case "level2": if (!player.HasShield())
+                    case "level2":
+                        if (!player.HasShield())
                         {
-                            if (!player.HasSword()) { player.Collided(Constants.level2); }
-                            else { player.Collided(Constants.sword2); player.AcquireSword(true); };
+                            if (!player.HasSword() || !Constants.isSwappingHand)
+                            {
+                                if (!Constants.isPunching)
+                                {
+                                    player.Collided(Constants.level2);
+                                }
+                                else
+                                {
+                                    if (sprite.GetY() == 399)
+                                    {
+                                        player.Collided((int)(Constants.level2 / 2));
+                                    }
+                                    else
+                                    {
+                                        player.Collided(Constants.level2);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (sprite.GetY() != 399)
+                                {
+                                    player.Collided(Constants.level2);
+                                }
+                            }
                         }
-                        else { player.AcquireShield(false); };
+                        else
+                        {
+                            player.AcquireShield(false);
+                        }
                         sprite.PlaySoundEffect(soundEffects[5]); break;
-                    case "level3": if (!player.HasShield())
+                    case "level3":
+                        if (!player.HasShield())
                         {
-                            if (!player.HasSword()) { player.Collided(Constants.level3); }
-                            else { player.Collided(Constants.sword3); player.AcquireSword(true); };
+                            if (!player.HasSword() || !Constants.isSwappingHand)
+                            {
+                                if (!Constants.isPunching)
+                                {
+                                    player.Collided(Constants.level3);
+                                }
+                                else
+                                {
+                                    if (sprite.GetY() == 399)
+                                    {
+                                        player.Collided((int)(Constants.level3 / 4));
+                                    }
+                                    else
+                                    {
+                                        player.Collided(Constants.level3);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (sprite.GetY() == 399)
+                                {
+                                    player.Collided((int)(Constants.level3 / 2));
+                                }
+                                else
+                                {
+                                    player.Collided(Constants.level3);
+                                }
+                            }
                         }
-                        else { player.AcquireShield(false); };
+                        else
+                        {
+                            player.AcquireShield(false);
+                        }
                         sprite.PlaySoundEffect(soundEffects[5]); break;
                     case "sheild": player.AcquireShield(true); sprite.PlaySoundEffect(soundEffects[2]); break;
                     case "sword": player.AcquireSword(true); sprite.PlaySoundEffect(soundEffects[3]); break;
                 }
             }
+            //Constants.ResetFlags();
         }
 
         public Player GetPlayer()

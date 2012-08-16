@@ -114,10 +114,12 @@ namespace Game.Kinect
         case GestureType.RunningGesture:
             Gesture = "RunningGesture";
             Constants.isRunning = true;
+            Constants.numberOfRuns++;
             break;
         case GestureType.DumbbellGesture:
             Gesture = "DumbbellGesture";
             Constants.isDumbbell = true;
+            Constants.numberOfDumbbells++;
             break;
         default:
             break;

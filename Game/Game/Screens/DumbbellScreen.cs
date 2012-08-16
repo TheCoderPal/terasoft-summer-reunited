@@ -15,7 +15,6 @@ namespace Game.Screens
         ContentManager Content;
         int counter = 0;
         PlayScreen playScreen;
-        int lifts = 0;
         Bar bar;
 
         public DumbbellScreen(PlayScreen playScreen)
@@ -30,7 +29,7 @@ namespace Game.Screens
             spriteBatch = ScreenManager.SpriteBatch;
             dumbbellSprite = Content.Load<Texture2D>("Sprites/dumbbell-sprite");
             dumbbellAnimation = new SpriteAnimation();
-
+            Constants.ResetDumbbellsAndRun();
             dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 200, 262, 12, 100, Color.White, 1f, true);    
             base.Initialize();
         }
@@ -47,19 +46,12 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             dumbbellAnimation.Update(gameTime);
-            
-            if (Constants.isDumbbell)
-            {
-                lifts++;
-                Constants.ResetFlags();
-            }           
-
             if (counter == 600)
             {
                 this.Remove();
-                for (int i = 0; i <= lifts-1; i++)
+                for (int i = 0; i <= Constants.numberOfDumbbells - 1; i++)
                 {
-                    playScreen.GetPlayer().Collided(5);
+                    playScreen.GetPlayer().Collided(Constants.dumbbellEffect);
                 }
                 playScreen.UnfreezeScreen();
             }
@@ -75,7 +67,8 @@ namespace Game.Screens
             SpriteFont font = Content.Load<SpriteFont>("Fontopo");            
             SpriteBatch sprite = spriteBatch;
             sprite.Begin();
-            spriteBatch.DrawString(font, "Lifts: " + lifts, new Vector2(400, 10), Color.Red);
+            spriteBatch.DrawString(font, "Lifts: "+Constants.numberOfDumbbells +"", new Vector2(400, 10), Color.Red);
+            spriteBatch.DrawString(font, "Immunity Gained: " + Constants.numberOfDumbbells * Constants.dumbbellEffect + "", new Vector2(600, 10), Color.Red);
             dumbbellAnimation.Draw(spriteBatch);
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width * 2, avatar.Height * 2), Color.White);
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380, bubbleBox.Width, bubbleBox.Height * 2), Color.White);
