@@ -25,7 +25,7 @@ namespace Game.Kinect
             analyzer2.SetBodySegments(skeleton.Joints[JointType.ElbowRight], skeleton.Joints[JointType.ShoulderRight], skeleton.Joints[JointType.HipCenter]);
             if ((skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X + 0.5) &&
                 (skeleton.Joints[JointType.HandRight].Position.X > skeleton.Joints[JointType.HipCenter].Position.X)&&
-                (skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X))
+                (skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X+0.4))
             {
                     if (analyzer2.GetBodySegmentAngle(skeleton.Joints) > 10 && analyzer2.GetBodySegmentAngle(skeleton.Joints) <60)
                     return GesturePartResult.Suceed;
