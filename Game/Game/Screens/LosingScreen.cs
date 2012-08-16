@@ -1,13 +1,11 @@
-﻿using Game.UI;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.IO;
+using System.Text;
+using Game.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System.Text;
-using System.Diagnostics;
-using System.IO;
 
 namespace Game.Screens
 {

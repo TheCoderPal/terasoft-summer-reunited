@@ -1,8 +1,8 @@
 ﻿using System;
+using Microsoft.Kinect;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Kinect;
 namespace Game.UI
 {
 

@@ -1,9 +1,9 @@
 ﻿using System;
+using Game.Text;
 using Game.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Game.Text;
 
 namespace Game.Engine
 {

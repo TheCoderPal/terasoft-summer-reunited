@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game.Kinect;
 using Microsoft.Kinect;
 
 namespace Game.Kinect

@@ -1,6 +1,5 @@
-﻿using Microsoft.Kinect;
-using Game.Text;
-using System.Diagnostics;
+﻿using Game.Text;
+using Microsoft.Kinect;
 
 namespace Game.Kinect
 {

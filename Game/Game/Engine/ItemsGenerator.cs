@@ -85,7 +85,7 @@ namespace Game.Engine
                 else if (i == 3)
                     itemsList[i] = GetRandomItem(Concatenate(badItems, weapons));
                 else if (i == 5)
-                    itemsList[i] = GetRandomItem(Concatenate(level1, badItems));
+                    itemsList[i] = GetRandomItem(Concatenate(level1,badItems));
                 else if (i == 4 || i == 7 || i == 8)
                     itemsList[i] = GetRandomItem(goodItems);
             }
@@ -99,7 +99,7 @@ namespace Game.Engine
                 else if (i == 3)
                     itemsList[i] = GetRandomItem(Concatenate(badItems, goodItems));
                 else if (i == 4)
-                    itemsList[i] = level1[0];
+                    itemsList[i] = viruses[0];
                 else if (i == 1 || i == 7)
                     itemsList[i] = GetRandomItem(Concatenate(level1, badItems));
                 else if (i == 5 || i == 6 || i == 8)
@@ -114,10 +114,10 @@ namespace Game.Engine
         {
             for (int i = 0; i < 10; i++)
             {
-                if (i < 3 || i == 6)
+                if (i < 4)
                     itemsList[i] = GetRandomItem(goodItems);
-                else if (i < 6)
-                    itemsList[i] = GetRandomItem(Concatenate(level1, badItems));
+                else if (i ==5)
+                    itemsList[i] = viruses[0];
                 else if (i < 9)
                     itemsList[i] = GetRandomItem(Concatenate(badItems, level1));
                 else
@@ -148,6 +148,8 @@ namespace Game.Engine
             {
                 if (i < 3)
                     itemsList[i] = GetRandomItem(goodItems);
+                else if(i <5)
+                    itemsList[i] = viruses[1];
                 else if (i < 8)
                     itemsList[i] = GetRandomItem(Concatenate(level2, badItems));
                 else if (i < 9)
@@ -163,6 +165,8 @@ namespace Game.Engine
             {
                 if (i < 2)
                     itemsList[i] = GetRandomItem(goodItems);
+                else if (i < 5)
+                    itemsList[i] = viruses[2];
                 else if (i < 8)
                     itemsList[i] = GetRandomItem(Concatenate(level3, badItems));
                 else if (i < 9)
