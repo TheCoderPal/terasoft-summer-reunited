@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Kinect;
+using Game.Text;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Game.UI
