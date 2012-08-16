@@ -29,6 +29,10 @@ namespace Game.Screens
 
         private Player player;
         private ParallaxingBackground bgLayer1, bgLayer2, bgLayer3;
+        private Texture2D alertTexture;
+        private int alertTimer;
+        private bool displayAlert;
+
         public Bar bar;
         Score score;
 
@@ -60,6 +64,9 @@ namespace Game.Screens
             bar = new Bar(100, 20, 15, 270, 30);
             score = new Score(870, 10, Color.Peru);
             updateImmunityCounter = 0;
+
+            alertTimer = 0;
+            displayAlert = false;
 
             //Shirin
             generator = new ItemsGenerator();
@@ -110,6 +117,8 @@ namespace Game.Screens
             bgLayer1.Initialize(Content, "Background/Layer 1", ScreenManager.GraphicsDevice.Viewport.Width, -1);
             bgLayer2.Initialize(Content, "Background/Layer 2", ScreenManager.GraphicsDevice.Viewport.Width, -2);
             bgLayer3.Initialize(Content, "Background/Layer 3", ScreenManager.GraphicsDevice.Viewport.Width, -4);
+
+            alertTexture = Content.Load<Texture2D>("Textures/alert");
 
             playerBounds = player.GetBoundingRectangle();
             playerData = player.GetColorData();
@@ -165,6 +174,18 @@ namespace Game.Screens
                 if (colorData != null)
                     colorDataList.Add(colorData);
             }
+
+            if (player.Immunity < 30)
+            {
+                alertTimer += gameTime.ElapsedGameTime.Milliseconds;
+
+                if (alertTimer >= 750)
+                {
+                    displayAlert = !displayAlert;
+                    alertTimer = 0;
+                }
+            }
+
 
             #endregion
             
@@ -348,6 +369,8 @@ namespace Game.Screens
             bgLayer2.Draw(spriteBatch);
             bgLayer3.Draw(spriteBatch);
 
+            if(displayAlert)
+                spriteBatch.Draw(alertTexture, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width/2 - alertTexture.Width/2, 0), Color.White);
 
             spriteBatch.End();
 
