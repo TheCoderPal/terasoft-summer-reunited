@@ -48,6 +48,9 @@ namespace Game.Screens
         private Color[] playerData;
         private Rectangle playerBounds;
         private Texture2D[] items;
+        private Texture2D virusLevel1, virusLevel2, virusLevel3,splashDead,splashSemiDead,splashInjured;
+        private SpriteFont textFont;
+        private int screenWidth, screenHeight;
 
         public override void Initialize()
         {
@@ -62,7 +65,8 @@ namespace Game.Screens
             bar = new Bar(100, 20, 15, 270, 30);
             score = new Score(870, 10, Color.Peru);
             updateImmunityCounter = 0;
-
+            screenWidth = ScreenManager.GraphicsDevice.Viewport.Width;
+            screenHeight = ScreenManager.GraphicsDevice.Viewport.Height;
             alertTimer = 0;
             displayAlert = false;
 
@@ -89,8 +93,17 @@ namespace Game.Screens
             MediaPlayer.IsRepeating = false;
             player.LoadContent(Content);
 
-            
+            #region Tamer 
             immunityAudio = Content.Load<SoundEffect>("Audio\\Immunity2");
+            textFont = Content.Load<SpriteFont>("newFont2");
+            virusLevel1 = Content.Load<Texture2D>("Textures\\virus1");
+            virusLevel2 = Content.Load<Texture2D>("Textures\\virus2");
+            virusLevel3 = Content.Load<Texture2D>("Textures\\virus3");
+            splashDead = Content.Load<Texture2D>("Textures\\splash1");
+            splashSemiDead= Content.Load<Texture2D>("Textures\\splash3");
+            splashInjured = Content.Load<Texture2D>("Textures\\splash2");
+            #endregion
+
 
             #region Shirin
 
@@ -399,8 +412,23 @@ namespace Game.Screens
 
             if(displayAlert)
                 spriteBatch.Draw(alertTexture, new Vector2(ScreenManager.GraphicsDevice.Viewport.Width/2 - alertTexture.Width/2, 0), Color.White);
+            #region Tamer
             bar.Draw(spriteBatch);
             score.Draw(spriteBatch);
+            spriteBatch.DrawString(textFont, "Level 1 ",new Vector2(screenWidth/40,screenHeight/1.2f),Color.Peru);
+            spriteBatch.DrawString(textFont, "Level 2 ",new Vector2(screenWidth/7,screenHeight/1.2f),Color.Peru);
+            spriteBatch.DrawString(textFont, "Level 3 ",new Vector2(screenWidth/4,screenHeight/1.2f),Color.Peru);
+            spriteBatch.DrawString(textFont, "Dead Virus ", new Vector2(screenWidth / 2f, screenHeight / 1.2f), Color.Peru);
+            spriteBatch.DrawString(textFont, "Hitted Virus ", new Vector2(screenWidth / 1.5f, screenHeight / 1.2f), Color.Peru);
+            spriteBatch.DrawString(textFont, "Injured Virus ", new Vector2(screenWidth / 1.2f, screenHeight / 1.2f), Color.Peru);
+            spriteBatch.Draw(virusLevel1, new Rectangle((int)(screenWidth / 40), (int)(screenHeight / 1.1f),virusLevel1.Width,virusLevel1.Height), Color.White);
+            spriteBatch.Draw(virusLevel2, new Rectangle((int)(screenWidth / 7), (int)(screenHeight / 1.1f), virusLevel2.Width, virusLevel2.Height), Color.White);
+            spriteBatch.Draw(virusLevel3, new Rectangle((int)(screenWidth / 4), (int)(screenHeight / 1.1f), virusLevel3.Width, virusLevel3.Height), Color.White);
+            spriteBatch.Draw(splashDead, new Rectangle((int)(screenWidth / 2), (int)(screenHeight / 1.1f), splashDead.Width, splashDead.Height), Color.White);
+            spriteBatch.Draw(splashSemiDead, new Rectangle((int)(screenWidth / 1.5f), (int)(screenHeight / 1.1f), splashSemiDead.Width, splashSemiDead.Height), Color.White);
+            spriteBatch.Draw(splashInjured, new Rectangle((int)(screenWidth / 1.2f), (int)(screenHeight / 1.1f), splashInjured.Width, splashInjured.Height), Color.White);
+           #endregion
+
             spriteBatch.End();
             #region Shirin
             foreach (Sprite s in currentSprite)
