@@ -163,7 +163,8 @@ namespace Game.Kinect
         }
     }
 
-        private void JumpHelp()
+    #region Tamer Jump Implementation
+    private void JumpHelp()
         {
             double average = 0, average2 = 0;
             if (list.Count == 10)
@@ -192,7 +193,8 @@ namespace Game.Kinect
 
             }
         }
-        public Skeleton[] requestSkeleton()
+    #endregion
+    public Skeleton[] requestSkeleton()
         {
             return skeletons;
         }

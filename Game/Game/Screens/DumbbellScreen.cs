@@ -70,8 +70,10 @@ namespace Game.Screens
             spriteBatch.DrawString(font, "Lifts: "+Constants.numberOfDumbbells +"", new Vector2(400, 10), Color.Red);
             spriteBatch.DrawString(font, "Immunity Gained: " + Constants.numberOfDumbbells * Constants.dumbbellEffect + "", new Vector2(600, 10), Color.Red);
             dumbbellAnimation.Draw(spriteBatch);
+            #region Tamer Avatar +bubble box draw
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width * 2, avatar.Height * 2), Color.White);
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380, bubbleBox.Width, bubbleBox.Height * 2), Color.White);
+            #endregion
             playScreen.bar.Draw(spriteBatch);
             sprite.End();
             base.Draw(gameTime);

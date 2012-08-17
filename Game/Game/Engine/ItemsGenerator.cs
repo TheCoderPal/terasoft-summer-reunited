@@ -8,6 +8,7 @@ namespace Game.Engine
     /// </summary>
     class ItemsGenerator
     {
+        #region Tamer Instance Variables + Constructor
        private string[] goodItems = { "tomato", "carrot","strawberry","pineapple","broccoli","orange"};
        private string[] badItems = { "fries", "hamburger","pizza","donut","muffin","hotdog"};
        private string[] weapons = { "sheild", "sword" };
@@ -18,12 +19,15 @@ namespace Game.Engine
        private string[] itemsList;
        private Random random;
        private int  counter;
-		public ItemsGenerator()
+       public ItemsGenerator()
 		{
             counter = 0;
             random = new Random();
 		}
-        public string[,] GenerateMore()
+        #endregion
+
+        #region GenerateMore Method
+       public string[,] GenerateMore()
         {
             itemsList = new string[10];
             if (counter == 0)
@@ -61,7 +65,10 @@ namespace Game.Engine
             counter++;
             return returnedItems;
         }
-        private void CounterIsZero()
+       #endregion
+       
+        #region Method of filling the list
+       private void CounterIsZero()
         {
                 itemsList[0] = weapons[0];
                 for (int i = 1; i < 10; i++)
@@ -176,7 +183,8 @@ namespace Game.Engine
             }
             itemsList = Randomize(itemsList);
         }
-
+       #endregion
+        #region GetRandom Number + Items
         private int GetRandom(int max)
         {
             return random.Next(max);
@@ -185,6 +193,8 @@ namespace Game.Engine
         {  
             return stringItems[GetRandom(stringItems.Length)];
         }
+        #endregion
+        #region Method of concatenating arrays
         private string [] Concatenate(string[] firstString, string[] secondString, string[] thirdString)
         {
             return Concatenate(firstString,secondString).Concat(thirdString).ToArray();
@@ -193,6 +203,8 @@ namespace Game.Engine
         {
             return firstString.Concat(secondString).ToArray();
         }
+        #endregion
+        #region Method of sorting array in random sequence
         private string[] Randomize(string[] input)
         {
             List<string> inputList = input.ToList();
@@ -213,5 +225,6 @@ namespace Game.Engine
             }
             return (output);
         }
+        #endregion
     }
 }

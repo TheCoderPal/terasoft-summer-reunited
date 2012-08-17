@@ -74,8 +74,10 @@ namespace Game.Screens
             spriteBatch.DrawString(font, "Meters: " +Constants.numberOfRuns + "", new Vector2(400, 10), Color.Red);
             spriteBatch.DrawString(font, "Immunity Gained: " + Constants.numberOfRuns*Constants.runningEffect + "", new Vector2(600, 10), Color.Red);
             treadmillAnimation.Draw(spriteBatch);
+            #region Tamer Avatar +bubble box draw
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width*2, avatar.Height*2),Color.White);
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380,bubbleBox.Width,bubbleBox.Height*2),Color.White);
+            #endregion
             playScreen.bar.Draw(spriteBatch);
             sprite.End();
             base.Draw(gameTime);

@@ -8,10 +8,8 @@ namespace Game.Kinect
     class SwapHand
     {
         public readonly Recognizer activeRecognizer;
-       // private bool flag;
         public SwapHand()
         {
-            //flag = false;
             this.activeRecognizer = this.CreateRecognizer();
         }
         public Recognizer CreateRecognizer()
@@ -27,14 +25,5 @@ namespace Game.Kinect
             };
             return recognizer;
         }
-        /*
-        public bool requestFlag()
-        {
-            return flag;
-        }
-        public void resetFlag()
-        {
-            flag = false;
-        }*/
     }
 }

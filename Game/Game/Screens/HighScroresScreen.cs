@@ -8,6 +8,7 @@ namespace Game.Screens
 {
     public class HighScoresScreen : GameScreen
     {
+        #region Tamer InstanceVariables + Constructor
         private SpriteBatch spriteBatch;
         private GraphicsDevice graphics;
         private int screenWidth,screenHeight;
@@ -30,6 +31,8 @@ namespace Game.Screens
           
             okButton.Clicked += new Button.ClickedEventHandler(menu_Clicked);
         }
+        #endregion
+        #region Initialize
         public override void Initialize()
         {
             content = ScreenManager.Game.Content;
@@ -41,6 +44,8 @@ namespace Game.Screens
             hand.Initialize(ScreenManager.Kinect);            
             base.Initialize();
         }
+        #endregion
+        #region button event + LoadContent
         void menu_Clicked(object sender, System.EventArgs a)
         {
             this.Remove();
@@ -56,7 +61,8 @@ namespace Game.Screens
             Split();
             base.LoadContent();
         }
-
+        #endregion
+        #region Split Method
         private void Split()
         {
             maxStringLength = 0;
@@ -79,6 +85,8 @@ namespace Game.Screens
             }
 
         }
+  #endregion
+        #region update + draw methods
         public override void Update(GameTime gameTime)
         {
             okButton.Update(gameTime);
@@ -96,6 +104,7 @@ namespace Game.Screens
             spriteBatch.End();
             base.Draw(gameTime);
         }
+        #endregion
         public override void Remove()
         {
             base.Remove();
