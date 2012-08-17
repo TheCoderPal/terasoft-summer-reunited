@@ -11,11 +11,12 @@ namespace Game.Screens
 {
     class PhotographsScreen : GameScreen
     {
-        List<byte[]> colorDataList;
-        Texture2D backgroundImage;
-        Button saveButton, nextButton;
-        int index, playerScore;
-        HandCursor hand;
+        private List<byte[]> colorDataList;
+        private Texture2D backgroundImage;
+        private Button saveButton, nextButton;
+        private int index, playerScore;
+        private HandCursor hand;
+        private bool saveAvailable;
 
         public PhotographsScreen(List<byte[]> colorDataList, int score)
         {
@@ -29,6 +30,7 @@ namespace Game.Screens
         public override void Initialize()
         {
             index = 0;
+            saveAvailable = true;
             saveButton.Initialize("Buttons/save", ScreenManager.Kinect, new Vector2(1050, 210));
             nextButton.Initialize("Buttons/next", ScreenManager.Kinect, new Vector2(1050, 360));
             saveButton.Clicked += new Button.ClickedEventHandler(saveButton_Clicked);
@@ -47,7 +49,10 @@ namespace Game.Screens
                 ScreenManager.AddScreen(new LosingScreen(playerScore));
             }
             else
+            {
                 backgroundImage.SetData(colorDataList[index]);
+                saveAvailable = true;
+            }
         }
 
         void saveButton_Clicked(object sender, EventArgs a)
@@ -63,6 +68,7 @@ namespace Game.Screens
                 using (FileStream fs = new FileStream(path, FileMode.Create))
                 {
                     backgroundImage.SaveAsJpeg(fs, ScreenManager.Kinect.GetFrameWidth(), ScreenManager.Kinect.GetFrameHeight());
+                    saveAvailable = false;
                 }
             }
             catch (IOException)
@@ -85,7 +91,7 @@ namespace Game.Screens
 
         public override void Update(GameTime gameTime)
         {
-            saveButton.Update(gameTime);
+            if(saveAvailable)saveButton.Update(gameTime);
             nextButton.Update(gameTime);
 
             hand.Update(gameTime);
@@ -100,7 +106,7 @@ namespace Game.Screens
             spriteBatch.Draw(backgroundImage, 
                 new Rectangle(0, 0, ScreenManager.GraphicsDevice.Viewport.Width, ScreenManager.GraphicsDevice.Viewport.Height), Color.White);
             nextButton.Draw(spriteBatch);
-            saveButton.Draw(spriteBatch);
+            if(saveAvailable)saveButton.Draw(spriteBatch);
             hand.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
