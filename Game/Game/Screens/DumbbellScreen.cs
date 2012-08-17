@@ -38,7 +38,6 @@ namespace Game.Screens
 
         public override void LoadContent()
         {
-            //background = new Sprite(Content.Load<Texture2D>("Textures//Gym-Interior"), new Rectangle(0, 0, 1280, 720));
             base.LoadContent();
         }
 
