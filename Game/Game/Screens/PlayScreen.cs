@@ -41,6 +41,7 @@ namespace Game.Screens
         private string[,] current;
         private int globalCounter = 0;
         private int spriteCounter = 0;
+        private int time = 0;
         private Sprite[] currentSprite;
         private Sprite sword,shield,swordAcquired,shieldAcquired;
         private ContentManager Content;
@@ -51,6 +52,7 @@ namespace Game.Screens
         private Texture2D virusLevel1, virusLevel2, virusLevel3,splashDead,splashSemiDead,splashInjured;
         private SpriteFont textFont;
         private int screenWidth, screenHeight;
+        private bool jumping;
 
         public override void Initialize()
         {
@@ -273,6 +275,15 @@ namespace Game.Screens
 
             #region Shirin
 
+            if (player.CheckJump()) jumping = true;
+
+            if (jumping)
+            {
+                time += gameTime.ElapsedGameTime.Milliseconds;
+                if (time <= player.GetJumpTime()) jumping = true;
+                else { jumping = false; time = 0; }
+            }
+
             if (globalCounter == 500)
             {
                 Sprite[] previousSprites = currentSprite;
@@ -340,7 +351,7 @@ namespace Game.Screens
                     {
                         if (name.Equals("level1") || name.Equals("level2") || name.Equals("level3"))
                         {
-                            if (IsAbove(playerBounds, itemBounds) && player.CheckJump() && currentSprite[i].GetY() == 399)
+                            if (IsAbove(playerBounds, itemBounds) && ((player.CheckJump() && currentSprite[i].GetY() == 399) || (jumping && currentSprite[i].GetY() == 499)))
                             {
                                 currentSprite[i].KillVirus();
                             }
