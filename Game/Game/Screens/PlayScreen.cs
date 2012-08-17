@@ -163,8 +163,7 @@ namespace Game.Screens
             bgLayer3.Update();
 
             player.Update(gameTime);
-            playerData = player.GetColorData();
-            playerBounds = player.GetBoundingRectangle();
+            GetActualBounds(player.GetBoundingRectangle(), player.GetColorData(), out playerBounds, out playerData);
 
             if (player.CheckDeath())
             {
@@ -328,7 +327,7 @@ namespace Game.Screens
                     {
                         if (name.Equals("level1") || name.Equals("level2") || name.Equals("level3"))
                         {
-                            if (IsAbove(playerBounds, itemBounds) && playerBounds.Bottom > 349 && currentSprite[i].GetHeight() > 299)
+                            if (IsAbove(playerBounds, itemBounds) && player.CheckJump() && currentSprite[i].GetY() == 399)
                             {
                                 currentSprite[i].KillVirus();
                             }
