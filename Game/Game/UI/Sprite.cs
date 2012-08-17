@@ -147,5 +147,15 @@ namespace Game.UI
         {
             return area.Height;
         }
+
+        public void KillVirus()
+        {
+            virusKilled = true;
+        }
+
+        public Boolean GetKilled()
+        {
+            return virusKilled;
+        }
     }
 }
