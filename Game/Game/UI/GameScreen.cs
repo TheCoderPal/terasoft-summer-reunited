@@ -73,12 +73,6 @@ namespace Game.UI
         /// Unloads the content of GameScreen.
         /// </summary>
         public virtual void UnloadContent() { }
-
-        public virtual void Update(GameTime gameTime, bool covered)
-        {
-            if (IsFrozen)
-                return;
-        }
         /// <summary>
         /// Allows the game screen to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.

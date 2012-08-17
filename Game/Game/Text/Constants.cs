@@ -4,6 +4,8 @@ namespace Game.Text
 {
     class Constants
     {
+        public const int hPad = 32;
+        public const int vPad = 16;
         public static double jumpFraction = 1.2;
         public static bool isJumping;
         public static bool isSwappingHand;

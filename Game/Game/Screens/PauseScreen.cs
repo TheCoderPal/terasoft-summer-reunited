@@ -2,20 +2,21 @@ using Game.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Game.Text;
 
 namespace Game.Screens
 {
     /// <para>Author: Khaled Salah</para>
     class PauseScreen : GameScreen
     {
-        SpriteBatch spriteBatch;
-        SpriteFont font;
-        GraphicsDevice graphics;
-        int screenWidth;
-        int screenHeight;
-        ContentManager content;
-        string message;
-        Texture2D gradientTexture;
+        private SpriteBatch spriteBatch;
+        private SpriteFont font;
+        private GraphicsDevice graphics;
+        private int screenWidth;
+        private int screenHeight;
+        private ContentManager content;
+        private string message;
+        private Texture2D gradientTexture;
 
         public PauseScreen() { message = "No player detected, Game paused"; }
         public PauseScreen(string message) { this.message = message; }
@@ -33,7 +34,7 @@ namespace Game.Screens
         }
         public override void Update(GameTime gameTime)
         {
-            if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && PlayScreen.screenPaused == true)
+            if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && PlayScreen.screenPaused)
                 this.Remove();
             base.Update(gameTime);
         }
@@ -42,8 +43,8 @@ namespace Game.Screens
             Vector2 viewportSize = new Vector2(screenWidth, screenHeight);
             Vector2 textSize = font.MeasureString(message);
             Vector2 textPosition = (viewportSize - textSize) / 2;
-            const int hPad = 32;
-            const int vPad = 16;
+            int hPad = Constants.hPad;
+            int vPad = Constants.vPad;
             Rectangle backgroundRectangle = new Rectangle((int)textPosition.X - hPad,
                                                           (int)textPosition.Y - vPad,
                                                           (int)textSize.X + hPad * 2,
@@ -55,11 +56,5 @@ namespace Game.Screens
             spriteBatch.End();
             base.Draw(gameTime);
         }
-        public override void Remove()
-        {
-            base.Remove();
-        }
-
-
     }
 }
