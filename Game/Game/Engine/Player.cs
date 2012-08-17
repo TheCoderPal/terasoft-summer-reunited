@@ -61,6 +61,7 @@ namespace Game.Engine
             slidingAnimation = new SpriteAnimation();
             swordAnimation = new SpriteAnimation();
             dieAnimation = new SpriteAnimation();
+            punchAnimation = new SpriteAnimation();
             immunity = 100;
             scale = 1f;
         }
