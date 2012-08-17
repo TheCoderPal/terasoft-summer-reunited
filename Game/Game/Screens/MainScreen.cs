@@ -7,19 +7,12 @@ namespace Game.Screens
 {
     public class MainScreen : GameScreen
     {
-        Sprite menu;
-        Button newGame;
-        Button instructions;
-        Button highscores;
-        Button exit;
-        Sprite newGameLabel;
-        Sprite instructionsLabel;
-        Sprite scoreslabel;
-        Sprite exitLabel;
-        SpriteBatch spriteBatch;
-        ContentManager Content;
-        Game.Kinect.Kinect kinect;
-        HandCursor Hand;
+        private Sprite menu,newGameLabel,instructionsLabel,scoresLabel,exitLabel;
+        private Button newGame,instructions,highscores,exit;
+        private SpriteBatch spriteBatch;
+        private ContentManager Content;
+        private Game.Kinect.Kinect kinect;
+        private HandCursor Hand;
 
         /// <summary>
         /// Author: Ahmed Shirin.
@@ -39,10 +32,6 @@ namespace Game.Screens
             exit = new Button();
             Hand = new HandCursor();
             kinect = ScreenManager.Kinect;
-            newGame.Initialize("Buttons//new", kinect, new Vector2(85, 210), 200, 200);
-            instructions.Initialize("Buttons//instructions", kinect, new Vector2(385, 210), 200, 200);
-            highscores.Initialize("Buttons//highscores", kinect, new Vector2(685, 210), 200, 200);
-            exit.Initialize("Buttons//exit", kinect, new Vector2(975, 210), 200, 200);
             Hand.Initialize(ScreenManager.Kinect);
             newGame.Clicked += new Button.ClickedEventHandler(newGame_Clicked);
             instructions.Clicked += new Button.ClickedEventHandler(instructions_Clicked);
@@ -86,6 +75,10 @@ namespace Game.Screens
         {
             Content = ScreenManager.Game.Content;
             spriteBatch = ScreenManager.SpriteBatch;
+            newGame.Initialize("Buttons//new", kinect, new Vector2(85, 210), 200, 200);
+            instructions.Initialize("Buttons//instructions", kinect, new Vector2(385, 210), 200, 200);
+            highscores.Initialize("Buttons//highscores", kinect, new Vector2(685, 210), 200, 200);
+            exit.Initialize("Buttons//exit", kinect, new Vector2(975, 210), 200, 200);
             newGame.LoadContent(Content);
             instructions.LoadContent(Content);
             highscores.LoadContent(Content);
@@ -94,7 +87,7 @@ namespace Game.Screens
             menu = new Sprite(Content.Load<Texture2D>("Textures//menu"), new Rectangle(0, 0, 1280, 720));           
             newGameLabel = new Sprite(Content.Load<Texture2D>("Textures//new_label"), new Rectangle(70, 430, 240, 50));
             instructionsLabel = new Sprite(Content.Load<Texture2D>("Textures//instructions_label"), new Rectangle(375, 430, 240, 50));
-            scoreslabel = new Sprite(Content.Load<Texture2D>("Textures//scores_label"), new Rectangle(665, 430, 240, 50));
+            scoresLabel = new Sprite(Content.Load<Texture2D>("Textures//scores_label"), new Rectangle(665, 430, 240, 50));
             exitLabel = new Sprite(Content.Load<Texture2D>("Textures//exit_label"), new Rectangle(960, 430, 240, 50));
 
             base.LoadContent();
@@ -123,9 +116,8 @@ namespace Game.Screens
             sprite.End();            
             newGameLabel.Draw(spriteBatch);
             instructionsLabel.Draw(spriteBatch);
-            scoreslabel.Draw(spriteBatch);
+            scoresLabel.Draw(spriteBatch);
             exitLabel.Draw(spriteBatch);
-
             base.Draw(gameTime);
         }
 
