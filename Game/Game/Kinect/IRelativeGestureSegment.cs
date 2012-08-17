@@ -6,6 +6,7 @@ namespace Game.Kinect
     /// Defines a single gesture segment which uses relative positioning 
     /// of body parts to detect a gesture
     /// </summary>
+    /// AUTHOR: Khaled
     public interface IRelativeGestureSegment
     {
         /// <summary>

@@ -5,6 +5,7 @@ namespace Game.Kinect
     /// <summary>
     /// The gesture event arguments
     /// </summary>
+    /// AUTHOR: Khaled
     public class GestureEventArgs : EventArgs
     {
         /// <summary>

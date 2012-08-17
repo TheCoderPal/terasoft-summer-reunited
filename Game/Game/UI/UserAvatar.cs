@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Kinect;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,15 +19,15 @@ namespace Game.UI
         private int screenWidth;
         private int screenHeight;
         private ContentManager content;
-        private Texture2D[] avatar;
-        private Vector2[] avatarPosition;
+        private Texture2D avatar;
+        private Vector2 avatarPosition;
         private SpriteFont font;
-        private String[] command;
+        private String command;
         const int minDepth = 120;
         const int maxDepth = 350;
-        private int[] depth;
+        private int depth;
         private Texture2D[] allAvatars;
-        public Texture2D[] Avatar
+        public Texture2D Avatar
         {
             get { return avatar; }
         }
@@ -51,21 +50,6 @@ namespace Game.UI
             screenHeight = graphics.Viewport.Height;
             this.spriteBatch = spriteBatch;
             this.content = content;
-            Initialize();
-        }
-        /// <summary>
-        /// Initializes the kinect sensor and the arrays that keep track of user's information like avatars, avatar positions, depth and notification messages.
-        /// all of your content.
-        /// </summary>
-        /// <remarks>
-        /// <para>AUTHOR: Khaled Salah </para>
-        /// </remarks>
-        public void Initialize()
-        {
-            this.depth = new int[1];
-            this.command = new String[1];
-            avatar = new Texture2D[1];
-            avatarPosition = new Vector2[1];
             allAvatars = new Texture2D[4];
         }
         /// <summary>
@@ -82,12 +66,9 @@ namespace Game.UI
             allAvatars[1] = content.Load<Texture2D>(@"Textures/avatar-white");
             allAvatars[2] = content.Load<Texture2D>(@"Textures/avatar-green");
             allAvatars[3] = content.Load<Texture2D>(@"Textures/avatar-red");
-            for (int i = 0; i < avatar.Length; i++)
-            {
-                avatar[i] = allAvatars[0];
-                command[i] = "";
-            }
-            avatarPosition[0] = new Vector2((screenWidth + 25), (screenHeight / 3.4f));
+                avatar = allAvatars[0];
+                command = "";
+            avatarPosition = new Vector2((screenWidth + 25), (screenHeight / 3.4f));
            
         }
 
@@ -101,8 +82,8 @@ namespace Game.UI
         public void Draw(GameTime gameTime)
         {
             spriteBatch.Begin();
-                spriteBatch.Draw(avatar[0], avatarPosition[0], null, Color.White, 0,
-                    new Vector2(avatar[0].Width, avatar[0].Height), 1f, SpriteEffects.None, 0);
+                spriteBatch.Draw(avatar, avatarPosition, null, Color.White, 0,
+                    new Vector2(avatar.Width, avatar.Height), 1f, SpriteEffects.None, 0);
             spriteBatch.End();
         }
 
@@ -118,7 +99,7 @@ namespace Game.UI
         public void Update(GameTime gameTime)
         {
                 if (kinect.trackedSkeleton!= null)
-                    UpdateUser(0);
+                    UpdateUser();
         }
 
         /// <summary>
@@ -130,47 +111,23 @@ namespace Game.UI
         /// <param name="ID">
         /// The user's index in users array.
         /// </param>
-        public void UpdateUser(int ID)
+        public void UpdateUser()
         {
-            depth[ID] = GenerateDepth(ID);
-            if (depth[ID] == 0)
+            depth = kinect.GenerateDepth();
+            if (depth == 0)
             {
-                avatar[ID] = allAvatars[0];
-                command[ID] = "Player " + (ID + 1) + " : No player detected";
+                avatar = allAvatars[0];
+                command = " : No player detected";
             }
             else
             {
-                if (depth[ID] < minDepth)
-                    avatar[ID] = allAvatars[3];
-                else if (depth[ID] > maxDepth)
-                    avatar[ID] = allAvatars[1];
-                else if (depth[ID] < maxDepth)
-                    avatar[ID] = allAvatars[2];
-                command[ID] = "";
-            }
-        }
-
-        /// <summary>
-        /// Takes the user's index in the array and gets his distance from the kinect device.
-        /// </summary>
-        /// <remarks>
-        /// <para>AUTHOR: Khaled Salah </para>
-        /// </remarks>
-        /// <param name="index">
-        /// The user's index in the array.
-        /// </param>
-        /// <returns>
-        /// Int number which is the calculated depth.
-        /// </returns>
-        public int GenerateDepth(int index)
-        {
-            try
-            {
-                return (int)(100 * kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.Z);
-            }
-            catch (Exception)
-            {
-                return 0;
+                if (depth < minDepth)
+                    avatar = allAvatars[3];
+                else if (depth > maxDepth)
+                    avatar = allAvatars[1];
+                else if (depth < maxDepth)
+                    avatar = allAvatars[2];
+                command = "";
             }
         }
 

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Game.Kinect
 {
+    /// AUTHOR: Khaled
     public class SkeletonAnalyzer
     {
         private int _RotationOffset = 0;

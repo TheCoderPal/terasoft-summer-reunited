@@ -4,6 +4,7 @@ namespace Game.Kinect
     /// <summary>
     /// the gesture part result
     /// </summary>
+    /// AUTHOR: Khaled
     public enum GesturePartResult
     {
         /// <summary>

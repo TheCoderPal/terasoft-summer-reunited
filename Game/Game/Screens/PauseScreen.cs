@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game.Screens
 {
+    /// <para>Author: Khaled Salah</para>
     class PauseScreen : GameScreen
     {
         SpriteBatch spriteBatch;
@@ -32,7 +33,7 @@ namespace Game.Screens
         }
         public override void Update(GameTime gameTime)
         {
-            if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[2]) && PlayScreen.screenPaused == true)
+            if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && PlayScreen.screenPaused == true)
                 this.Remove();
             base.Update(gameTime);
         }

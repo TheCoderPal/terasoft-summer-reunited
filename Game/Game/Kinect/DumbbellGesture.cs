@@ -2,6 +2,7 @@
 
 namespace Game.Kinect
 {
+    /// AUTHOR: Khaled
     class DumbbellGesture1 : IRelativeGestureSegment
     {
         public GesturePartResult CheckGesture(Skeleton skeleton)

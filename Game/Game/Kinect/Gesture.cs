@@ -3,6 +3,7 @@ using Microsoft.Kinect;
 
 namespace Game.Kinect
 {
+    /// AUTHOR: Khaled
     class Gesture
     {
         /// <summary>

@@ -188,25 +188,19 @@ namespace Game.Screens
 
 
             #endregion
-            
-            if (userAvatar.Avatar[0] == userAvatar.AllAvatars[0])
+            #region khaled's pausescreen and music
+            if (userAvatar.Avatar == userAvatar.AllAvatars[0])
             {
                 //Freeze Screen, Show pause Screen
                 screenPaused = true;
                 ScreenManager.AddScreen(new PauseScreen());
                 this.FreezeScreen();
             }
-            else if (userAvatar.Avatar[0].Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
+            else if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
             {
                 //exit pause screen, unfreeze screen
                 this.UnfreezeScreen();
                 screenPaused = false;
-            }
-            updateImmunityCounter++;
-            if (player.Immunity < 30 &&updateImmunityCounter>0)
-            {
-                immunityAudio.Play();
-                updateImmunityCounter = -300;
             }
            
             if (MediaPlayer.State.Equals(MediaState.Stopped))
@@ -233,6 +227,13 @@ namespace Game.Screens
                     //    }
                     default: break;
                 }
+            }
+            #endregion
+            updateImmunityCounter++;
+            if (player.Immunity < 30 && updateImmunityCounter > 0)
+            {
+                immunityAudio.Play();
+                updateImmunityCounter = -300;
             }
 
 

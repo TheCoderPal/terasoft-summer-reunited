@@ -12,6 +12,7 @@ namespace Game.Kinect
     /// </summary>
     public class Kinect
     {
+        #region Gesture's variables
         private GestureController gestureController;
         private string _gesture;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -38,6 +39,7 @@ namespace Game.Kinect
                     PropertyChanged(this, new PropertyChangedEventArgs("Gesture"));
             }
         }
+        #endregion
         private Skeleton[] skeletons;
         private KinectSensor nui;
         //Tracked Skeleton
@@ -63,6 +65,7 @@ namespace Game.Kinect
         /// <summary>
         /// Handle insertion of Kinect sensor.
         /// </summary>
+        /// AUTHOR: TAMER & KHALED
         private void InitializeNui()
         {
             var index = 0;
@@ -92,39 +95,8 @@ namespace Game.Kinect
             gestureController.GestureRecognized += OnGestureRecognized;
             InitializeGestures();
         }
-
-    private void OnGestureRecognized(object sender, GestureEventArgs e)
-    {
-    Debug.WriteLine(e.GestureType);
-
-    switch (e.GestureType)
-    {
-        case GestureType.BendGesture:
-            Gesture = "BendGesture";
-            Constants.isBending = true;
-            break;
-        case GestureType.PunchGesture:
-            Gesture = "PunchGesture";
-            Constants.isPunching = true;
-            break;
-        case GestureType.StepRightGesture:
-            Gesture = "StepRightGesture";
-            Constants.isSteppingRight = true;
-            break;
-        case GestureType.RunningGesture:
-            Gesture = "RunningGesture";
-            Constants.isRunning = true;
-            Constants.numberOfRuns++;
-            break;
-        case GestureType.DumbbellGesture:
-            Gesture = "DumbbellGesture";
-            Constants.isDumbbell = true;
-            Constants.numberOfDumbbells++;
-            break;
-        default:
-            break;
-    }
-    }
+        
+        /// AUTHOR: TAMER & KHALED
         /// <summary>
         /// Handler for skeleton ready handler.
         /// </summary>
@@ -157,6 +129,7 @@ namespace Game.Kinect
                     {
                         Constants.oldSkeleton = trackedSkeleton;
                     }
+                    if(GenerateDepth()>120)
                     gestureController.UpdateAllGestures(trackedSkeleton);
                 }
             }
@@ -198,17 +171,52 @@ namespace Game.Kinect
         {
             return skeletons;
         }
-        public static List<float> Fill_Joint_Pos(Skeleton skeleton, Joint joint, string dimension)
+    #region khaled's methods
+    /// AUTHOR: KHALED
+    private void OnGestureRecognized(object sender, GestureEventArgs e)
+    {
+        Debug.WriteLine(e.GestureType);
+
+        switch (e.GestureType)
         {
-            float min=0;
-            float max=0;
+            case GestureType.BendGesture:
+                Gesture = "BendGesture";
+                Constants.isBending = true;
+                break;
+            case GestureType.PunchGesture:
+                Gesture = "PunchGesture";
+                Constants.isPunching = true;
+                break;
+            case GestureType.StepRightGesture:
+                Gesture = "StepRightGesture";
+                Constants.isSteppingRight = true;
+                break;
+            case GestureType.RunningGesture:
+                Gesture = "RunningGesture";
+                Constants.isRunning = true;
+                Constants.numberOfRuns++;
+                break;
+            case GestureType.DumbbellGesture:
+                Gesture = "DumbbellGesture";
+                Constants.isDumbbell = true;
+                Constants.numberOfDumbbells++;
+                break;
+            default:
+                break;
+        }
+    }
+        ///AUTHOR:Khaled
+        public static List<double> Fill_Joint_Pos(Skeleton skeleton, Joint joint, string dimension)
+        {
+            double min=0;
+            double max=0;
             switch(dimension)
             {
                 case "x":
-            List<float> xPos=new List<float>();
-            for (int i = 0; i < 10; i++)
+            List<double> xPos=new List<double>();
+            for (int i = 0; i < 9; i++)
             {
-                xPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.X), 1));
+                xPos.Add((double)Math.Round((skeleton.Joints[joint.JointType].Position.X)));
                 if (xPos.Count == 1)
                 {
                     min = xPos[xPos.Count - 1];
@@ -223,15 +231,18 @@ namespace Game.Kinect
                     if (xPos[xPos.Count - 1] < min)
                         min = xPos[xPos.Count - 1];
                 }
+                if (xPos.Count == 10)
+                    xPos.RemoveAt(0);
+                xPos.Add((double)Math.Round((skeleton.Joints[joint.JointType].Position.X)));
 
             }
             Constants.minmax = ToString(min, max);
             return xPos;
                 case "y":
-            List<float> yPos=new List<float>();
-            for (int i = 0; i < 10; i++)
+            List<double> yPos=new List<double>();
+            for (int i = 0; i < 9; i++)
             {
-                yPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Y), 1));
+                yPos.Add((double)Math.Round((skeleton.Joints[joint.JointType].Position.Y)));
                 if (yPos.Count == 1)
                 {
                     min = yPos[yPos.Count - 1];
@@ -247,15 +258,19 @@ namespace Game.Kinect
                         min = yPos[yPos.Count - 1];
                 }
 
+                if (yPos.Count == 10)
+                    yPos.RemoveAt(0);
+                yPos.Add((double)Math.Round((skeleton.Joints[joint.JointType].Position.Y)));
+
             }
             Constants.minmax = ToString(min, max);
             return yPos;
 
             case "z":
-            List<float> zPos=new List<float>();
-            for (int i = 0; i < 10; i++)
+            List<double> zPos=new List<double>();
+            for (int i = 0; i < 9; i++)
             {
-                zPos.Add((float)Math.Round((skeleton.Joints[joint.JointType].Position.Z), 1));
+                zPos.Add((double)Math.Round((skeleton.Joints[joint.JointType].Position.Z)));
                 if (zPos.Count == 1)
                 {
                     min = zPos[zPos.Count - 1];
@@ -271,18 +286,75 @@ namespace Game.Kinect
                         min = zPos[zPos.Count - 1];
                 }
 
+                if (zPos.Count == 10)
+                    zPos.RemoveAt(0);
+                zPos.Add((double)Math.Round((skeleton.Joints[joint.JointType].Position.Z)));
+
             }
            Constants.minmax= ToString(min, max);
             return zPos;
-            default: return new List<float>();
+            default: return new List<double>();
 
         }
         }
-        public static string ToString(float min, float max)
+        ///AUTHOR:Khaled
+        public static string ToString(double min, double max)
         {
             return min + "," + max;
         }
+        ///AUTHOR:Khaled
+        public void InitializeGestures()
+        {
+            IRelativeGestureSegment[] StepRightSegments = new IRelativeGestureSegment[1];
+            StepRightGesture1 stepRightGesture1 = new StepRightGesture1();
+            StepRightSegments[0] = stepRightGesture1;
+            this.gestureController.AddGesture(GestureType.StepRightGesture, StepRightSegments);
+            IRelativeGestureSegment[] BendSegments = new IRelativeGestureSegment[1];
+            BendGesture1 bendGesture1 = new BendGesture1();
+            BendSegments[0] = bendGesture1;
+            this.gestureController.AddGesture(GestureType.BendGesture, BendSegments);
+            IRelativeGestureSegment[] PunchSegments = new IRelativeGestureSegment[1];
+            PunchGesture1 punchGesture1 = new PunchGesture1();
+            PunchSegments[0] = punchGesture1;
+            this.gestureController.AddGesture(GestureType.PunchGesture, PunchSegments);
+            IRelativeGestureSegment[] DumbbellSegments = new IRelativeGestureSegment[2];
+            DumbbellGesture1 dumbbellGesture1 = new DumbbellGesture1();
+            DumbbellGesture2 dumbbellGesture2 = new DumbbellGesture2();
+            DumbbellSegments[0] = dumbbellGesture1;
+            DumbbellSegments[1] = dumbbellGesture2;
+            this.gestureController.AddGesture(GestureType.DumbbellGesture, DumbbellSegments);
+            IRelativeGestureSegment[] RunningSegments = new IRelativeGestureSegment[2];
+            RunningGesture1 runningGesture1 = new RunningGesture1();
+            RunningGesture2 runningGesture2 = new RunningGesture2();
+            RunningSegments[0] = runningGesture1;
+            RunningSegments[1] = runningGesture2;
+            this.gestureController.AddGesture(GestureType.RunningGesture, RunningSegments);
+        }
+        /// <summary>
+        /// Takes the user's index in the array and gets his distance from the kinect device.
+        /// </summary>
+        /// <remarks>
+        /// <para>AUTHOR: Khaled Salah </para>
+        /// </remarks>
+        /// <param name="index">
+        /// The user's index in the array.
+        /// </param>
+        /// <returns>
+        /// Int number which is the calculated depth.
+        /// </returns>
+        public int GenerateDepth()
+        {
+            try
+            {
+                return (int)(100 * this.trackedSkeleton.Joints[JointType.HipCenter].Position.Z);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
         
+    #endregion
         /// <summary>
         /// Returns right hand position scaled to screen.
         /// </summary>
@@ -346,34 +418,5 @@ namespace Game.Kinect
         {
             return this.nui.ColorStream.FrameHeight;
         }
-
-        public void InitializeGestures()
-        {
-             IRelativeGestureSegment[] StepRightSegments = new IRelativeGestureSegment[1];
-             StepRightGesture1 stepRightGesture1 = new StepRightGesture1();
-             StepRightSegments[0]=stepRightGesture1;
-             this.gestureController.AddGesture(GestureType.StepRightGesture, StepRightSegments);
-             IRelativeGestureSegment[] BendSegments = new IRelativeGestureSegment[1];
-             BendGesture1 bendGesture1 = new BendGesture1();
-             BendSegments[0] = bendGesture1;
-             this.gestureController.AddGesture(GestureType.BendGesture, BendSegments);
-             IRelativeGestureSegment[] PunchSegments = new IRelativeGestureSegment[1];
-             PunchGesture1 punchGesture1 = new PunchGesture1();
-             PunchSegments[0] = punchGesture1;
-             this.gestureController.AddGesture(GestureType.PunchGesture, PunchSegments);
-             IRelativeGestureSegment[] DumbbellSegments = new IRelativeGestureSegment[2];
-             DumbbellGesture1 dumbbellGesture1 = new DumbbellGesture1();
-             DumbbellGesture2 dumbbellGesture2 = new DumbbellGesture2();
-             DumbbellSegments[0] = dumbbellGesture1;
-             DumbbellSegments[1] = dumbbellGesture2;
-             this.gestureController.AddGesture(GestureType.DumbbellGesture, DumbbellSegments);
-             IRelativeGestureSegment[] RunningSegments = new IRelativeGestureSegment[2];
-             RunningGesture1 runningGesture1 = new RunningGesture1();
-             RunningGesture2 runningGesture2 = new RunningGesture2();
-             RunningSegments[0] = runningGesture1;
-             RunningSegments[1] = runningGesture2;
-             this.gestureController.AddGesture(GestureType.RunningGesture, RunningSegments);
-        }
-        
     }
 }
