@@ -15,6 +15,7 @@ namespace Game.Screens
         private int counter = 0;
         private PlayScreen playScreen;
         private Bar bar;
+        private SpriteFont font;
 
         public DumbbellScreen(PlayScreen playScreen)
         {
@@ -25,19 +26,20 @@ namespace Game.Screens
         public override void Initialize()
         {
             Content = ScreenManager.Game.Content;
-            spriteBatch = ScreenManager.SpriteBatch;
-            dumbbellSprite = Content.Load<Texture2D>("Sprites/dumbbell-sprite");
-            background = Content.Load<Texture2D>("Textures//Gym-Interior");            
-            avatar = Content.Load<Texture2D>("Textures/avatar");            
-            bubbleBox = Content.Load<Texture2D>("Textures/bubbleBoxDumb");
+            spriteBatch = ScreenManager.SpriteBatch;           
             dumbbellAnimation = new SpriteAnimation();
-            Constants.ResetDumbbellsAndRun();
-            dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 200, 262, 12, 100, Color.White, 1f, true);    
+            Constants.ResetDumbbellsAndRun();   
             base.Initialize();
         }
 
         public override void LoadContent()
         {
+            dumbbellSprite = Content.Load<Texture2D>("Sprites/dumbbell-sprite");
+            background = Content.Load<Texture2D>("Textures//Gym-Interior");
+            avatar = Content.Load<Texture2D>("Textures/avatar");
+            bubbleBox = Content.Load<Texture2D>("Textures/bubbleBoxDumb");
+            font = Content.Load<SpriteFont>("Fontopo");
+            dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 200, 262, 12, 100, Color.White, 1f, true); 
             base.LoadContent();
         }
 
@@ -62,8 +64,7 @@ namespace Game.Screens
         }
 
         public override void Draw(GameTime gameTime)
-        {            
-            SpriteFont font = Content.Load<SpriteFont>("Fontopo");            
+        {                        
             SpriteBatch sprite = spriteBatch;
             sprite.Begin();
             spriteBatch.Draw(background, new Rectangle(0, 0, 1280, 720),Color.White);
