@@ -182,7 +182,8 @@ namespace Game.Engine
             if (immunity > 100)
                 immunity = 100;
 
-            score += value * 100; 
+            if (value > 0) score += value * 100;
+            else score -= value * 25;
         }
 
         public Color[] GetColorData()

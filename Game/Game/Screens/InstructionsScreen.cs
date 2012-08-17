@@ -50,7 +50,7 @@ namespace Game.Screens
             ContentManager Content = ScreenManager.Game.Content;
             spriteFont = Content.Load<SpriteFont>("Fontopo");
             backgroundImage = Content.Load<Texture2D>("Textures/instructionsScreen");
-            spriteFont.LineSpacing = 18;
+            spriteFont.LineSpacing = 21;
             TextToDraw = WrapText(spriteFont, Text, 1130);
             OkButton.LoadContent(Content);
             Hand.LoadContent(Content);
