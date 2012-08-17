@@ -7,14 +7,13 @@ namespace Game.Screens
 {
     public class ExcercisesScreen : GameScreen
     {
-        Button dumbbell;
-        Button treadmill;
-        Sprite background;
-        SpriteBatch spriteBatch;
-        ContentManager Content;
-        Game.Kinect.Kinect kinect;
-        HandCursor Hand;
-        PlayScreen playScreen;
+        private Button dumbbell,treadmill;
+        private Sprite background;
+        private SpriteBatch spriteBatch;
+        private ContentManager Content;
+        private Game.Kinect.Kinect kinect;
+        private HandCursor Hand;
+        private PlayScreen playScreen;
 
         /// <summary>
         /// Author: Ahmed Shirin.
@@ -31,8 +30,6 @@ namespace Game.Screens
             dumbbell = new Button();
             Hand = new HandCursor();
             kinect = ScreenManager.Kinect;
-            dumbbell.Initialize("Buttons//dumbbell", kinect, new Vector2(140, 290));
-            treadmill.Initialize("Buttons//treadmill", kinect, new Vector2(800, 250));
             Hand.Initialize(ScreenManager.Kinect);
             dumbbell.Clicked += new Button.ClickedEventHandler(dumbbell_Clicked);
             treadmill.Clicked += new Button.ClickedEventHandler(treadmill_Clicked);
@@ -55,6 +52,8 @@ namespace Game.Screens
         {
             Content = ScreenManager.Game.Content;
             spriteBatch = ScreenManager.SpriteBatch;
+            dumbbell.Initialize("Buttons//dumbbell", kinect, new Vector2(140, 290));
+            treadmill.Initialize("Buttons//treadmill", kinect, new Vector2(800, 250));
             dumbbell.LoadContent(Content);
             treadmill.LoadContent(Content);
             Hand.LoadContent(Content);
