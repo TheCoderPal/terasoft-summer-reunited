@@ -13,9 +13,6 @@ namespace Game.Engine
        private string[] badItems = { "fries", "hamburger","pizza","donut","muffin","hotdog"};
        private string[] weapons = { "sheild", "sword" };
        private string[] viruses = { "level1","level2","level3"};
-       private string[] level1 = { "level1"};
-       private string[] level2 = { "level2"};
-       private string[] level3 = { "level3"};
        private string[] itemsList;
        private Random random;
        private int  counter;
@@ -88,11 +85,11 @@ namespace Game.Engine
                 if (i == 0 || i == 2 || i == 6)
                     itemsList[i] = "Empty";
                 else if (i == 1 || i == 9)
-                    itemsList[i] = GetRandomItem(Concatenate(level1, goodItems));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[0],goodItems));
                 else if (i == 3)
                     itemsList[i] = GetRandomItem(Concatenate(badItems, weapons));
                 else if (i == 5)
-                    itemsList[i] = GetRandomItem(Concatenate(level1,badItems));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[0], badItems));
                 else if (i == 4 || i == 7 || i == 8)
                     itemsList[i] = GetRandomItem(goodItems);
             }
@@ -108,11 +105,11 @@ namespace Game.Engine
                 else if (i == 4)
                     itemsList[i] = viruses[0];
                 else if (i == 1 || i == 7)
-                    itemsList[i] = GetRandomItem(Concatenate(level1, badItems));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[0], badItems));
                 else if (i == 5 || i == 6 || i == 8)
                     itemsList[i] = GetRandomItem(goodItems);
                 else if (i == 2)
-                    itemsList[i] = GetRandomItem(Concatenate(new string[] { "Empty" }, weapons));
+                    itemsList[i] = GetRandomItem(insertItem("Empty",weapons));
                 else if (i == 9)
                     itemsList[i] = GetRandomItem(weapons);
             }
@@ -126,7 +123,7 @@ namespace Game.Engine
                 else if (i ==5)
                     itemsList[i] = viruses[0];
                 else if (i < 9)
-                    itemsList[i] = GetRandomItem(Concatenate(badItems, level1));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[0], badItems));
                 else
                     itemsList[i] = GetRandomItem(Concatenate(goodItems, weapons));
             }
@@ -139,11 +136,11 @@ namespace Game.Engine
                 if (i < 3)
                     itemsList[i] = GetRandomItem(goodItems);
                 else if (i < 6)
-                    itemsList[i] = GetRandomItem(Concatenate(level2, badItems));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[2], badItems));
                 else if (i == 6)
                     itemsList[i] = "Empty";
                 else if (i < 9)
-                    itemsList[i] = GetRandomItem(Concatenate(level1, level2));
+                   itemsList[i] = GetRandomItem(viruses.Take(2).ToArray());
                 else
                     itemsList[i] = GetRandomItem(Concatenate(goodItems, weapons));
             }
@@ -155,14 +152,14 @@ namespace Game.Engine
             {
                 if (i < 3)
                     itemsList[i] = GetRandomItem(goodItems);
-                else if(i <5)
+                else if (i < 5)
                     itemsList[i] = viruses[1];
                 else if (i < 8)
-                    itemsList[i] = GetRandomItem(Concatenate(level2, badItems));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[1], badItems));
                 else if (i < 9)
-                    itemsList[i] = GetRandomItem(Concatenate(goodItems, level1));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[0], goodItems));
                 else
-                    itemsList[i] = GetRandomItem(Concatenate(weapons, level2));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[2], weapons));
             }
             itemsList = Randomize(itemsList);
         }
@@ -175,9 +172,9 @@ namespace Game.Engine
                 else if (i < 5)
                     itemsList[i] = viruses[2];
                 else if (i < 8)
-                    itemsList[i] = GetRandomItem(Concatenate(level3, badItems));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[2], badItems));
                 else if (i < 9)
-                    itemsList[i] = GetRandomItem(Concatenate(badItems, level1, level2));
+                    itemsList[i] = GetRandomItem(insertItem(viruses[0],insertItem(viruses[1], badItems)));
                 else
                     itemsList[i] = GetRandomItem(weapons);
             }
@@ -194,6 +191,13 @@ namespace Game.Engine
             return stringItems[GetRandom(stringItems.Length)];
         }
         #endregion
+        private string[] insertItem(string item,string []itemsInList)
+        {
+            string[] newList = new string[itemsInList.Length+1];
+            itemsInList.CopyTo(newList,0);
+            newList[itemsInList.Length] = item;
+            return newList;
+        }
         #region Method of concatenating arrays
         private string [] Concatenate(string[] firstString, string[] secondString, string[] thirdString)
         {
