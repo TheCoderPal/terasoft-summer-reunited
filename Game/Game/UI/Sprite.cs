@@ -8,14 +8,11 @@ namespace Game.UI
 {
     public class Sprite
     {
-        Texture2D texture;
-        Rectangle area;
-        String name;
-        Boolean soundEffectPlayed;
-        Boolean transparent;
-        Boolean collided;
-        Boolean virusHit;
-        Boolean virusSlashed;
+        private Texture2D texture;
+        private Rectangle area;
+        private String name;
+        private Boolean soundEffectPlayed,transparent,collided,virusHit,virusSlashed;
+
         public Sprite(Texture2D tex, Rectangle area)
         {
             this.texture = tex;
