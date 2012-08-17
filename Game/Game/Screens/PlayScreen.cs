@@ -328,15 +328,22 @@ namespace Game.Screens
                     {
                         if (name.Equals("level1") || name.Equals("level2") || name.Equals("level3"))
                         {
-                            if (Constants.isSwappingHand && player.HasSword() && currentSprite[i].GetY() == 399)
+                            if (IsAbove(playerBounds, itemBounds) && playerBounds.Bottom > 349 && currentSprite[i].GetHeight() > 299)
                             {
-                                currentSprite[i].SlashVirus();
+                                currentSprite[i].KillVirus();
                             }
                             else
                             {
-                                if (!Constants.isPunching)
+                                if (Constants.isSwappingHand && player.HasSword() && currentSprite[i].GetY() == 399)
                                 {
-                                    currentSprite[i].HitVirus();
+                                    currentSprite[i].SlashVirus();
+                                }
+                                else
+                                {
+                                    if (!Constants.isPunching)
+                                    {
+                                        currentSprite[i].HitVirus();
+                                    }
                                 }
                             }
                          
@@ -494,6 +501,7 @@ namespace Game.Screens
                     case "muffin": player.Collided(Constants.unhealthy5); break;
                     case "hotdog": player.Collided(Constants.unhealthy6); break;
                     case "level1":
+                        if(!sprite.GetKilled()){
                         if (!player.HasShield())
                         {
                             if (!player.HasSword() || !Constants.isSwappingHand)
@@ -521,8 +529,11 @@ namespace Game.Screens
                         else
                         {
                             player.AcquireShield(false);
-                        }break;
+                        }
+                        }
+                        break;
                     case "level2":
+                        if(!sprite.GetKilled()){
                         if (!player.HasShield())
                         {
                             if (!player.HasSword() || !Constants.isSwappingHand)
@@ -554,8 +565,11 @@ namespace Game.Screens
                         else
                         {
                             player.AcquireShield(false);
-                        }break;
+                        }
+                        }
+                        break;
                     case "level3":
+                        if(!sprite.GetKilled()){
                         if (!player.HasShield())
                         {
                             if (!player.HasSword() || !Constants.isSwappingHand)
@@ -591,7 +605,9 @@ namespace Game.Screens
                         else
                         {
                             player.AcquireShield(false);
-                        } break;
+                        } 
+                        }
+                        break;
                     case "sheild": player.AcquireShield(true); break;
                     case "sword": player.AcquireSword(true); break;
                 }
