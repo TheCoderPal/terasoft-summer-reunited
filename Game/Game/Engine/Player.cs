@@ -174,6 +174,21 @@ namespace Game.Engine
         {
             playerAnimation.Draw(spriteBatch);
         }
+        
+        public Boolean CheckJump()
+        {
+           return State == PlayerStates.Jumping;
+        }
+
+        public Boolean CheckRun()
+        {
+            return playerAnimation==runAnimation;
+        } 
+
+        public int GetJumpTime()
+        {
+            return (80 * (jumpTexture.Width / jumpTexture.Height));
+        }
 
         public void Collided(int value)
         {
