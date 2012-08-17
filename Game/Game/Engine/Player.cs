@@ -175,12 +175,12 @@ namespace Game.Engine
             playerAnimation.Draw(spriteBatch);
         }
         
-        public Boolean CheckJump()
+        public bool CheckJump()
         {
            return State == PlayerStates.Jumping;
         }
 
-        public Boolean CheckRun()
+        public bool CheckRun()
         {
             return playerAnimation==runAnimation;
         } 
@@ -212,22 +212,22 @@ namespace Game.Engine
                 playerAnimation.FrameWidth, playerAnimation.FrameHeight);
         }
 
-        public void AcquireSword(Boolean t)
+        public void AcquireSword(bool t)
         {
             hasSword = t;
         }
 
-        public void AcquireShield(Boolean t)
+        public void AcquireShield(bool t)
         {
             hasShield = t;
         }
 
-        public Boolean HasSword()
+        public bool HasSword()
         {
             return this.hasSword;
         }
 
-        public Boolean HasShield()
+        public bool HasShield()
         {
             return this.hasShield;
         }
