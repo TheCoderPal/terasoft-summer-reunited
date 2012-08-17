@@ -11,7 +11,7 @@ namespace Game.UI
         private Texture2D texture;
         private Rectangle area;
         private String name;
-        private Boolean soundEffectPlayed,transparent,collided,virusHit,virusSlashed;
+        private Boolean soundEffectPlayed,transparent,collided,virusHit,virusSlashed, virusKilled;
 
         public Sprite(Texture2D tex, Rectangle area)
         {
@@ -86,7 +86,12 @@ namespace Game.UI
                             texture = Content.Load<Texture2D>("Textures//splash1");
                         }
                         break;
-                    case "level3": texture = Content.Load<Texture2D>("Textures//splash2"); break;
+                    case "level3": texture = Content.Load<Texture2D>("Textures//splash2");                        
+                        if(virusKilled)
+                        {
+                            texture = Content.Load<Texture2D>("Textures//splash1");
+                        }
+                        break;
                     default: texture = Content.Load<Texture2D>("Textures//Transparent"); break;
                 }
             }
