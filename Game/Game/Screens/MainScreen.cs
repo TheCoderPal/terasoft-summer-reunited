@@ -57,9 +57,10 @@ namespace Game.Screens
         {
             this.Remove();
             InstructionsScreen IScreen = new InstructionsScreen();
-            IScreen.SetText("   The goal of this game is to get as far as you can aswell as getting the highest score possible. Healthy foods such as Strawberries, Tomatoes and Carrots increase your immunity and your score. " +
-                "Avoid Unhealthy items like Hamburgers, Fries, Pizza and Viruses by jumping over them or bending to slide beneath them since they decrease your immunity and score. You can step to the right when you pass by a Gym building to exercise and restore your immunity. There are 2 exercises in the Gym, Dumbbell exercise and a running exercise. " +
-                "The bar on the top left represents your immunity, and the avatar on the top right of the screen represents your distance from the Kinect. Green is the optimum distance. " +
+            IScreen.SetText("\t\u2022 The goal of this game is to get as far as you can aswell as getting the highest score possible. \n \t\u2022 Healthy foods such as Strawberries, Tomatoes and Carrots increase your immunity and your score. " +
+                "\n \t\u2022 Avoid Unhealthy items like Hamburgers, Fries, Pizza and Viruses by jumping over them or bending to slide beneath them since they decrease your immunity and score." +
+                "\n \t\u2022 You can step to the right when you pass by a Gym building to enter the gym to exercise and restore your immunity.\n \t\u2022 There are 2 exercises in the Gym, Dumbbell exercise and a running exercise. " +
+                "\n \t\u2022 The bar on the top left represents your immunity, and the avatar on the top right of the screen represents your distance from the Kinect. Green is the optimum distance. " +
                 "\n                                                         Have fun ! :)");
 
             ScreenManager.AddScreen(IScreen);
