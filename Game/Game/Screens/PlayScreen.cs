@@ -70,6 +70,7 @@ namespace Game.Screens
             generator = new ItemsGenerator();
             current = generator.GenerateMore();
             currentSprite = new Sprite[20];
+            items = new Texture2D[19];
             #endregion
 
             Constants.ResetFlags();
@@ -341,6 +342,7 @@ namespace Game.Screens
                          
                         }
                         Effects(name, currentSprite[i]);
+                        PlaySoundEffects(name, currentSprite[i]);
                         if (!name.Equals("gym"))
                         {
                             currentSprite[i].Collide(Content, name);
