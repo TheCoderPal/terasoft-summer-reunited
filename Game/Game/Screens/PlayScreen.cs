@@ -178,7 +178,16 @@ namespace Game.Screens
             bgLayer3.Update();
 
             player.Update(gameTime);
-            GetActualBounds(player.GetBoundingRectangle(), player.GetColorData(), out playerBounds, out playerData);
+
+            if (jumping)
+            {
+                GetActualBounds(player.GetBoundingRectangle(), player.GetColorData(), out playerBounds, out playerData);
+            }
+            else
+            {
+                playerBounds = player.GetBoundingRectangle();
+                playerData = player.GetColorData();
+            }
 
             if (player.CheckDeath())
             {
@@ -219,6 +228,9 @@ namespace Game.Screens
                     alertTimer = 0;
                 }
             }
+
+
+
 
 
             #endregion
