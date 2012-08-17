@@ -227,11 +227,6 @@ namespace Game.Engine
             return this.hasSword;
         }
 
-        public bool CheckJump()
-        {
-            return State == PlayerStates.Jumping;
-        }
-
         public Boolean HasShield()
         {
             return this.hasShield;
