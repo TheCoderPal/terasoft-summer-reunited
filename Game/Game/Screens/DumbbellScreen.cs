@@ -8,14 +8,13 @@ namespace Game.Screens
 {
     public class DumbbellScreen : GameScreen
     {
-        Sprite background;
-        SpriteAnimation dumbbellAnimation;
-        Texture2D dumbbellSprite, avatar, bubbleBox;
-        SpriteBatch spriteBatch;
-        ContentManager Content;
-        int counter = 0;
-        PlayScreen playScreen;
-        Bar bar;
+        private SpriteAnimation dumbbellAnimation;
+        private Texture2D dumbbellSprite, avatar, bubbleBox,background;
+        private SpriteBatch spriteBatch;
+        private ContentManager Content;
+        private int counter = 0;
+        private PlayScreen playScreen;
+        private Bar bar;
 
         public DumbbellScreen(PlayScreen playScreen)
         {
@@ -28,6 +27,9 @@ namespace Game.Screens
             Content = ScreenManager.Game.Content;
             spriteBatch = ScreenManager.SpriteBatch;
             dumbbellSprite = Content.Load<Texture2D>("Sprites/dumbbell-sprite");
+            background = Content.Load<Texture2D>("Textures//Gym-Interior");            
+            avatar = Content.Load<Texture2D>("Textures/avatar");            
+            bubbleBox = Content.Load<Texture2D>("Textures/bubbleBoxDumb");
             dumbbellAnimation = new SpriteAnimation();
             Constants.ResetDumbbellsAndRun();
             dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 200, 262, 12, 100, Color.White, 1f, true);    
@@ -36,9 +38,7 @@ namespace Game.Screens
 
         public override void LoadContent()
         {
-            background = new Sprite(Content.Load<Texture2D>("Textures//Gym-Interior"), new Rectangle(0, 0, 1280, 720));
-            avatar = Content.Load<Texture2D>("Textures/avatar");
-            bubbleBox = Content.Load<Texture2D>("Textures/bubbleBoxDumb");
+            //background = new Sprite(Content.Load<Texture2D>("Textures//Gym-Interior"), new Rectangle(0, 0, 1280, 720));
             base.LoadContent();
         }
 
@@ -46,13 +46,14 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             dumbbellAnimation.Update(gameTime);
+            if (Constants.isDumbbell)
+            {
+                playScreen.GetPlayer().Collided(Constants.dumbbellEffect);
+                Constants.ResetFlags();
+            }
             if (counter == 600)
             {
                 this.Remove();
-                for (int i = 0; i <= Constants.numberOfDumbbells - 1; i++)
-                {
-                    playScreen.GetPlayer().Collided(Constants.dumbbellEffect);
-                }
                 playScreen.UnfreezeScreen();
             }
 
@@ -62,13 +63,12 @@ namespace Game.Screens
         }
 
         public override void Draw(GameTime gameTime)
-        {
-            background.Draw(spriteBatch);
+        {            
             SpriteFont font = Content.Load<SpriteFont>("Fontopo");            
             SpriteBatch sprite = spriteBatch;
             sprite.Begin();
-            spriteBatch.DrawString(font, "Lifts: "+Constants.numberOfDumbbells +"", new Vector2(400, 10), Color.Red);
-            spriteBatch.DrawString(font, "Immunity Gained: " + Constants.numberOfDumbbells * Constants.dumbbellEffect + "", new Vector2(600, 10), Color.Red);
+            spriteBatch.Draw(background, new Rectangle(0, 0, 1280, 720),Color.White);
+            spriteBatch.DrawString(font, "Lifts: "+Constants.numberOfDumbbells, new Vector2(400, 10), Color.Red);
             dumbbellAnimation.Draw(spriteBatch);
             #region Tamer Avatar +bubble box draw
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width * 2, avatar.Height * 2), Color.White);
