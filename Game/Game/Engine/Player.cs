@@ -229,7 +229,7 @@ namespace Game.Engine
 
         public bool CheckJump()
         {
-            return playerAnimation == jumpAnimation;
+            return State == PlayerStates.Jumping;
         }
 
         public Boolean HasShield()
