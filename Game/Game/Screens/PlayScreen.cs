@@ -305,7 +305,7 @@ namespace Game.Screens
                         case "2": height = 299; break;
                     }
                     Texture2D texture = items[18];
-                    Boolean transparent = false;
+                    bool transparent = false;
                     int length = 50;
                     switch (current[i, 0])
                     {
@@ -657,7 +657,7 @@ namespace Game.Screens
             return this.player;
         }
 
-        public Boolean IsAbove(Rectangle playerBounds, Rectangle itemBounds)
+        public bool IsAbove(Rectangle playerBounds, Rectangle itemBounds)
         {
             return (playerBounds.Y + playerBounds.Height - 30) <= itemBounds.Y + itemBounds.Height;
         }
