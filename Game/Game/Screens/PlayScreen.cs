@@ -42,14 +42,12 @@ namespace Game.Screens
         private int globalCounter = 0;
         private int spriteCounter = 0;
         private Sprite[] currentSprite;
-        private Sprite sword;
-        private Sprite shield;
-        private Sprite swordAcquired;
-        private Sprite shieldAcquired;
+        private Sprite sword,shield,swordAcquired,shieldAcquired;
         private ContentManager Content;
         private SoundEffect[] soundEffects = new SoundEffect[6];
         private Color[] playerData;
         private Rectangle playerBounds;
+        private Texture2D[] items;
 
         public override void Initialize()
         {
@@ -68,10 +66,11 @@ namespace Game.Screens
             alertTimer = 0;
             displayAlert = false;
 
-            //Shirin
+            #region Shirin
             generator = new ItemsGenerator();
             current = generator.GenerateMore();
             currentSprite = new Sprite[20];
+            #endregion
 
             Constants.ResetFlags();
             base.Initialize();
@@ -111,6 +110,26 @@ namespace Game.Screens
             soundEffects[3] = Content.Load<SoundEffect>("Audio//SwordAcquired");
             soundEffects[4] = Content.Load<SoundEffect>("Audio//SwordSlash");
             soundEffects[5] = Content.Load<SoundEffect>("Audio//VirusHit");
+
+            items[0] = Content.Load<Texture2D>("Textures//healthy1");
+            items[1] = Content.Load<Texture2D>("Textures//healthy2");
+            items[2] = Content.Load<Texture2D>("Textures//healthy3");
+            items[3] = Content.Load<Texture2D>("Textures//healthy4");
+            items[4] = Content.Load<Texture2D>("Textures//healthy5");
+            items[5] = Content.Load<Texture2D>("Textures//healthy6");
+            items[6] = Content.Load<Texture2D>("Textures//unhealthy1");
+            items[7] = Content.Load<Texture2D>("Textures//unhealthy2");
+            items[8] = Content.Load<Texture2D>("Textures//unhealthy3");
+            items[9] = Content.Load<Texture2D>("Textures//unhealthy4");
+            items[10] = Content.Load<Texture2D>("Textures//unhealthy5");
+            items[11] = Content.Load<Texture2D>("Textures//unhealthy6");
+            items[12] = Content.Load<Texture2D>("Textures//virus1");
+            items[13] = Content.Load<Texture2D>("Textures//virus2");
+            items[14] = Content.Load<Texture2D>("Textures//virus3");
+            items[15] = Content.Load<Texture2D>("Textures//shield");
+            items[16] = Content.Load<Texture2D>("Textures//sword");
+            items[17] = Content.Load<Texture2D>("Textures//gym");
+            items[18] = Content.Load<Texture2D>("Textures//Transparent");
 
             #endregion
 
@@ -261,29 +280,29 @@ namespace Game.Screens
                         case "1": height = 399; break;
                         case "2": height = 299; break;
                     }
-                    Texture2D texture = Content.Load<Texture2D>("Textures//Transparent");
+                    Texture2D texture = items[18];
                     Boolean transparent = false;
                     int length = 50;
                     switch (current[i, 0])
                     {
-                        case "tomato": texture = Content.Load<Texture2D>("Textures//healthy1"); break;
-                        case "carrot": texture = Content.Load<Texture2D>("Textures//healthy2"); break;
-                        case "strawberry": texture = Content.Load<Texture2D>("Textures//healthy3"); break;
-                        case "orange": texture = Content.Load<Texture2D>("Textures//healthy4"); break;
-                        case "pineapple": texture = Content.Load<Texture2D>("Textures//healthy5"); break;
-                        case "broccoli": texture = Content.Load<Texture2D>("Textures//healthy6"); break;
-                        case "fries": texture = Content.Load<Texture2D>("Textures//unhealthy1"); break;
-                        case "hamburger": texture = Content.Load<Texture2D>("Textures//unhealthy2"); break;
-                        case "pizza": texture = Content.Load<Texture2D>("Textures//unhealthy3"); break;
-                        case "donut": texture = Content.Load<Texture2D>("Textures//unhealthy4"); break;
-                        case "muffin": texture = Content.Load<Texture2D>("Textures//unhealthy5"); break;
-                        case "hotdog": texture = Content.Load<Texture2D>("Textures//unhealthy6"); break;
-                        case "level1": texture = Content.Load<Texture2D>("Textures//virus1"); break;
-                        case "level2": texture = Content.Load<Texture2D>("Textures//virus2"); break;
-                        case "level3": texture = Content.Load<Texture2D>("Textures//virus3"); break;
-                        case "sheild": texture = Content.Load<Texture2D>("Textures//shield"); break;
-                        case "sword": texture = Content.Load<Texture2D>("Textures//sword"); break;
-                        case "gym": texture = Content.Load<Texture2D>("Textures//gym"); length = 200; height = 349; break;
+                        case "tomato": texture = items[0]; break;
+                        case "carrot": texture = items[1]; break;
+                        case "strawberry": texture = items[2]; break;
+                        case "orange": texture = items[3]; break;
+                        case "pineapple": texture = items[4]; break;
+                        case "broccoli": texture = items[5]; break;
+                        case "fries": texture = items[6]; break;
+                        case "hamburger": texture = items[7]; break;
+                        case "pizza": texture = items[8]; break;
+                        case "donut": texture = items[9]; break;
+                        case "muffin": texture = items[10]; break;
+                        case "hotdog": texture = items[11]; break;
+                        case "level1": texture = items[12]; break;
+                        case "level2": texture = items[13]; break;
+                        case "level3": texture = items[14]; break;
+                        case "sheild": texture = items[15]; break;
+                        case "sword": texture = items[16]; break;
+                        case "gym": texture = items[17]; length = 200; height = 349; break;
                         case "Empty": transparent = true; break;
                     }
                     currentSprite[counter] = new Sprite(texture, new Rectangle(1280, height, length, length));
@@ -375,7 +394,7 @@ namespace Game.Screens
             bar.Draw(spriteBatch);
             score.Draw(spriteBatch);
             spriteBatch.End();
-            //Shirin
+            #region Shirin
             foreach (Sprite s in currentSprite)
             {
                 s.Draw(spriteBatch);
@@ -383,8 +402,7 @@ namespace Game.Screens
             SpriteBatch sprite = spriteBatch;
             sprite.Begin();
             player.Draw(sprite);
-            sprite.End();
-            
+            sprite.End();            
             sword.Draw(spriteBatch);
             shield.Draw(spriteBatch);
             if (player.HasShield())
@@ -395,6 +413,7 @@ namespace Game.Screens
             {
                 swordAcquired.Draw(spriteBatch);
             }
+            #endregion
             base.Draw(gametime);
         }
 
@@ -551,14 +570,11 @@ namespace Game.Screens
                     case "sword": player.AcquireSword(true); sprite.PlaySoundEffect(soundEffects[3]); break;
                 }
             }
-            //Constants.ResetFlags();
         }
 
         public Player GetPlayer()
         {
             return this.player;
-        }
-
-        
+        }        
     }
 }
