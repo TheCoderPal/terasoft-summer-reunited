@@ -8,15 +8,14 @@ namespace Game.Screens
 {
     public class TreadmillScreen : GameScreen
     {
-        Sprite background;
-        Sprite treadmill;
-        SpriteAnimation treadmillAnimation;
-        Texture2D treadmillSprite,avatar,bubbleBox;
-        SpriteBatch spriteBatch;
-        ContentManager Content;
-        int counter = 0;
-        PlayScreen playScreen;
-        Bar bar;
+        private SpriteAnimation treadmillAnimation;
+        private Texture2D treadmillSprite, avatar, bubbleBox,background,treadmill;
+        private SpriteBatch spriteBatch;
+        private ContentManager Content;
+        private int counter = 0;
+        private PlayScreen playScreen;
+        private Bar bar;
+        private SpriteFont font;
 
         public TreadmillScreen(PlayScreen playScreen)
         {
@@ -28,19 +27,19 @@ namespace Game.Screens
         {
             Content = ScreenManager.Game.Content;
             spriteBatch = ScreenManager.SpriteBatch;
-            treadmillSprite = Content.Load<Texture2D>("Sprites/Run");
             treadmillAnimation = new SpriteAnimation();
-            Constants.ResetDumbbellsAndRun();
-            treadmillAnimation.Initialize(treadmillSprite, new Vector2(600, 500), treadmillSprite.Height, treadmillSprite.Height, treadmillSprite.Width / treadmillSprite.Height, 50, Color.White, 1f, true);
-            base.Initialize();
+            Constants.ResetDumbbellsAndRun();base.Initialize();
         }
 
         public override void LoadContent()
         {
-            background = new Sprite(Content.Load<Texture2D>("Textures//Gym-Interior"), new Rectangle(0, 0, 1280, 720));
-            treadmill = new Sprite(Content.Load<Texture2D>("Textures//Treadmill-Side"), new Rectangle(520, 420, 250, 180));
+            treadmillSprite = Content.Load<Texture2D>("Sprites/Run");
+            background = Content.Load<Texture2D>("Textures//Gym-Interior");
+            treadmill = Content.Load<Texture2D>("Textures//Treadmill-Side");
             avatar= Content.Load<Texture2D>("Textures/avatar");
             bubbleBox = Content.Load<Texture2D>("Textures/RunBubble");
+            font = Content.Load<SpriteFont>("Fontopo");  
+            treadmillAnimation.Initialize(treadmillSprite, new Vector2(600, 500), treadmillSprite.Height, treadmillSprite.Height, treadmillSprite.Width / treadmillSprite.Height, 50, Color.White, 1f, true);
             base.LoadContent();
         }
 
@@ -48,16 +47,16 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             treadmillAnimation.Update(gameTime);
+            if (Constants.isRunning)
+            {
+                playScreen.GetPlayer().Collided(Constants.runningEffect);
+                Constants.ResetFlags();
+            }
             if (counter == 600)
             {
                this.Remove();
-                for (int i = 0; i <= Constants.numberOfRuns- 1; i++)
-                {
-                    playScreen.GetPlayer().Collided(Constants.runningEffect);
-                }
                playScreen.UnfreezeScreen();
             }
-
             counter++;
             bar.Update(gameTime);
             playScreen.bar.Update(gameTime);
@@ -66,14 +65,11 @@ namespace Game.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            background.Draw(spriteBatch);
-            treadmill.Draw(spriteBatch);
-            SpriteBatch sprite = spriteBatch;
-            SpriteFont font = Content.Load<SpriteFont>("Fontopo");   
+            SpriteBatch sprite = spriteBatch; 
             sprite.Begin();
-            spriteBatch.DrawString(font, "Meters: " +Constants.numberOfRuns + "", new Vector2(400, 10), Color.Red);
-            spriteBatch.DrawString(font, "Immunity Gained: " + Constants.numberOfRuns*Constants.runningEffect + "", new Vector2(600, 10), Color.Red);
-            treadmillAnimation.Draw(spriteBatch);
+            spriteBatch.Draw(background, new Rectangle(0, 0, 1280, 720), Color.White);
+            spriteBatch.Draw(treadmill, new Rectangle(520, 420, 250, 180), Color.White);
+            spriteBatch.DrawString(font, "Meters: " +Constants.numberOfRuns, new Vector2(400, 10), Color.Red);treadmillAnimation.Draw(spriteBatch);
             #region Tamer Avatar +bubble box draw
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width*2, avatar.Height*2),Color.White);
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380,bubbleBox.Width,bubbleBox.Height*2),Color.White);
