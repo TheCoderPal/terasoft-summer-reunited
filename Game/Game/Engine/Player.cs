@@ -15,6 +15,7 @@ namespace Game.Engine
         enum PlayerStates
         {
             Running,
+            Punching,
             Jumping,
             Sliding,
             Dying,
@@ -71,12 +72,14 @@ namespace Game.Engine
             slideTexture = Content.Load<Texture2D>("Sprites/bend");
             swordTexture = Content.Load<Texture2D>("Sprites/swap");
             dieTexture = Content.Load<Texture2D>("Sprites/die");
+            punchTexture = Content.Load<Texture2D>("Sprites/punch");
             Position = new Vector2(150, 474);
             runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 50, Color.White, scale, true);
             jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 80, Color.White, scale, false);
             slidingAnimation.Initialize(slideTexture, new Vector2(Position.X, Position.Y + 60), slideTexture.Height, slideTexture.Height, slideTexture.Width / slideTexture.Height, 120, Color.White, scale, false);
             swordAnimation.Initialize(swordTexture, Position, swordTexture.Height, swordTexture.Height, swordTexture.Width / swordTexture.Height, 50, Color.White, scale, false);
             dieAnimation.Initialize(dieTexture, Position, dieTexture.Height, dieTexture.Height, dieTexture.Width / dieTexture.Height, 40, Color.White, scale, false);
+            punchAnimation.Initialize(punchTexture, Position, punchTexture.Height, punchTexture.Height, punchTexture.Width / punchTexture.Height, 50, Color.White, scale, false);
             playerAnimation = runAnimation;
         }
 
@@ -127,6 +130,19 @@ namespace Game.Engine
                                 swordAnimation.Initialize(swordTexture, Position, swordTexture.Height, swordTexture.Height, swordTexture.Width / swordTexture.Height, 50, Color.White, scale, false);
                             }
                         }
+                        else
+                        {
+                            if (Constants.isPunching)
+                            {
+                                State = PlayerStates.Punching;
+                                if (!playerAnimation.Active)
+                                {
+                                    Constants.isPunching = false;
+                                    State = PlayerStates.Running;
+                                    punchAnimation.Initialize(punchTexture, Position, punchTexture.Height, punchTexture.Height, punchTexture.Width / punchTexture.Height, 50, Color.White, scale, false);
+                                }
+                            }
+                        } 
                     }
                 }
             }
@@ -139,6 +155,7 @@ namespace Game.Engine
                 case PlayerStates.Sliding: playerAnimation = slidingAnimation; break;
                 case PlayerStates.hasSword: playerAnimation = swordAnimation; break;
                 case PlayerStates.Dying: playerAnimation = dieAnimation; break;
+                case PlayerStates.Punching: playerAnimation = punchAnimation; break;
                 default: playerAnimation = runAnimation; break;
             }
             playerAnimation.Update(gameTime);
