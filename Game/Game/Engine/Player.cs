@@ -210,6 +210,11 @@ namespace Game.Engine
             return this.hasSword;
         }
 
+        public bool CheckJump()
+        {
+            return playerAnimation == jumpAnimation;
+        }
+
         public Boolean HasShield()
         {
             return this.hasShield;
