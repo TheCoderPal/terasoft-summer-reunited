@@ -601,6 +601,58 @@ namespace Game.Screens
         public Player GetPlayer()
         {
             return this.player;
-        }        
+        }
+
+        public Boolean IsAbove(Rectangle playerBounds, Rectangle itemBounds)
+        {
+            return (playerBounds.Y + playerBounds.Height - 30) <= itemBounds.Y + itemBounds.Height;
+        }
+
+        public void GetActualBounds(Rectangle rectangle, Color[] data, out Rectangle actualRectangle, out Color[] actualColorData)
+        {
+            int ystart, yend;
+            ystart = -1;
+            yend = -1;
+            bool transparent = true;
+            for (int y = rectangle.Top; y < rectangle.Bottom; y++)
+            {
+                transparent = true;
+                for (int x = rectangle.Left; x < rectangle.Right; x++)
+                {
+                    Color colorA = data[(x - rectangle.Left) +
+                                         (y - rectangle.Top) * rectangle.Width];
+                    transparent &= colorA.A == 0;
+                }
+
+                if (!transparent && ystart < 0) ystart = y;
+                if (transparent && yend < 0 && ystart > 0)
+                {
+                    yend = y - 1;
+                    break;
+                }
+                if (y == rectangle.Bottom - 1) yend = y;
+            }
+
+            actualRectangle = new Rectangle(rectangle.X, ystart, rectangle.Width, yend - ystart);
+
+            actualColorData = new Color[actualRectangle.Width * actualRectangle.Height];
+
+            int counter = 0;
+            for (int y = rectangle.Top; y < rectangle.Bottom; y++)
+            {
+                for (int x = rectangle.Left; x < rectangle.Right; x++)
+                {
+                    if (y >= ystart && y < yend)
+                    {
+                        actualColorData[counter] = data[(x - rectangle.Left) +
+                                         (y - rectangle.Top) * rectangle.Width];
+                        counter++;
+                    }
+
+                }
+
+            }
+
+        } 
     }
 }
