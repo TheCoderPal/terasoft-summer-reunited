@@ -1,4 +1,5 @@
 ﻿using Microsoft.Kinect;
+using Game.Text;
 
 namespace Game.Kinect
 {
@@ -13,7 +14,7 @@ namespace Game.Kinect
                 (skeleton.Joints[JointType.HandRight].Position.X > skeleton.Joints[JointType.HipCenter].Position.X)&&
                 (skeleton.Joints[JointType.HandRight].Position.X < skeleton.Joints[JointType.ShoulderRight].Position.X+0.4))
             {
-                    if (analyzer.GetBodySegmentAngle(skeleton.Joints) > 10 && analyzer.GetBodySegmentAngle(skeleton.Joints) <60)
+                    if (analyzer.GetBodySegmentAngle(skeleton.Joints) > 10 && analyzer.GetBodySegmentAngle(skeleton.Joints) <60 && !Constants.isPunching)
                     return GesturePartResult.Suceed;
                 return GesturePartResult.Pausing;
             }

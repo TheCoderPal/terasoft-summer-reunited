@@ -10,7 +10,7 @@ namespace Game.Kinect
         {
             if (skeleton.Joints[JointType.Head].Position.X > (Constants.HipPosX + 0.3))
             {
-                if (skeleton.Joints[JointType.HipCenter].Position.X > Constants.HipPosX + 0.3)
+                if (skeleton.Joints[JointType.HipCenter].Position.X > Constants.HipPosX + 0.3 && !Constants.isSteppingRight)
                 {
                     return GesturePartResult.Suceed;
                 }

@@ -18,7 +18,7 @@ namespace Game.Kinect
             //    return GesturePartResult.Suceed;
             //}
             //else return GesturePartResult.Fail;
-            if (skeleton.Joints[JointType.HipCenter].Position.Y < (Constants.posY - 0.3))
+            if (skeleton.Joints[JointType.HipCenter].Position.Y < (Constants.posY - 0.3) && !Constants.isBending)
             {
                 return GesturePartResult.Suceed;
             }
