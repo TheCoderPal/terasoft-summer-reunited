@@ -11,7 +11,7 @@ namespace Game.UI
         private Texture2D texture;
         private Rectangle area;
         private String name;
-        private Boolean soundEffectPlayed,transparent,collided,virusHit,virusSlashed, virusKilled;
+        private bool soundEffectPlayed,transparent,collided,virusHit,virusSlashed, virusKilled;
 
         public Sprite(Texture2D tex, Rectangle area)
         {
@@ -58,12 +58,12 @@ namespace Game.UI
             return this.name;
         }
 
-        public void SetTransparent(Boolean t)
+        public void SetTransparent(bool t)
         {
             this.transparent = t;
         }
 
-        public Boolean GetTransparent()
+        public bool GetTransparent()
         {
             return this.transparent;
         }
@@ -102,7 +102,7 @@ namespace Game.UI
             collided = true;
         }
 
-        public Boolean GetCollided()
+        public bool GetCollided()
         {
             return this.collided;
         }
@@ -153,7 +153,7 @@ namespace Game.UI
             virusKilled = true;
         }
 
-        public Boolean GetKilled()
+        public bool GetKilled()
         {
             return virusKilled;
         }
