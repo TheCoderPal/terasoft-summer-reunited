@@ -446,24 +446,51 @@ namespace Game.Screens
             return false;
         }
 
+        public void PlaySoundEffects(String name, Sprite sprite)
+        {
+            if (!sprite.GetCollided())
+            {
+                switch (name)
+                {
+                    case "tomato": 
+                    case "carrot": 
+                    case "strawberry": 
+                    case "orange": 
+                    case "pineapple":
+                    case "broccoli": 
+                    case "fries": 
+                    case "hamburger":
+                    case "pizza": 
+                    case "donut": 
+                    case "muffin": 
+                    case "hotdog": sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "level1":            
+                    case "level2":
+                    case "level3": sprite.PlaySoundEffect(soundEffects[5]); break;
+                    case "sheild": sprite.PlaySoundEffect(soundEffects[2]); break;
+                    case "sword": sprite.PlaySoundEffect(soundEffects[3]); break;
+                }
+            }
+        }
+
         public void Effects(String name, Sprite sprite)
         {
             if (!sprite.GetCollided())
             {
                 switch (name)
                 {
-                    case "tomato": player.Collided(Constants.healthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "carrot": player.Collided(Constants.healthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "strawberry": player.Collided(Constants.healthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "orange": player.Collided(Constants.healthy4); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "pineapple": player.Collided(Constants.healthy5); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "broccoli": player.Collided(Constants.healthy6); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "fries": player.Collided(Constants.unhealthy1); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "hamburger": player.Collided(Constants.unhealthy2); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "pizza": player.Collided(Constants.unhealthy3); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "donut": player.Collided(Constants.unhealthy4); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "muffin": player.Collided(Constants.unhealthy5); sprite.PlaySoundEffect(soundEffects[1]); break;
-                    case "hotdog": player.Collided(Constants.unhealthy6); sprite.PlaySoundEffect(soundEffects[1]); break;
+                    case "tomato": player.Collided(Constants.healthy1);break;
+                    case "carrot": player.Collided(Constants.healthy2);break;
+                    case "strawberry": player.Collided(Constants.healthy3); break;
+                    case "orange": player.Collided(Constants.healthy4);break;
+                    case "pineapple": player.Collided(Constants.healthy5); break;
+                    case "broccoli": player.Collided(Constants.healthy6); break;
+                    case "fries": player.Collided(Constants.unhealthy1); break;
+                    case "hamburger": player.Collided(Constants.unhealthy2); break;
+                    case "pizza": player.Collided(Constants.unhealthy3); break;
+                    case "donut": player.Collided(Constants.unhealthy4); break;
+                    case "muffin": player.Collided(Constants.unhealthy5); break;
+                    case "hotdog": player.Collided(Constants.unhealthy6); break;
                     case "level1":
                         if (!player.HasShield())
                         {
@@ -492,8 +519,7 @@ namespace Game.Screens
                         else
                         {
                             player.AcquireShield(false);
-                        }
-                        sprite.PlaySoundEffect(soundEffects[5]); break;
+                        }break;
                     case "level2":
                         if (!player.HasShield())
                         {
@@ -526,8 +552,7 @@ namespace Game.Screens
                         else
                         {
                             player.AcquireShield(false);
-                        }
-                        sprite.PlaySoundEffect(soundEffects[5]); break;
+                        }break;
                     case "level3":
                         if (!player.HasShield())
                         {
@@ -564,10 +589,9 @@ namespace Game.Screens
                         else
                         {
                             player.AcquireShield(false);
-                        }
-                        sprite.PlaySoundEffect(soundEffects[5]); break;
-                    case "sheild": player.AcquireShield(true); sprite.PlaySoundEffect(soundEffects[2]); break;
-                    case "sword": player.AcquireSword(true); sprite.PlaySoundEffect(soundEffects[3]); break;
+                        } break;
+                    case "sheild": player.AcquireShield(true); break;
+                    case "sword": player.AcquireSword(true); break;
                 }
             }
         }
