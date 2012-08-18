@@ -83,6 +83,9 @@ namespace Game.UI
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public virtual void Update(GameTime gameTime) {
+            frameNumber++;
+            if (frameNumber % 30 == 0)
+                Constants.HipPosX = screenManager.Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
             if (showAvatar)
             {
                     userAvatar.Update(gameTime);  
