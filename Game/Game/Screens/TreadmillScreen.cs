@@ -57,6 +57,7 @@ namespace Game.Screens
             if (counter == 600)
             {
                this.Remove();
+               playScreen.Player.ReInitializeRunAnimation();
                playScreen.UnfreezeScreen();
             }
             counter++;

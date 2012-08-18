@@ -28,6 +28,8 @@ namespace Game.Screens
         private List<byte[]> colorDataList;
 
         private Player player;
+        public Player Player { get { return player; } set { player = value; } }
+
         private ParallaxingBackground bgLayer1, bgLayer2, bgLayer3;
         private Texture2D alertTexture;
         private int alertTimer;

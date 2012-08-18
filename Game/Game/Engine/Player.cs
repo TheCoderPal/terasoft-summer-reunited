@@ -89,6 +89,12 @@ namespace Game.Engine
             
         }
 
+        public void ReInitializeRunAnimation()
+        {
+            runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 50, Color.White, scale, true);
+            State = PlayerStates.Running;
+        }
+
         public void Update(GameTime gameTime)
         {
             if (immunity <= 0)
