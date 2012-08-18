@@ -72,6 +72,8 @@ namespace Game.Screens
             alertTimer = 0;
             displayAlert = false;
 
+            enablePause = true;
+
             #region Shirin
             generator = new ItemsGenerator();
             current = generator.GenerateMore();

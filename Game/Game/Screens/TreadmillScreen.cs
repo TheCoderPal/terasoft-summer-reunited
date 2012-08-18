@@ -28,7 +28,9 @@ namespace Game.Screens
             Content = ScreenManager.Game.Content;
             spriteBatch = ScreenManager.SpriteBatch;
             treadmillAnimation = new SpriteAnimation();
-            Constants.ResetDumbbellsAndRun();base.Initialize();
+            Constants.ResetDumbbellsAndRun();
+            enablePause = true;
+            base.Initialize();
         }
 
         public override void LoadContent()

@@ -28,7 +28,9 @@ namespace Game.Screens
             Content = ScreenManager.Game.Content;
             spriteBatch = ScreenManager.SpriteBatch;           
             dumbbellAnimation = new SpriteAnimation();
-            Constants.ResetDumbbellsAndRun();   
+            Constants.ResetDumbbellsAndRun();
+
+            enablePause = true;
             base.Initialize();
         }
 
