@@ -394,7 +394,7 @@ namespace Game.Screens
                             if (Constants.isSteppingRight&&!currentSprite[i].IsGymEntered())
                             {
                                 currentSprite[i].EnterGym();
-                                FreezeScreen();
+                                this.FreezeScreen();
                                 ScreenManager.AddScreen(new ExcercisesScreen(player));
                             }
                         }

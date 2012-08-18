@@ -91,7 +91,6 @@ namespace Game.UI
                 if (userAvatar.Avatar == userAvatar.AllAvatars[0])
                 {
                     //Freeze Screen, Show pause Screen
-                    screenPaused = true;
                     ScreenManager.AddScreen(new PauseScreen());
                     this.FreezeScreen();
                 }
@@ -99,7 +98,6 @@ namespace Game.UI
                 {
                     //exit pause screen, unfreeze screen
                     this.UnfreezeScreen();
-                    screenPaused = false;
                 }
             }
          
@@ -124,11 +122,13 @@ namespace Game.UI
         
         public void FreezeScreen()
         {
+            screenPaused = true;
             screenState = ScreenState.Frozen;
         }
 
         public void UnfreezeScreen()
         {
+            screenPaused = false;
             screenState = ScreenState.Active;
         }
         
