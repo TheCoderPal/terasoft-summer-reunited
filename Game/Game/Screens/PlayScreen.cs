@@ -14,10 +14,6 @@ namespace Game.Screens
 {
     public class PlayScreen : GameScreen
     {
-
-        public static bool screenPaused = false;
-
-
         #region background music attributes
         private Song[] songs = new Song[2];
         private int playQueue = 1;

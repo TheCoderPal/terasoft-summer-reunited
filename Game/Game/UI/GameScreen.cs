@@ -22,7 +22,7 @@ namespace Game.UI
     {
         public static int frameNumber;
         public UserAvatar userAvatar;
-        public bool screenPaused=false;
+        public static bool screenPaused=false;
         public bool enablePause=false;
         public bool IsFrozen
         {
