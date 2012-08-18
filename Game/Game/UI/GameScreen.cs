@@ -85,6 +85,7 @@ namespace Game.UI
         public virtual void Update(GameTime gameTime) {
             frameNumber++;
             if (frameNumber % 30 == 0)
+                if(screenManager.Kinect.trackedSkeleton!=null)
                 Constants.HipPosX = screenManager.Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
             if (showAvatar)
             {
