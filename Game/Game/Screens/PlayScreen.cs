@@ -175,10 +175,6 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             Content = ScreenManager.Game.Content;
-
-            KeyboardState keyState = Keyboard.GetState();
-            if (keyState.IsKeyDown(Keys.Space))
-                Constants.isJumping = true;
                         
             #region Omar Abdulaal
 
