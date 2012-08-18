@@ -40,6 +40,7 @@ namespace Game.Screens
             bubbleBox = Content.Load<Texture2D>("Textures/RunBubble");
             font = Content.Load<SpriteFont>("Fontopo");  
             treadmillAnimation.Initialize(treadmillSprite, new Vector2(600, 500), treadmillSprite.Height, treadmillSprite.Height, treadmillSprite.Width / treadmillSprite.Height, 50, Color.White, 1f, true);
+            enablePause = true;
             base.LoadContent();
         }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Game.Screens;
 
 namespace Game.UI
 {
@@ -21,6 +22,8 @@ namespace Game.UI
     {
         public static int frameNumber;
         public UserAvatar userAvatar;
+        public bool screenPaused=false;
+        public bool enablePause=false;
         public bool IsFrozen
         {
             get { 
@@ -83,6 +86,23 @@ namespace Game.UI
             {
                     userAvatar.Update(gameTime);  
             }
+            if (enablePause)
+            {
+                if (userAvatar.Avatar == userAvatar.AllAvatars[0])
+                {
+                    //Freeze Screen, Show pause Screen
+                    screenPaused = true;
+                    ScreenManager.AddScreen(new PauseScreen());
+                    this.FreezeScreen();
+                }
+                else if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
+                {
+                    //exit pause screen, unfreeze screen
+                    this.UnfreezeScreen();
+                    screenPaused = false;
+                }
+            }
+         
         }
         
         /// <summary>

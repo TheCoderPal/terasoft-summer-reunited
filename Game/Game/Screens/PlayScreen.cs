@@ -89,7 +89,7 @@ namespace Game.Screens
         public override void LoadContent()
         {
             ContentManager Content = ScreenManager.Game.Content;
-
+            enablePause=true;
             songs[0] = Content.Load<Song>("Audio\\song");
             songs[1] = Content.Load<Song>("Audio\\song2");
             //songs[2] = Content.Load<Song>("Directory\\songtitle");
@@ -239,21 +239,7 @@ namespace Game.Screens
 
 
             #endregion
-            #region khaled's pausescreen and music
-            if (userAvatar.Avatar == userAvatar.AllAvatars[0])
-            {
-                //Freeze Screen, Show pause Screen
-                screenPaused = true;
-                ScreenManager.AddScreen(new PauseScreen());
-                this.FreezeScreen();
-            }
-            else if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
-            {
-                //exit pause screen, unfreeze screen
-                this.UnfreezeScreen();
-                screenPaused = false;
-            }
-           
+            #region khaled's pausescreen and music  
             if (MediaPlayer.State.Equals(MediaState.Stopped))
             {
                 switch (playQueue)

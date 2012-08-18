@@ -39,7 +39,8 @@ namespace Game.Screens
             avatar = Content.Load<Texture2D>("Textures/avatar");
             bubbleBox = Content.Load<Texture2D>("Textures/bubbleBoxDumb");
             font = Content.Load<SpriteFont>("Fontopo");
-            dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 200, 262, 12, 100, Color.White, 1f, true); 
+            dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 200, 262, 12, 100, Color.White, 1f, true);
+            enablePause = true;
             base.LoadContent();
         }
 
