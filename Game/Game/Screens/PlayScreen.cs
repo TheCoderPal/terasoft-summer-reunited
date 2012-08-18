@@ -46,13 +46,13 @@ namespace Game.Screens
         private Sprite[] currentSprite;
         private Sprite sword,shield,swordAcquired,shieldAcquired;
         private ContentManager Content;
-        private SoundEffect[] soundEffects = new SoundEffect[6];
+        private SoundEffect[] soundEffects = new SoundEffect[10];
         private Color[] playerData;
         private Rectangle playerBounds;
         private Texture2D[] items;
         private Texture2D virusLevel1, virusLevel2, virusLevel3,splashDead,splashSemiDead,splashInjured;
         private SpriteFont textFont;
-        private int screenWidth, screenHeight;
+        private int screenWidth, screenHeight,jumpTimer;
         private bool jumping;
 
         public override void Initialize()
@@ -127,6 +127,10 @@ namespace Game.Screens
             soundEffects[3] = Content.Load<SoundEffect>("Audio//SwordAcquired");
             soundEffects[4] = Content.Load<SoundEffect>("Audio//SwordSlash");
             soundEffects[5] = Content.Load<SoundEffect>("Audio//VirusHit");
+            soundEffects[6] = Content.Load<SoundEffect>("Audio//VirusSlashed");
+            soundEffects[7] = Content.Load<SoundEffect>("Audio//VirusPunched");
+            soundEffects[8] = Content.Load<SoundEffect>("Audio//VirusKilled");
+            soundEffects[9] = Content.Load<SoundEffect>("Audio//jump");
 
             items[0] = Content.Load<Texture2D>("Textures//healthy1");
             items[1] = Content.Load<Texture2D>("Textures//healthy2");
@@ -171,6 +175,10 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             Content = ScreenManager.Game.Content;
+
+            KeyboardState keyState = Keyboard.GetState();
+            if (keyState.IsKeyDown(Keys.Space))
+                Constants.isJumping = true;
                         
             #region Omar Abdulaal
 
@@ -287,6 +295,19 @@ namespace Game.Screens
 
 
             #region Shirin
+
+            if (Constants.isJumping)
+            {
+                jumpTimer++;
+            }            
+            if (jumpTimer==1)
+            {
+                soundEffects[9].Play();
+            }
+            if (!player.CheckJump())
+            {
+                jumpTimer = 0;
+            }
 
             if (player.CheckJump()) jumping = true;
 
@@ -526,7 +547,30 @@ namespace Game.Screens
                     case "hotdog": sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "level1":            
                     case "level2":
-                    case "level3": if(!sprite.GetKilled())sprite.PlaySoundEffect(soundEffects[5]); break;
+                    case "level3":
+                        if (sprite.IsSlashed())
+                        {
+                            sprite.PlaySoundEffect(soundEffects[6]);
+                        }
+                        else
+                        {
+                            if (sprite.GetKilled())
+                            {
+                                sprite.PlaySoundEffect(soundEffects[8]);
+                            }
+                            else
+                            {
+                                if (sprite.IsHit())
+                                {
+                                    sprite.PlaySoundEffect(soundEffects[5]);
+                                }
+                                else
+                                {
+                                    sprite.PlaySoundEffect(soundEffects[7]);
+                                }
+                            }
+                        }
+                        break;
                     case "sheild": sprite.PlaySoundEffect(soundEffects[2]); break;
                     case "sword": sprite.PlaySoundEffect(soundEffects[3]); break;
                 }
