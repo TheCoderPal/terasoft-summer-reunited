@@ -143,11 +143,6 @@ namespace Game.Engine
                                     punchAnimation.Initialize(punchTexture, Position, punchTexture.Height, punchTexture.Height, punchTexture.Width / punchTexture.Height, 50, Color.White, scale, false);
                                 }
                             }
-                            else
-                            {
-                                State = PlayerStates.Running;
-                                runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 50, Color.White, scale, true);
-                            }
                         } 
                     }
                 }
