@@ -2,26 +2,25 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Game.Engine;
 
 namespace Game.Screens
 {
     public class ExcercisesScreen : GameScreen
     {
-        private Button dumbbell,treadmill;
+        private Button dumbbell, treadmill;
         private Sprite background;
         private SpriteBatch spriteBatch;
         private ContentManager Content;
         private Game.Kinect.Kinect kinect;
         private HandCursor Hand;
-        private Player player;
+        private PlayScreen playScreen;
 
         /// <summary>
         /// Author: Ahmed Shirin.
         /// </summary>
-        public ExcercisesScreen(Player player)
+        public ExcercisesScreen(PlayScreen playScreen)
         {
-            this.player = player;
+            this.playScreen = playScreen;
         }
 
         public override void Initialize()
@@ -40,13 +39,13 @@ namespace Game.Screens
         void treadmill_Clicked(object sender, System.EventArgs a)
         {
             this.Remove();
-            ScreenManager.AddScreen(new TreadmillScreen(player));
+            ScreenManager.AddScreen(new TreadmillScreen(playScreen));
         }
 
         void dumbbell_Clicked(object sender, System.EventArgs a)
         {
             this.Remove();
-            ScreenManager.AddScreen(new DumbbellScreen(player));
+            ScreenManager.AddScreen(new DumbbellScreen(playScreen));
         }
 
         public override void LoadContent()

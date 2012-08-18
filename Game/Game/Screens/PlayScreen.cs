@@ -14,6 +14,9 @@ namespace Game.Screens
 {
     public class PlayScreen : GameScreen
     {
+
+
+
         #region background music attributes
         private Song[] songs = new Song[2];
         private int playQueue = 1;
@@ -40,7 +43,7 @@ namespace Game.Screens
         private int spriteCounter = 0;
         private int time = 0;
         private Sprite[] currentSprite;
-        private Sprite sword,shield,swordAcquired,shieldAcquired;
+        private Sprite sword,shield, swordAcquired, shieldAcquired;
         private ContentManager Content;
         private SoundEffect[] soundEffects = new SoundEffect[10];
         private Color[] playerData;
@@ -85,7 +88,7 @@ namespace Game.Screens
         public override void LoadContent()
         {
             ContentManager Content = ScreenManager.Game.Content;
-            enablePause=true;
+
             songs[0] = Content.Load<Song>("Audio\\song");
             songs[1] = Content.Load<Song>("Audio\\song2");
             //songs[2] = Content.Load<Song>("Directory\\songtitle");
@@ -235,7 +238,8 @@ namespace Game.Screens
 
 
             #endregion
-            #region khaled's pausescreen and music  
+            #region khaled's pausescreen and music
+           
             if (MediaPlayer.State.Equals(MediaState.Stopped))
             {
                 switch (playQueue)
@@ -391,12 +395,11 @@ namespace Game.Screens
                         }
                         else
                         {
-                            if (Constants.isSteppingRight&&!currentSprite[i].IsGymEntered())
+                            if (Constants.isSteppingRight)
                             {
-                                currentSprite[i].EnterGym();
-                                enablePause = false;
+                                screenPaused = true;
+                                ScreenManager.AddScreen(new ExcercisesScreen(this));
                                 this.FreezeScreen();
-                                ScreenManager.AddScreen(new ExcercisesScreen(player));
                             }
                         }
                     }

@@ -3,31 +3,30 @@ using Game.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Game.Engine;
 
 namespace Game.Screens
 {
     public class TreadmillScreen : GameScreen
     {
         private SpriteAnimation treadmillAnimation;
-        private Texture2D treadmillSprite, avatar, bubbleBox,background,treadmill;
+        private Texture2D treadmillSprite, avatar, bubbleBox, background, treadmill;
         private SpriteBatch spriteBatch;
         private ContentManager Content;
         private int counter = 0;
-        private Player player;
+        private PlayScreen playScreen;
         private Bar bar;
         private SpriteFont font;
 
-        public TreadmillScreen(Player player)
+        public TreadmillScreen(PlayScreen playScreen)
         {
-            this.player = player;
+            this.playScreen = playScreen;
+            bar = playScreen.bar;
         }
 
         public override void Initialize()
         {
             Content = ScreenManager.Game.Content;
             spriteBatch = ScreenManager.SpriteBatch;
-            bar = new Bar(100, 20, 15, 270, 30);
             treadmillAnimation = new SpriteAnimation();
             Constants.ResetDumbbellsAndRun();base.Initialize();
         }
@@ -35,14 +34,12 @@ namespace Game.Screens
         public override void LoadContent()
         {
             treadmillSprite = Content.Load<Texture2D>("Sprites/Run");
-            bar.LoadContent(Content);
             background = Content.Load<Texture2D>("Textures//Gym-Interior");
             treadmill = Content.Load<Texture2D>("Textures//Treadmill-Side");
             avatar= Content.Load<Texture2D>("Textures/avatar");
             bubbleBox = Content.Load<Texture2D>("Textures/RunBubble");
             font = Content.Load<SpriteFont>("Fontopo");  
             treadmillAnimation.Initialize(treadmillSprite, new Vector2(600, 500), treadmillSprite.Height, treadmillSprite.Height, treadmillSprite.Width / treadmillSprite.Height, 50, Color.White, 1f, true);
-            enablePause = false;
             base.LoadContent();
         }
 
@@ -52,16 +49,17 @@ namespace Game.Screens
             treadmillAnimation.Update(gameTime);
             if (Constants.isRunning)
             {
-                player.Collided(Constants.runningEffect);
+                playScreen.GetPlayer().Collided(Constants.runningEffect);
                 Constants.ResetFlags();
             }
             if (counter == 600)
             {
                this.Remove();
+               playScreen.UnfreezeScreen();
             }
             counter++;
             bar.Update(gameTime);
-            bar.SetCurrentValue(player.Immunity);
+            playScreen.bar.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -76,7 +74,7 @@ namespace Game.Screens
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width*2, avatar.Height*2),Color.White);
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380,bubbleBox.Width,bubbleBox.Height*2),Color.White);
             #endregion
-            bar.Draw(spriteBatch);
+            playScreen.bar.Draw(spriteBatch);
             sprite.End();
             base.Draw(gameTime);
         }

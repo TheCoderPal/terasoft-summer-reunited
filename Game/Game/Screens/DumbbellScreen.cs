@@ -3,31 +3,30 @@ using Game.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Game.Engine;
 
 namespace Game.Screens
 {
     public class DumbbellScreen : GameScreen
     {
         private SpriteAnimation dumbbellAnimation;
-        private Texture2D dumbbellSprite, avatar, bubbleBox,background;
+        private Texture2D dumbbellSprite, avatar, bubbleBox, background;
         private SpriteBatch spriteBatch;
         private ContentManager Content;
         private int counter = 0;
-        private Player player;
+        private PlayScreen playScreen;
         private Bar bar;
         private SpriteFont font;
 
-        public DumbbellScreen(Player player)
+        public DumbbellScreen(PlayScreen playScreen)
         {
-            this.player = player;
+            this.playScreen = playScreen;
+            bar = playScreen.bar;
         }
 
         public override void Initialize()
         {
             Content = ScreenManager.Game.Content;
-            spriteBatch = ScreenManager.SpriteBatch;
-            bar = new Bar(100, 20, 15, 270, 30);
+            spriteBatch = ScreenManager.SpriteBatch;           
             dumbbellAnimation = new SpriteAnimation();
             Constants.ResetDumbbellsAndRun();   
             base.Initialize();
@@ -36,13 +35,11 @@ namespace Game.Screens
         public override void LoadContent()
         {
             dumbbellSprite = Content.Load<Texture2D>("Sprites/dumbbell-sprite");
-            bar.LoadContent(Content);
             background = Content.Load<Texture2D>("Textures//Gym-Interior");
             avatar = Content.Load<Texture2D>("Textures/avatar");
             bubbleBox = Content.Load<Texture2D>("Textures/bubbleBoxDumb");
             font = Content.Load<SpriteFont>("Fontopo");
-            dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 200, 262, 12, 100, Color.White, 1f, true);
-            enablePause = false;
+            dumbbellAnimation.Initialize(dumbbellSprite, new Vector2(600, 500), 200, 262, 12, 100, Color.White, 1f, true); 
             base.LoadContent();
         }
 
@@ -52,17 +49,17 @@ namespace Game.Screens
             dumbbellAnimation.Update(gameTime);
             if (Constants.isDumbbell)
             {
-                player.Collided(Constants.dumbbellEffect);
+                playScreen.GetPlayer().Collided(Constants.dumbbellEffect);
                 Constants.ResetFlags();
             }
             if (counter == 600)
             {
                 this.Remove();
+                playScreen.UnfreezeScreen();
             }
 
             counter++;
-            bar.SetCurrentValue(player.Immunity);
-            bar.Update(gameTime);
+            playScreen.bar.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -77,7 +74,7 @@ namespace Game.Screens
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width * 2, avatar.Height * 2), Color.White);
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380, bubbleBox.Width, bubbleBox.Height * 2), Color.White);
             #endregion
-            bar.Draw(spriteBatch);
+            playScreen.bar.Draw(spriteBatch);
             sprite.End();
             base.Draw(gameTime);
         }

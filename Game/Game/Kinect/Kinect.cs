@@ -1,4 +1,4 @@
- using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -49,7 +49,7 @@ namespace Game.Kinect
         private SwapHand swapHand; //Tamer
         private List<double> list, list2;//Tamer
 
-         //Omar Abdulaal
+        //Omar Abdulaal
         private int ScreenWidth, ScreenHeight;
 
         //Used for scaling
@@ -64,7 +64,7 @@ namespace Game.Kinect
             list = new List<double>();//Tamer
             list2 = new List<double>();//Tamer
             swapHand = new SwapHand();//Tamer
-             ScreenHeight = screenHeight; //omar
+            ScreenHeight = screenHeight; //omar
             ScreenWidth = screenWidth; //omar
             this.InitializeNui();
         }
@@ -103,7 +103,7 @@ namespace Game.Kinect
             gestureController.GestureRecognized += OnGestureRecognized;
             InitializeGestures();
         }
-        
+
         /// AUTHOR: TAMER & KHALED
         /// <summary>
         /// Handler for skeleton ready handler.
@@ -137,10 +137,9 @@ namespace Game.Kinect
                         }
                         if (GenerateDepth() > 120)
                         {
+                            gestureController.UpdateAllGestures(trackedSkeleton);
                             framesCount++;
                             JumpHelp();
-                            gestureController.UpdateAllGestures(trackedSkeleton);
-                           
                         }
                     }
                 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
 using Game.Screens;
 using Game.Text;
 using Microsoft.Kinect;
+using Microsoft.Xna.Framework;
+
 namespace Game.UI
 {
     #region ScreenState
@@ -21,13 +23,12 @@ namespace Game.UI
     /// </summary>
     public abstract class GameScreen
     {
-        public static int frameNumber;
+        private int frameNumber;
         public UserAvatar userAvatar;
-        public static bool screenPaused=false;
-        public bool enablePause=false;
         public bool IsFrozen
         {
-            get { 
+            get
+            {
                 return screenState == ScreenState.Frozen;
             }
         }
@@ -44,7 +45,7 @@ namespace Game.UI
             get { return screenManager; }
             set { screenManager = value; }
         }
-        
+
         public bool IsActive
         {
             get
@@ -52,25 +53,30 @@ namespace Game.UI
                 return screenState == ScreenState.Active;
             }
         }
-        public bool showAvatar=true;
+
+        public bool enablePause = false;
+        public bool showAvatar = true;
+        public bool screenPaused;
 
         /// <summary>
         /// LoadContent will be called only once before drawing and it's the place to load
         /// all of your content.
         /// </summary>
-        public virtual void LoadContent() {
+        public virtual void LoadContent()
+        {
             if (showAvatar)
             {
                 userAvatar = new UserAvatar(ScreenManager.Kinect, ScreenManager.Game.Content, ScreenManager.GraphicsDevice, ScreenManager.SpriteBatch);
                 userAvatar.LoadContent();
             }
-  
+
         }
         /// <summary>
         /// Initializes the GameScreen.
         /// </summary
-        public virtual void Initialize() {
-           
+        public virtual void Initialize()
+        {
+
         }
 
         /// <summary>
@@ -82,63 +88,66 @@ namespace Game.UI
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        public virtual void Update(GameTime gameTime) {
-            frameNumber++;
-            if (frameNumber % 30 == 0)
-                if(screenManager.Kinect.trackedSkeleton!=null)
-                Constants.HipPosX = screenManager.Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
+        public virtual void Update(GameTime gameTime)
+        {
             if (showAvatar)
             {
-                    userAvatar.Update(gameTime);  
+                userAvatar.Update(gameTime);
             }
-            if (enablePause)
-            {
-                if (userAvatar.Avatar == userAvatar.AllAvatars[0])
-                {
-                    //Freeze Screen, Show pause Screen\
-                    ScreenManager.AddScreen(new PauseScreen());
-                    this.FreezeScreen();
-                }
-                else if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
-                {
-                    //exit pause screen, unfreeze screen
-                    this.UnfreezeScreen();
+
+            frameNumber++;
+            if (frameNumber % 30 == 0)
+                if (screenManager.Kinect.trackedSkeleton != null)
                     Constants.HipPosX = screenManager.Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
+
+            if (!IsFrozen)
+                if (enablePause)
+                {
+                    if (userAvatar.Avatar == userAvatar.AllAvatars[0])
+                    {
+                        //Freeze Screen, Show pause Screen\
+                        screenPaused = true;
+                        ScreenManager.AddScreen(new PauseScreen());
+                        this.FreezeScreen();
+                    }
+                    else if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
+                    {
+                        Debug.WriteLine("!IsFrozen Else");
+                        //exit pause screen, unfreeze screen
+                        this.UnfreezeScreen();
+                        Constants.HipPosX = screenManager.Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
+                    }
                 }
-            }
-         
+
         }
-        
+
         /// <summary>
         /// Removes the current screen.
         /// </summary>
         public virtual void Remove()
         {
             screenManager.RemoveScreen(this);
-        }    
+        }
 
         /// <summary>
         /// This is called when the game screen should draw itself.
         /// </summary>
         public virtual void Draw(GameTime gameTime)
         {
-         if(showAvatar)
-           userAvatar.Draw(gameTime);
+            if (showAvatar)
+                userAvatar.Draw(gameTime);
         }
-        
+
         public void FreezeScreen()
         {
-            screenPaused = true;
             screenState = ScreenState.Frozen;
         }
 
         public void UnfreezeScreen()
         {
-            screenPaused = false;
-            enablePause = true;
             screenState = ScreenState.Active;
         }
-        
-    
+
+
     }
 }

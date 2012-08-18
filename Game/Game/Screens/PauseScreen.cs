@@ -34,7 +34,7 @@ namespace Game.Screens
         }
         public override void Update(GameTime gameTime)
         {
-            if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]))
+            if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && PlayScreen.screenPaused)
                 this.Remove();
             base.Update(gameTime);
         }
