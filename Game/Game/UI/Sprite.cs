@@ -133,6 +133,11 @@ namespace Game.UI
             virusHit = true;
         }
 
+        public bool IsSlashed()
+        {
+            return virusSlashed;
+        }
+
         public void SlashVirus()
         {
             virusSlashed = true;
@@ -156,6 +161,11 @@ namespace Game.UI
         public bool GetKilled()
         {
             return virusKilled;
+        }
+
+        public bool IsHit()
+        {
+            return virusHit;
         }
     }
 }
