@@ -15,12 +15,13 @@ namespace Game.Screens
         private Texture2D backgroundImage;
         private Button OkButton;
         private HandCursor Hand;
-
+        public bool WrapTexter { get; set; }
         public InstructionsScreen()
         {
             textBox = new Rectangle();
             OkButton = new Button();
             Hand = new HandCursor();
+            WrapTexter = false;
         }
 
         public override void Initialize()
@@ -51,7 +52,10 @@ namespace Game.Screens
             spriteFont = Content.Load<SpriteFont>("Fontopo");
             backgroundImage = Content.Load<Texture2D>("Textures/instructionsScreen");
             spriteFont.LineSpacing = 21;
-            TextToDraw = WrapText(spriteFont, Text, 1130);
+            if(WrapTexter)
+                TextToDraw = WrapText(spriteFont, Text, 1130);
+            else
+            TextToDraw = Text;
             OkButton.LoadContent(Content);
             Hand.LoadContent(Content);
             base.LoadContent();
@@ -75,7 +79,7 @@ namespace Game.Screens
             spriteBatch.End();
             base.Draw(gameTime);
         }
-
+        
         public string WrapText(SpriteFont spriteFont, string text, float maxLineWidth)
         {
             string[] words = text.Split(' ');
