@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Game.Text;
 
 namespace Game.UI
 {
@@ -74,27 +75,34 @@ namespace Game.UI
             {
                 if (!virusHit)
                 {
-                    switch (name)
+                    if (Constants.isPunching && ((area.Y == 299) || (area.Y == 499)))
                     {
-                        case "gym": break;
-                        case "level1": texture = Content.Load<Texture2D>("Textures//splash1"); break;
-                        case "level2":
-                            if (!virusSlashed && !virusKilled)
-                            {
-                                texture = Content.Load<Texture2D>("Textures//splash3");
-                            }
-                            else
-                            {
-                                texture = Content.Load<Texture2D>("Textures//splash1");
-                            }
-                            break;
-                        case "level3": texture = Content.Load<Texture2D>("Textures//splash2");
-                            if (virusKilled)
-                            {
-                                texture = Content.Load<Texture2D>("Textures//splash1");
-                            }
-                            break;
-                        default: texture = Content.Load<Texture2D>("Textures//Transparent"); break;
+                        texture = Content.Load<Texture2D>("Textures//Transparent");
+                    }
+                    else
+                    {
+                        switch (name)
+                        {
+                            case "gym": break;
+                            case "level1": texture = Content.Load<Texture2D>("Textures//splash1"); break;
+                            case "level2":
+                                if (!virusSlashed && !virusKilled)
+                                {
+                                    texture = Content.Load<Texture2D>("Textures//splash3");
+                                }
+                                else
+                                {
+                                    texture = Content.Load<Texture2D>("Textures//splash1");
+                                }
+                                break;
+                            case "level3": texture = Content.Load<Texture2D>("Textures//splash2");
+                                if (virusKilled)
+                                {
+                                    texture = Content.Load<Texture2D>("Textures//splash1");
+                                }
+                                break;
+                            default: texture = Content.Load<Texture2D>("Textures//Transparent"); break;
+                        }
                     }
                 }
                 else
