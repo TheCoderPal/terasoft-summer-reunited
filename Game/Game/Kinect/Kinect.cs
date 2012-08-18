@@ -1,4 +1,4 @@
-﻿using System;
+ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -129,16 +129,19 @@ namespace Game.Kinect
                     swapHand.activeRecognizer.Recognize(null, null, this.skeletons);
                     if (trackedSkeleton != null)
                     {
-                        framesCount++;
-                        JumpHelp();
                         if (framesCount == 1)
                             Constants.oldSkeleton = trackedSkeleton;
                         else if (framesCount % (40) == 0)
                         {
                             Constants.oldSkeleton = trackedSkeleton;
                         }
-                        if(GenerateDepth()>120)
-                        gestureController.UpdateAllGestures(trackedSkeleton);
+                        if (GenerateDepth() > 120)
+                        {
+                            framesCount++;
+                            JumpHelp();
+                            gestureController.UpdateAllGestures(trackedSkeleton);
+                           
+                        }
                     }
                 }
             }
