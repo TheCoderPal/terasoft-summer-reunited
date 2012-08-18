@@ -70,36 +70,39 @@ namespace Game.UI
 
         public void Collide(ContentManager Content, String name)
         {
-            if (!virusHit)
+            if (!collided)
             {
-                switch (name)
+                if (!virusHit)
                 {
-                    case "gym": break;
-                    case "level1": texture = Content.Load<Texture2D>("Textures//splash1"); break;
-                    case "level2":
-                        if (!virusSlashed&&!virusKilled)
-                        {
-                            texture = Content.Load<Texture2D>("Textures//splash3");
-                        }
-                        else
-                        {
-                            texture = Content.Load<Texture2D>("Textures//splash1");
-                        }
-                        break;
-                    case "level3": texture = Content.Load<Texture2D>("Textures//splash2");                        
-                        if(virusKilled)
-                        {
-                            texture = Content.Load<Texture2D>("Textures//splash1");
-                        }
-                        break;
-                    default: texture = Content.Load<Texture2D>("Textures//Transparent"); break;
+                    switch (name)
+                    {
+                        case "gym": break;
+                        case "level1": texture = Content.Load<Texture2D>("Textures//splash1"); break;
+                        case "level2":
+                            if (!virusSlashed && !virusKilled)
+                            {
+                                texture = Content.Load<Texture2D>("Textures//splash3");
+                            }
+                            else
+                            {
+                                texture = Content.Load<Texture2D>("Textures//splash1");
+                            }
+                            break;
+                        case "level3": texture = Content.Load<Texture2D>("Textures//splash2");
+                            if (virusKilled)
+                            {
+                                texture = Content.Load<Texture2D>("Textures//splash1");
+                            }
+                            break;
+                        default: texture = Content.Load<Texture2D>("Textures//Transparent"); break;
+                    }
                 }
+                else
+                {
+                    texture = Content.Load<Texture2D>("Textures//Transparent");
+                }
+                collided = true;
             }
-            else
-            {
-                texture = Content.Load<Texture2D>("Textures//Transparent");
-            }
-            collided = true;
         }
 
         public bool GetCollided()
