@@ -112,7 +112,7 @@ namespace Game.UI
                                 {
                                     if (virusSlashed)
                                     {
-                                        texture = Content.Load<Texture2D>("Textures//splash3");
+                                        texture = textures[3];
                                     }
                                 }
                                 break;
