@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Game.Screens;
-
+using Game.Text;
+using Microsoft.Kinect;
 namespace Game.UI
 {
     #region ScreenState
@@ -90,7 +91,7 @@ namespace Game.UI
             {
                 if (userAvatar.Avatar == userAvatar.AllAvatars[0])
                 {
-                    //Freeze Screen, Show pause Screen
+                    //Freeze Screen, Show pause Screen\
                     ScreenManager.AddScreen(new PauseScreen());
                     this.FreezeScreen();
                 }
@@ -98,6 +99,7 @@ namespace Game.UI
                 {
                     //exit pause screen, unfreeze screen
                     this.UnfreezeScreen();
+                    Constants.HipPosX = screenManager.Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
                 }
             }
          

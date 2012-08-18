@@ -269,6 +269,7 @@ namespace Game.Kinect
                 case GestureType.StepRightGesture:
                     Gesture = "StepRightGesture";
                     Constants.isSteppingRight = true;
+                    Constants.HipPosX = trackedSkeleton.Joints[JointType.HipCenter].Position.X;
                     break;
                 case GestureType.RunningGesture:
                     Gesture = "RunningGesture";
