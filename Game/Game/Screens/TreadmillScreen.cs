@@ -35,6 +35,7 @@ namespace Game.Screens
         public override void LoadContent()
         {
             treadmillSprite = Content.Load<Texture2D>("Sprites/Run");
+            bar.LoadContent(Content);
             background = Content.Load<Texture2D>("Textures//Gym-Interior");
             treadmill = Content.Load<Texture2D>("Textures//Treadmill-Side");
             avatar= Content.Load<Texture2D>("Textures/avatar");

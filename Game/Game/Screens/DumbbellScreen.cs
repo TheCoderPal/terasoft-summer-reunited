@@ -36,6 +36,7 @@ namespace Game.Screens
         public override void LoadContent()
         {
             dumbbellSprite = Content.Load<Texture2D>("Sprites/dumbbell-sprite");
+            bar.LoadContent(Content);
             background = Content.Load<Texture2D>("Textures//Gym-Interior");
             avatar = Content.Load<Texture2D>("Textures/avatar");
             bubbleBox = Content.Load<Texture2D>("Textures/bubbleBoxDumb");
