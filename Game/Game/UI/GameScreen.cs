@@ -129,6 +129,7 @@ namespace Game.UI
         public void UnfreezeScreen()
         {
             screenPaused = false;
+            enablePause = true;
             screenState = ScreenState.Active;
         }
         
