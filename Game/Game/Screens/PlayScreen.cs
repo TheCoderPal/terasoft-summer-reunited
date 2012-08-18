@@ -562,7 +562,14 @@ namespace Game.Screens
                                 }
                                 else
                                 {
-                                    sprite.PlaySoundEffect(soundEffects[7]);
+                                    if (Constants.isPunching && sprite.GetY() == 399)
+                                    {
+                                        sprite.PlaySoundEffect(soundEffects[7]);
+                                    }
+                                    else
+                                    {
+                                        sprite.PlaySoundEffect(soundEffects[5]);
+                                    }
                                 }
                             }
                         }
