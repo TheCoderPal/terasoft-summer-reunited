@@ -112,10 +112,8 @@ namespace Game.UI
                     }
                     else if (userAvatar.Avatar.Equals(userAvatar.AllAvatars[2]) && screenPaused == true)
                     {
-                        Debug.WriteLine("!IsFrozen Else");
                         //exit pause screen, unfreeze screen
                         this.UnfreezeScreen();
-                        Constants.HipPosX = screenManager.Kinect.trackedSkeleton.Joints[JointType.HipCenter].Position.X;
                     }
                 }
 

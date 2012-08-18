@@ -63,6 +63,7 @@ namespace Game.Screens
             counter++;
             bar.Update(gameTime);
             playScreen.bar.Update(gameTime);
+            playScreen.bar.SetCurrentValue(playScreen.Player.Immunity);
             base.Update(gameTime);
         }
 
