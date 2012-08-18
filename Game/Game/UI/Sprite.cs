@@ -13,13 +13,21 @@ namespace Game.UI
         private Rectangle area;
         private String name;
         private bool soundEffectPlayed,transparent,collided,virusHit,virusSlashed, virusKilled;
+        public Texture2D[] textures;
+        ContentManager content;
 
-        public Sprite(Texture2D tex, Rectangle area)
+        public Sprite(Texture2D tex, Rectangle area, ContentManager content)
         {
             this.texture = tex;
             this.area = area;
             soundEffectPlayed = false;
             collided = false;
+            this.content = content;
+            textures = new Texture2D[4];
+            textures[0]= content.Load<Texture2D>("Textures//Transparent");
+            textures[1] = content.Load<Texture2D>("Textures//splash1");
+            textures[2]= content.Load<Texture2D>("Textures//splash2");
+            textures[3] = content.Load<Texture2D>("Textures//splash3");
         }
 
         public void Update(int speed)
@@ -69,7 +77,7 @@ namespace Game.UI
             return this.transparent;
         }
 
-        public void Collide(ContentManager Content, String name)
+        public void Collide(String name)
         {
             if (!collided)
             {
@@ -77,28 +85,28 @@ namespace Game.UI
                 {
                     if (Constants.isPunching && ((area.Y == 299) || (area.Y == 499)))
                     {
-                        texture = Content.Load<Texture2D>("Textures//Transparent");
+                        texture = textures[0];
                     }
                     else
                     {
                         switch (name)
                         {
                             case "gym": break;
-                            case "level1": texture = Content.Load<Texture2D>("Textures//splash1"); break;
+                            case "level1": texture =textures[1]; break;
                             case "level2":
                                 if (!virusSlashed && !virusKilled)
                                 {
-                                    texture = Content.Load<Texture2D>("Textures//splash3");
+                                    texture = textures[3];
                                 }
                                 else
                                 {
-                                    texture = Content.Load<Texture2D>("Textures//splash1");
+                                    texture = textures[1];
                                 }
                                 break;
-                            case "level3": texture = Content.Load<Texture2D>("Textures//splash2");
+                            case "level3": texture = textures[2];
                                 if (virusKilled)
                                 {
-                                    texture = Content.Load<Texture2D>("Textures//splash1");
+                                    texture = textures[1];
                                 }
                                 else
                                 {
@@ -108,13 +116,13 @@ namespace Game.UI
                                     }
                                 }
                                 break;
-                            default: texture = Content.Load<Texture2D>("Textures//Transparent"); break;
+                            default: texture = textures[0]; break;
                         }
                     }
                 }
                 else
                 {
-                    texture = Content.Load<Texture2D>("Textures//Transparent");
+                    texture = textures[0];
                 }
                 collided = true;
             }

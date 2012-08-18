@@ -57,7 +57,7 @@ namespace Game.Screens
             dumbbell.LoadContent(Content);
             treadmill.LoadContent(Content);
             Hand.LoadContent(Content);
-            background = new Sprite(Content.Load<Texture2D>("Textures//choosing_frame"), new Rectangle(0, 0, 1280, 720));
+            background = new Sprite(Content.Load<Texture2D>("Textures//choosing_frame"), new Rectangle(0, 0, 1280, 720),Content);
             base.LoadContent();
         }
 

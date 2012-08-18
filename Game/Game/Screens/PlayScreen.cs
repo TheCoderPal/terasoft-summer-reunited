@@ -113,14 +113,14 @@ namespace Game.Screens
 
             #region Shirin
 
-            sword = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(335, 7, 50, 50));
-            shield = new Sprite(Content.Load<Texture2D>("Textures//shield"), new Rectangle(420, 0, 60, 60));
-            swordAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(325, 10, 60, 60));
-            shieldAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(410, 10, 60, 60));
+            sword = new Sprite(Content.Load<Texture2D>("Textures//sword"), new Rectangle(335, 7, 50, 50),Content);
+            shield = new Sprite(Content.Load<Texture2D>("Textures//shield"), new Rectangle(420, 0, 60, 60),Content);
+            swordAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(325, 10, 60, 60),Content);
+            shieldAcquired = new Sprite(Content.Load<Texture2D>("Textures//correct"), new Rectangle(410, 10, 60, 60),Content);
 
             for (int i = 0; i <= 19; i++)
             {
-                currentSprite[i] = new Sprite(Content.Load<Texture2D>("Textures//Transparent"), new Rectangle(0, 0, 0, 0));
+                currentSprite[i] = new Sprite(Content.Load<Texture2D>("Textures//Transparent"), new Rectangle(0, 0, 0, 0),Content);
                 currentSprite[i].EnterName("Empty");
             }
 
@@ -349,7 +349,7 @@ namespace Game.Screens
                         case "gym": texture = items[17]; length = 200; height = 349; break;
                         case "Empty": transparent = true; break;
                     }
-                    currentSprite[counter] = new Sprite(texture, new Rectangle(1280, height, length, length));
+                    currentSprite[counter] = new Sprite(texture, new Rectangle(1280, height, length, length),Content);
                     currentSprite[counter].EnterName(current[i, 0]);
                     if (transparent)
                     {
@@ -395,7 +395,7 @@ namespace Game.Screens
                         PlaySoundEffects(name, currentSprite[i]);
                         if (!name.Equals("gym"))
                         {
-                            currentSprite[i].Collide(Content, name);
+                            currentSprite[i].Collide(name);
                         }
                         else
                         {
