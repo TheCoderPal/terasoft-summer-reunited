@@ -12,7 +12,7 @@ namespace Game.UI
         private Texture2D texture;
         private Rectangle area;
         private String name;
-        private bool soundEffectPlayed,transparent,collided,virusHit,virusSlashed, virusKilled;
+        private bool soundEffectPlayed,transparent,collided,virusHit,virusSlashed, virusKilled, gymEntered;
 
         public Sprite(Texture2D tex, Rectangle area)
         {
@@ -142,6 +142,16 @@ namespace Game.UI
         public void HitVirus()
         {
             virusHit = true;
+        }
+
+        public void EnterGym()
+        {
+            gymEntered = true;
+        }
+
+        public bool IsGymEntered()
+        {
+            return gymEntered;
         }
 
         public bool IsSlashed()
