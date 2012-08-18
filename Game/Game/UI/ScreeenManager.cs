@@ -73,11 +73,12 @@ namespace Game.UI
             }
 
             if (screensToUpdate.Count == 0)
-                foreach (GameScreen screen in screens)
-                {
-                    screen.UnfreezeScreen();
-                    screensToUpdate.Add(screen);
-                }
+            {
+                GameScreen screen = screens[screens.Count - 1];
+
+                screens.Remove(screen);
+                screensToUpdate.Add(screen);
+            }
             else
             {
                 while (screensToUpdate.Count > 0)
