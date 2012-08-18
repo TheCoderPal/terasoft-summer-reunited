@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Input;
 
 namespace Game.Screens
 {
@@ -170,7 +171,7 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             Content = ScreenManager.Game.Content;
-
+                        
             #region Omar Abdulaal
 
             bgLayer1.Update();
@@ -525,7 +526,7 @@ namespace Game.Screens
                     case "hotdog": sprite.PlaySoundEffect(soundEffects[1]); break;
                     case "level1":            
                     case "level2":
-                    case "level3": sprite.PlaySoundEffect(soundEffects[5]); break;
+                    case "level3": if(!sprite.GetKilled())sprite.PlaySoundEffect(soundEffects[5]); break;
                     case "sheild": sprite.PlaySoundEffect(soundEffects[2]); break;
                     case "sword": sprite.PlaySoundEffect(soundEffects[3]); break;
                 }
