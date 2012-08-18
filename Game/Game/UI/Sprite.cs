@@ -70,14 +70,14 @@ namespace Game.UI
 
         public void Collide(ContentManager Content, String name)
         {
-            if (!virusHit && GetY()==399)
+            if (!virusHit)
             {
                 switch (name)
                 {
                     case "gym": break;
                     case "level1": texture = Content.Load<Texture2D>("Textures//splash1"); break;
                     case "level2":
-                        if (!virusSlashed)
+                        if (!virusSlashed&&!virusKilled)
                         {
                             texture = Content.Load<Texture2D>("Textures//splash3");
                         }
