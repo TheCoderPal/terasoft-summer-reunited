@@ -395,7 +395,7 @@ namespace Game.Screens
                             {
                                 currentSprite[i].EnterGym();
                                 FreezeScreen();
-                                ScreenManager.AddScreen(new ExcercisesScreen(this));
+                                ScreenManager.AddScreen(new ExcercisesScreen(player));
                             }
                         }
                     }

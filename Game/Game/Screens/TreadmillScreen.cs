@@ -3,6 +3,7 @@ using Game.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Game.Engine;
 
 namespace Game.Screens
 {
@@ -13,20 +14,20 @@ namespace Game.Screens
         private SpriteBatch spriteBatch;
         private ContentManager Content;
         private int counter = 0;
-        private PlayScreen playScreen;
+        private Player player;
         private Bar bar;
         private SpriteFont font;
 
-        public TreadmillScreen(PlayScreen playScreen)
+        public TreadmillScreen(Player player)
         {
-            this.playScreen = playScreen;
-            bar = playScreen.bar;
+            this.player = player;
         }
 
         public override void Initialize()
         {
             Content = ScreenManager.Game.Content;
             spriteBatch = ScreenManager.SpriteBatch;
+            bar = new Bar(100, 20, 15, 270, 30);
             treadmillAnimation = new SpriteAnimation();
             Constants.ResetDumbbellsAndRun();base.Initialize();
         }
@@ -50,17 +51,16 @@ namespace Game.Screens
             treadmillAnimation.Update(gameTime);
             if (Constants.isRunning)
             {
-                playScreen.GetPlayer().Collided(Constants.runningEffect);
+                player.Collided(Constants.runningEffect);
                 Constants.ResetFlags();
             }
             if (counter == 600)
             {
                this.Remove();
-               playScreen.UnfreezeScreen();
             }
             counter++;
             bar.Update(gameTime);
-            playScreen.bar.Update(gameTime);
+            bar.SetCurrentValue(player.Immunity);
             base.Update(gameTime);
         }
 
@@ -75,7 +75,7 @@ namespace Game.Screens
             spriteBatch.Draw(avatar, new Rectangle(10, 400, avatar.Width*2, avatar.Height*2),Color.White);
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380,bubbleBox.Width,bubbleBox.Height*2),Color.White);
             #endregion
-            playScreen.bar.Draw(spriteBatch);
+            bar.Draw(spriteBatch);
             sprite.End();
             base.Draw(gameTime);
         }
