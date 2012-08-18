@@ -137,9 +137,9 @@ namespace Game.Kinect
                         }
                         if (GenerateDepth() > 120)
                         {
-                            gestureController.UpdateAllGestures(trackedSkeleton);
                             framesCount++;
                             JumpHelp();
+                            gestureController.UpdateAllGestures(trackedSkeleton);
                         }
                     }
                 }
