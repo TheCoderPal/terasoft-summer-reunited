@@ -100,6 +100,13 @@ namespace Game.UI
                                 {
                                     texture = Content.Load<Texture2D>("Textures//splash1");
                                 }
+                                else
+                                {
+                                    if (virusSlashed)
+                                    {
+                                        texture = Content.Load<Texture2D>("Textures//splash3");
+                                    }
+                                }
                                 break;
                             default: texture = Content.Load<Texture2D>("Textures//Transparent"); break;
                         }
