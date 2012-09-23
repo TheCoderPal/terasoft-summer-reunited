@@ -52,6 +52,9 @@ namespace Game.Engine
         //Player items status
         private bool hasShield, hasSword;
 
+        //Avatar X Speed
+        private int speedX;
+
         public Player()
         {
             Position = new Vector2();
@@ -64,6 +67,7 @@ namespace Game.Engine
             punchAnimation = new SpriteAnimation();
             immunity = 100;
             scale = 1f;
+            speedX = 0;
         }
 
         public void LoadContent(ContentManager Content)
@@ -165,7 +169,9 @@ namespace Game.Engine
                 case PlayerStates.Punching: playerAnimation = punchAnimation; break;
                 default: playerAnimation = runAnimation; break;
             }
+
             playerAnimation.Update(gameTime);
+            playerAnimation.Position.X += speedX;
 
             //Increment Score
             score++;
@@ -236,6 +242,22 @@ namespace Game.Engine
         public bool HasShield()
         {
             return this.hasShield;
+        }
+
+        /// <summary>
+        /// Causes the avatar to move to the right.
+        /// </summary>
+        public void MovePlayer()
+        {
+            speedX = 4;
+        }
+
+        /// <summary>
+        /// Causes the avatar to stay in position.
+        /// </summary>
+        public void PausePlayer()
+        {
+            speedX = 0;
         }
     }
 }
