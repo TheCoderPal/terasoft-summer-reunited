@@ -236,12 +236,17 @@ namespace Game.Screens
                     alertTimer = 0;
                 }
             }
+            else
+            {
+                displayAlert = false;
+            }
 
 
 
 
 
             #endregion
+
             #region khaled's pausescreen and music
            
             if (MediaPlayer.State.Equals(MediaState.Stopped))
@@ -270,6 +275,7 @@ namespace Game.Screens
                 }
             }
             #endregion
+
             updateImmunityCounter++;
             if (player.Immunity < 30 && updateImmunityCounter > 0)
             {

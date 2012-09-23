@@ -77,5 +77,14 @@ namespace Game.UI
                 spriteBatch.Draw(texture, positions[i], Color.White);
             }
         }
+
+        /// <summary>
+        /// Pauses the animation of the background.
+        /// </summary>
+        /// Author : Omar Abdulaal
+        public void PauseBackground()
+        {
+            speed = 0;
+        }
     }
 }
