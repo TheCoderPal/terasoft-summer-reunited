@@ -106,14 +106,13 @@ namespace Game.Screens
         public override void Draw(GameTime gameTime)
         {
             menu.Draw(spriteBatch);
-            SpriteBatch sprite = spriteBatch;
-            sprite.Begin();
+            spriteBatch.Begin();
             newGame.Draw(spriteBatch);
             instructions.Draw(spriteBatch);
             highscores.Draw(spriteBatch);
             exit.Draw(spriteBatch);
-            Hand.Draw(sprite);
-            sprite.End();            
+            Hand.Draw(spriteBatch);
+            spriteBatch.End();            
             newGameLabel.Draw(spriteBatch);
             instructionsLabel.Draw(spriteBatch);
             scoresLabel.Draw(spriteBatch);

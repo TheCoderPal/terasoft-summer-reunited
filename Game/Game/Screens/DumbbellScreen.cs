@@ -57,20 +57,19 @@ namespace Game.Screens
             if (counter == 600)
             {
                 this.Remove();
-                playScreen.Player.ReInitializeRunAnimation();
+                playScreen.player.ReInitializeRunAnimation();
                 playScreen.UnfreezeScreen();
             }
 
             counter++;
             playScreen.bar.Update(gameTime);
-            playScreen.bar.SetCurrentValue(playScreen.Player.Immunity);
+            playScreen.bar.SetCurrentValue(playScreen.player.Immunity);
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
-        {                        
-            SpriteBatch sprite = spriteBatch;
-            sprite.Begin();
+        {
+            spriteBatch.Begin();
             spriteBatch.Draw(background, new Rectangle(0, 0, 1280, 720),Color.White);
             spriteBatch.DrawString(font, "Lifts: "+Constants.numberOfDumbbells, new Vector2(400, 10), Color.Red);
             dumbbellAnimation.Draw(spriteBatch);
@@ -79,7 +78,7 @@ namespace Game.Screens
             spriteBatch.Draw(bubbleBox, new Rectangle(avatar.Width, 380, bubbleBox.Width, bubbleBox.Height * 2), Color.White);
             #endregion
             playScreen.bar.Draw(spriteBatch);
-            sprite.End();
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

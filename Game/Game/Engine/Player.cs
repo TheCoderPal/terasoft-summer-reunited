@@ -170,8 +170,8 @@ namespace Game.Engine
                 default: playerAnimation = runAnimation; break;
             }
 
-            playerAnimation.Update(gameTime);
             playerAnimation.Position.X += speedX;
+            playerAnimation.Update(gameTime);
 
             //Increment Score
             score++;

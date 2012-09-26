@@ -72,12 +72,11 @@ namespace Game.Screens
         public override void Draw(GameTime gameTime)
         {
             background.Draw(spriteBatch);
-            SpriteBatch sprite = spriteBatch;
-            sprite.Begin();
+            spriteBatch.Begin();
             dumbbell.Draw(spriteBatch);
             treadmill.Draw(spriteBatch);
             Hand.Draw(spriteBatch);
-            sprite.End();
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
