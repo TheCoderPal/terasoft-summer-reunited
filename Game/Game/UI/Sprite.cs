@@ -12,7 +12,7 @@ namespace Game.UI
         private Texture2D texture;
         private Rectangle area;
         private String name;
-        private bool soundEffectPlayed,transparent,collided,virusHit,virusSlashed, virusKilled;
+        private bool soundEffectPlayed,transparent,collided,virusHit,virusSlashed, virusKilled, animation;
         public Texture2D[] textures;
         ContentManager content;
 
@@ -33,6 +33,22 @@ namespace Game.UI
         public void Update(int speed)
         {
             area.X -= speed;
+        }
+
+        public void HorizontalAnimation()
+        {
+            if (area.X >= 20 && !animation)
+            {
+                area.X -= 40;
+            }
+            else
+            {
+                animation = true;
+                if(area.X<240)
+                area.X += 40;
+            }
+
+
         }
 
         public int GetX()
