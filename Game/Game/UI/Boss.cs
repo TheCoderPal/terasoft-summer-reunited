@@ -22,9 +22,10 @@ namespace Game.UI
             this.border = border;
         }
 
-        public void UpdatePosition(int value)
+        public void UpdatePosition(Vector2 value)
         {
-            border.X += value;
+            border.X += (int)value.X;
+            border.Y += (int)value.Y;
         }
 
         public void AttackBoss(int damage)
