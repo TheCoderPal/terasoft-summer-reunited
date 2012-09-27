@@ -15,17 +15,21 @@ namespace Game.Screens
     {
 
         private Sprite levelPassed;
-        private Texture2D sword;
+        private Texture2D rightSword;
+        private Texture2D leftSword;
         private Texture2D[] shields;
         private bool displayRewards=true, swordRewarded=true, shieldRewarded=true;//change this later
-        private float rotationAngle;
-        private Rectangle swordBounds;
+        private float rightRotationAngle,leftRotationAngle;
+        private Rectangle rightSwordBounds;
+        private Rectangle leftSwordBounds;
         private Rectangle[] shieldBounds;
 
 
         public override void Initialize()
         {
-            swordBounds = new Rectangle(0, 400, 80, 80);
+            rightSwordBounds = new Rectangle(0, 400, 80, 80);
+            leftSwordBounds = new Rectangle(1350, 400, 80, 80);
+
             shields = new Texture2D[4];
             shieldBounds = new Rectangle[4];
             shieldBounds[0] = new Rectangle(590, -80, 80, 80);
@@ -37,9 +41,10 @@ namespace Game.Screens
         public override void LoadContent()
         {
             ContentManager Content = ScreenManager.Game.Content;
-            sword = Content.Load<Texture2D>("Textures//sword");
+            rightSword = Content.Load<Texture2D>("Textures//sword");
+            leftSword = rightSword;
             for(int i=0;i<=3;i++)
-            shields[i] = Content.Load<Texture2D>("Textures//shield");
+                shields[i] = Content.Load<Texture2D>("Textures//shield");
             levelPassed = new Sprite(Content.Load<Texture2D>("Textures//Level"), new Rectangle(1280, 200, 800, 95), Content);
         }
 
@@ -58,13 +63,17 @@ namespace Game.Screens
 
         private void SwordAnimation(GameTime gameTime)
         {
-            if (swordBounds.X < 625)
+
+            if (leftSwordBounds.X > 630)
             {
-                float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                rotationAngle += elapsed + 30;
-                float circle = MathHelper.Pi * 2;
-                rotationAngle = rotationAngle % circle;
-                swordBounds.X += 14;
+                leftRotationAngle += ((float)gameTime.ElapsedGameTime.TotalSeconds + 28) % (MathHelper.Pi * 2);
+                leftSwordBounds.X -= 16;
+            }
+
+            if (rightSwordBounds.X < 625)
+            {
+                rightRotationAngle += ((float)gameTime.ElapsedGameTime.TotalSeconds + 30) % (MathHelper.Pi * 2);
+                rightSwordBounds.X += 14;
             }
         }
 
@@ -90,8 +99,10 @@ namespace Game.Screens
             if (displayRewards)
             {
                 if (swordRewarded)
-                spriteBatch.Draw(sword, swordBounds, null, Color.White, rotationAngle, new Vector2(sword.Width / 2, sword.Height / 2), SpriteEffects.None, 0f);
-                
+                {
+                    spriteBatch.Draw(rightSword, rightSwordBounds, null, Color.White, rightRotationAngle, new Vector2(rightSword.Width / 2, rightSword.Height / 2), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(leftSword, leftSwordBounds, null, Color.White, rightRotationAngle, new Vector2(leftSword.Width / 2, leftSword.Height / 2), SpriteEffects.None, 0f);
+                }
                 if(shieldRewarded)
                 {
                     for (int i = 0; i <= shields.Length - 1; i++)
