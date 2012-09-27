@@ -147,6 +147,7 @@
     <Compile Include="Screens\TreadmillScreen.cs" />
     <Compile Include="Text\Constants.cs" />
     <Compile Include="UI\Bar.cs" />
+    <Compile Include="UI\Boss.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\GameScreen.cs" />
     <Compile Include="UI\HandCursor.cs" />
