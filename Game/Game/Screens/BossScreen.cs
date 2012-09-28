@@ -23,6 +23,7 @@ namespace Game.Screens
         private Rectangle rightSwordBounds;
         private Rectangle leftSwordBounds;
         private Rectangle[] shieldBounds;
+        private SoundEffect bump;
 
 
         public override void Initialize()
@@ -42,6 +43,7 @@ namespace Game.Screens
             ContentManager Content = ScreenManager.Game.Content;
             rightSword = Content.Load<Texture2D>("Textures//sword");
             leftSword = rightSword;
+            bump = Content.Load<SoundEffect>("Audio//bump");
             Texture2D shieldSprite = Content.Load<Texture2D>("Textures//shield");
             for (int i = 0; i <= 3; i++)
                 shields[i] = shieldSprite;
@@ -89,7 +91,10 @@ namespace Game.Screens
                 shieldBounds[1].X += 34;
 
             if (shieldBounds[3].X > 590)
-                shieldBounds[3].X -= 34;            
+                shieldBounds[3].X -= 34;
+
+            if (shieldBounds[3].X == 624)
+                bump.Play();
         }
 
         public override void Draw(GameTime gametime)
