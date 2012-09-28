@@ -309,6 +309,7 @@ namespace Game.Screens
 
             if (globalCounter % 60 == 0 && globalCounter >600)
                  spriteCounter++;
+                       
 
             for (int i = 0; i <= spriteCounter - 1; i++)
             {
@@ -325,23 +326,15 @@ namespace Game.Screens
                     else
                         currentSprite[i].Update(4);
 
-
                     HandleCollision(sprite);
                 }
                 catch (Exception e)
                 {
-                    if (spriteCounter < currentSprite.Count)
-                    {
-                        spriteCounter--;
-                    }
-                    else
-                    {
-                        spriteCounter++;
-                    }
-                }
+                    spriteCounter--;
+                }                
             }
 
-           // RemoveSprites();
+            RemoveSprites();
             
             bar.SetCurrentValue(player.Immunity);
             score.score = player.Score;
