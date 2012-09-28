@@ -11,7 +11,6 @@ namespace Game.Engine
         #region Tamer Instance Variables + Constructor
        private string[] goodItems = { "tomato", "carrot","strawberry","pineapple","broccoli","orange"};
        private string[] badItems = { "fries", "hamburger","pizza","donut","muffin","hotdog"};
-       private string[] weapons = { "sheild", "sword" };
        private string[] viruses = { "level1","level2","level3"};
        private string[] itemsList;
        private Random random;
@@ -67,10 +66,9 @@ namespace Game.Engine
         #region Method of filling the list
        private void CounterIsZero()
         {
-                itemsList[0] = weapons[0];
-                for (int i = 1; i < 10; i++)
+                for (int i = 0; i < 10; i++)
                 {
-                    if (i == 1 || i == 2 || i == 5)
+                    if (i< 3 || i == 5)
                         itemsList[i] = GetRandomItem(goodItems);
                     else if (i == 3 || i == 6 || i == 7)
                         itemsList[i] = "Empty";
@@ -87,7 +85,7 @@ namespace Game.Engine
                 else if (i == 1 || i == 9)
                     itemsList[i] = GetRandomItem(insertItem(viruses[0],goodItems));
                 else if (i == 3)
-                    itemsList[i] = GetRandomItem(Concatenate(badItems, weapons));
+                    itemsList[i] = GetRandomItem(Concatenate(badItems, goodItems));
                 else if (i == 5)
                     itemsList[i] = GetRandomItem(insertItem(viruses[0], badItems));
                 else if (i == 4 || i == 7 || i == 8)
@@ -106,12 +104,11 @@ namespace Game.Engine
                     itemsList[i] = viruses[0];
                 else if (i == 1 || i == 7)
                     itemsList[i] = GetRandomItem(insertItem(viruses[0], badItems));
-                else if (i == 5 || i == 6 || i == 8)
+                else if (i == 5 || i == 6 || i == 8 || i==9)
                     itemsList[i] = GetRandomItem(goodItems);
                 else if (i == 2)
-                    itemsList[i] = GetRandomItem(insertItem("Empty",weapons));
-                else if (i == 9)
-                    itemsList[i] = GetRandomItem(weapons);
+                    itemsList[i] = GetRandomItem(insertItem("Empty",goodItems));
+
             }
         }
         private void CounterLessFive()
@@ -125,7 +122,7 @@ namespace Game.Engine
                 else if (i < 9)
                     itemsList[i] = GetRandomItem(insertItem(viruses[0], badItems));
                 else
-                    itemsList[i] = GetRandomItem(Concatenate(goodItems, weapons));
+                    itemsList[i] = GetRandomItem(Concatenate(goodItems,badItems));
             }
             itemsList = Randomize(itemsList);
         }
@@ -142,7 +139,7 @@ namespace Game.Engine
                 else if (i < 9)
                    itemsList[i] = GetRandomItem(viruses.Take(2).ToArray());
                 else
-                    itemsList[i] = GetRandomItem(Concatenate(goodItems, weapons));
+                    itemsList[i] = GetRandomItem(goodItems);
             }
             itemsList = Randomize(itemsList);
         }
@@ -159,7 +156,7 @@ namespace Game.Engine
                 else if (i < 9)
                     itemsList[i] = GetRandomItem(insertItem(viruses[0], goodItems));
                 else
-                    itemsList[i] = GetRandomItem(insertItem(viruses[2], weapons));
+                    itemsList[i] = viruses[2];
             }
             itemsList = Randomize(itemsList);
         }
@@ -176,7 +173,7 @@ namespace Game.Engine
                 else if (i < 9)
                     itemsList[i] = GetRandomItem(insertItem(viruses[0],insertItem(viruses[1], badItems)));
                 else
-                    itemsList[i] = GetRandomItem(weapons);
+                    itemsList[i] = GetRandomItem(goodItems);
             }
             itemsList = Randomize(itemsList);
         }
