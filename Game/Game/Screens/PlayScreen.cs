@@ -52,7 +52,7 @@ namespace Game.Screens
         private SpriteFont textFont;
         private Color[] playerData;
         private Rectangle playerBounds;
-        private Texture2D[] items;
+        private List<Texture2D> items;
         private Texture2D splashDead, splashSemiDead, splashInjured,correct,swordTexture,shieldTexture,trans;
 
         public override void Initialize()
@@ -70,7 +70,7 @@ namespace Game.Screens
             bar = new Bar(100, 20, 15, 270, 30);
             score = new Score(870, 10, Color.Peru);
             currentSprite = new List<Sprite>();
-            items = new Texture2D[19];
+            items = new List<Texture2D>();
             songs = new Song[2];
             soundEffects = new SoundEffect[10];
 
@@ -98,6 +98,9 @@ namespace Game.Screens
             songs[1] = Content.Load<Song>("Audio\\song2");
             //songs[2] = Content.Load<Song>("Directory\\songtitle");
             MediaPlayer.IsRepeating = false;
+
+            bar.LoadContent(Content);
+            score.LoadContent(Content);
             player.LoadContent(Content);
 
             #region Tamer 
@@ -149,6 +152,7 @@ namespace Game.Screens
             items[16] = swordTexture;
             items[17] = Content.Load<Texture2D>("Textures//gym");
             items[18] = trans;
+            items[19] = Content.Load<Texture2D>("Textures//gym");
 
             #endregion
 
@@ -161,8 +165,6 @@ namespace Game.Screens
             playerBounds = player.GetBoundingRectangle();
             playerData = player.GetColorData();
 
-            bar.LoadContent(Content);
-            score.LoadContent(Content);
             base.LoadContent();
 
         }
@@ -299,12 +301,22 @@ namespace Game.Screens
 
             if (globalCounter % 60 == 0 && globalCounter >600)
                  spriteCounter++;
-            
+
             for (int i = 0; i <= spriteCounter - 1; i++)
-                 currentSprite[i].Update(4);
-            
-            foreach (Sprite sprite in currentSprite)
-                 HandleCollision(sprite);
+            {
+                Sprite sprite = currentSprite[i];
+                if (sprite.GetName().Contains("boss") && sprite.GetX() == -1)
+                {
+                    bgLayer1.PauseBackground();
+                    bgLayer2.PauseBackground();
+                    bgLayer3.PauseBackground();
+                    player.MovePlayer();
+                }
+                else
+                    currentSprite[i].Update(4);
+
+                HandleCollision(sprite);
+            }
             
             #endregion
             
@@ -331,16 +343,15 @@ namespace Game.Screens
 
             for (int i = 0; i <= 9; i++)
             {
-                int height = 0;
+                int height = 0, length = 50;
+                bool transparent = false;
+
                 switch (current[i, 1])
                 {
                     case "0": height = 499; break;
                     case "1": height = 399; break;
                     case "2": height = 299; break;
                 }
-
-                bool transparent = false;
-                int length = 50;
 
                 switch (current[i, 0])
                 {
@@ -363,6 +374,14 @@ namespace Game.Screens
                     case "sword": texture = items[16]; break;
                     case "gym": texture = items[17]; length = 200; height = 349; break;
                     case "Empty": transparent = true; break;
+                    default: break;
+                }
+
+                if (current[i, 0].Contains("boss"))
+                {
+                    texture = items[19];
+                    length = 200;
+                    height = 349;
                 }
 
                 if (!transparent)
@@ -371,7 +390,6 @@ namespace Game.Screens
                     sprite.EnterName(current[i, 0]);
                     currentSprite.Add(sprite);
                 }
-
             }
         }
 
@@ -518,6 +536,14 @@ namespace Game.Screens
                             screenPaused = true;
                             ScreenManager.AddScreen(new ExcercisesScreen(this));
                             this.FreezeScreen();
+                        }
+                    }
+
+                    if (name.Contains("boss"))
+                    {
+                        if (playerBounds.Right == sprite.GetX())
+                        {
+                            //Add Boss Screen
                         }
                     }
                 }
