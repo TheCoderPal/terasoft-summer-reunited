@@ -37,5 +37,10 @@ namespace Game.UI
         {
             spriteBatch.Draw(texture, border, null, Color.White);
         }
+
+        public bool BossDied()
+        {
+            return health <= 0;
+        }
     }
 }
