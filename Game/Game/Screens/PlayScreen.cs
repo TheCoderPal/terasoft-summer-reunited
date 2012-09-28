@@ -133,26 +133,26 @@ namespace Game.Screens
             soundEffects[8] = Content.Load<SoundEffect>("Audio//VirusKilled");
             soundEffects[9] = Content.Load<SoundEffect>("Audio//jump");
 
-            items[0] = Content.Load<Texture2D>("Textures//banana");
-            items[1] = Content.Load<Texture2D>("Textures//brocolli");
-            items[2] = Content.Load<Texture2D>("Textures//carrot");
-            items[3] = Content.Load<Texture2D>("Textures//pineapple");
-            items[4] = Content.Load<Texture2D>("Textures//tomato");
-            items[5] = Content.Load<Texture2D>("Textures//strawberry");
-            items[6] = Content.Load<Texture2D>("Textures//hotdog");
-            items[7] = Content.Load<Texture2D>("Textures//pizza");
-            items[8] = Content.Load<Texture2D>("Textures//fries");
-            items[9] = Content.Load<Texture2D>("Textures//donut");
-            items[10] = Content.Load<Texture2D>("Textures//cupcake");
-            items[11] = Content.Load<Texture2D>("Textures//burger");
-            items[12] = Content.Load<Texture2D>("Textures//virus1");
-            items[13] = Content.Load<Texture2D>("Textures//virus2");
-            items[14] = Content.Load<Texture2D>("Textures//virus3");
-            items[15] = shieldTexture;
-            items[16] = swordTexture;
-            items[17] = Content.Load<Texture2D>("Textures//gym");
-            items[18] = trans;
-            items[19] = Content.Load<Texture2D>("Textures//gym");
+            items.Add(Content.Load<Texture2D>("Textures//banana"));
+            items.Add(Content.Load<Texture2D>("Textures//brocolli"));
+            items.Add(Content.Load<Texture2D>("Textures//carrot"));
+            items.Add(Content.Load<Texture2D>("Textures//pineapple"));
+            items.Add(Content.Load<Texture2D>("Textures//tomato"));
+            items.Add(Content.Load<Texture2D>("Textures//strawberry"));
+            items.Add(Content.Load<Texture2D>("Textures//hotdog"));
+            items.Add(Content.Load<Texture2D>("Textures//pizza"));
+            items.Add(Content.Load<Texture2D>("Textures//fries"));
+            items.Add(Content.Load<Texture2D>("Textures//donut"));
+            items.Add(Content.Load<Texture2D>("Textures//cupcake"));
+            items.Add(Content.Load<Texture2D>("Textures//burger"));
+            items.Add(Content.Load<Texture2D>("Textures//virus1"));
+            items.Add(Content.Load<Texture2D>("Textures//virus2"));
+            items.Add(Content.Load<Texture2D>("Textures//virus3"));
+            items.Add(shieldTexture);
+            items.Add(swordTexture);
+            items.Add(Content.Load<Texture2D>("Textures//gym"));
+            items.Add(trans);
+            items.Add(Content.Load<Texture2D>("Textures//gym"));
 
             #endregion
 
@@ -272,9 +272,6 @@ namespace Game.Screens
                 updateImmunityCounter = -300;
             }
 
-
-            #region Shirin
-
             if (Constants.isJumping)
                 jumpTimer++;        
             if (jumpTimer==1)
@@ -317,8 +314,8 @@ namespace Game.Screens
 
                 HandleCollision(sprite);
             }
-            
-            #endregion
+
+            RemoveSprites();
             
             bar.SetCurrentValue(player.Immunity);
             score.score = player.Score;
@@ -663,6 +660,18 @@ namespace Game.Screens
                         break;
                     case "sheild": sprite.PlaySoundEffect(soundEffects[2]); break;
                     case "sword": sprite.PlaySoundEffect(soundEffects[3]); break;
+                }
+            }
+        }
+
+        private void RemoveSprites()
+        {
+            for (int i = 0; i <= currentSprite.Count - 1; i++)
+            {
+                if (currentSprite[i].GetX() < -250)
+                {
+                    currentSprite.Remove(currentSprite[i]);
+                    spriteCounter--;
                 }
             }
         }
