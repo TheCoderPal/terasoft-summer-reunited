@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Input;
 
 namespace Game.Screens
 {
@@ -271,6 +272,16 @@ namespace Game.Screens
                 immunityAudio.Play();
                 updateImmunityCounter = -300;
             }
+
+            KeyboardState state = Keyboard.GetState();
+            if(state.IsKeyDown(Keys.Space))
+                Constants.isJumping=true;
+            if (state.IsKeyDown(Keys.LeftControl))
+                Constants.isBending = true;
+            if (state.IsKeyDown(Keys.Enter))
+                Constants.isPunching = true;
+            if (state.IsKeyDown(Keys.D))
+                Constants.isSwappingHand = true;
 
             if (Constants.isJumping)
                 jumpTimer++;        
