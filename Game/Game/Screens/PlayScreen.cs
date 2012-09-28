@@ -312,21 +312,29 @@ namespace Game.Screens
 
             for (int i = 0; i <= spriteCounter - 1; i++)
             {
-                Sprite sprite = currentSprite[i];
-                if (sprite.GetName().Contains("boss") && sprite.GetX() == -1)
+                try
                 {
-                    bgLayer1.PauseBackground();
-                    bgLayer2.PauseBackground();
-                    bgLayer3.PauseBackground();
-                    player.MovePlayer();
-                }
-                else
-                    currentSprite[i].Update(4);
+                    Sprite sprite = currentSprite[i];
+                    if (sprite.GetName().Contains("boss") && sprite.GetX() == -1)
+                    {
+                        bgLayer1.PauseBackground();
+                        bgLayer2.PauseBackground();
+                        bgLayer3.PauseBackground();
+                        player.MovePlayer();
+                    }
+                    else
+                        currentSprite[i].Update(4);
 
-                HandleCollision(sprite);
+
+                    HandleCollision(sprite);
+                }
+                catch (Exception e)
+                {
+                    spriteCounter--;
+                }
             }
 
-            RemoveSprites();
+           // RemoveSprites();
             
             bar.SetCurrentValue(player.Immunity);
             score.score = player.Score;
