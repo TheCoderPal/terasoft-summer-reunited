@@ -259,5 +259,17 @@ namespace Game.Engine
         {
             speedX = 0;
         }
+
+        /// <summary>
+        /// Gives the player a random reward.
+        /// </summary>
+        public void RandomReward()
+        {
+            Random r = new Random();
+            if (r.NextDouble() > 0.5)
+                hasShield = true;
+            else
+                hasSword = true;
+        }
     }
 }

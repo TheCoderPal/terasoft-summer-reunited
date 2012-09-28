@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Game.Text;
+using Game.Engine;
 
 namespace Game.Screens
 {
@@ -21,11 +22,15 @@ namespace Game.Screens
         private Bar immunityBar;
         private Bar virusBar;
         private PlayScreen playScreen;
+        private Boss boss;
+        private Player player;
 
-        public BossFightScreen(PlayScreen playScreen)
+        public BossFightScreen(PlayScreen playScreen, int bossLevel)
         {
             this.playScreen = playScreen;
             immunityBar = playScreen.bar;
+            player = playScreen.player;
+            boss = new Boss(bossLevel, null, Rectangle.Empty);
         }
 
         public override void Initialize()
@@ -52,6 +57,11 @@ namespace Game.Screens
             timer--;
             if (timer == 0)
                 message = "";
+
+            boss.AttackBoss(400);
+            if (boss.BossDied())
+                player.RandomReward();
+
             base.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
