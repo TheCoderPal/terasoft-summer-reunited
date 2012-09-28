@@ -29,7 +29,6 @@ namespace Game.Screens
         {
             rightSwordBounds = new Rectangle(0, 400, 80, 80);
             leftSwordBounds = new Rectangle(1350, 400, 80, 80);
-
             shields = new Texture2D[4];
             shieldBounds = new Rectangle[4];
             shieldBounds[0] = new Rectangle(590, -80, 80, 80);
@@ -43,8 +42,9 @@ namespace Game.Screens
             ContentManager Content = ScreenManager.Game.Content;
             rightSword = Content.Load<Texture2D>("Textures//sword");
             leftSword = rightSword;
-            for(int i=0;i<=3;i++)
-                shields[i] = Content.Load<Texture2D>("Textures//shield");
+            Texture2D shieldSprite = Content.Load<Texture2D>("Textures//shield");
+            for (int i = 0; i <= 3; i++)
+                shields[i] = shieldSprite;
             levelPassed = new Sprite(Content.Load<Texture2D>("Textures//Level"), new Rectangle(1280, 200, 800, 95), Content);
         }
 
