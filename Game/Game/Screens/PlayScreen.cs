@@ -330,7 +330,14 @@ namespace Game.Screens
                 }
                 catch (Exception e)
                 {
-                    spriteCounter--;
+                    if (spriteCounter < currentSprite.Count)
+                    {
+                        spriteCounter--;
+                    }
+                    else
+                    {
+                        spriteCounter++;
+                    }
                 }
             }
 
