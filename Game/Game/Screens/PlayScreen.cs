@@ -43,7 +43,7 @@ namespace Game.Screens
 
         private ItemsGenerator generator;
         private string[,] current;
-        private int spriteCounter = 0, globalCounter = 0, time=0;
+        private int spriteCounter = 0, globalCounter = 0, time=0, swordTimer=0;
         private int screenWidth, screenHeight, jumpTimer;
         private bool jumping,swordUsed;
         private List<Sprite> currentSprite;
@@ -300,6 +300,11 @@ namespace Game.Screens
                 else { jumping = false; time = 0; }
             }
 
+            if (player.CheckSword())
+            {
+                swordTimer += gameTime.ElapsedGameTime.Milliseconds;
+            }
+
             if (globalCounter % 600 == 0)
             {
                 NewItems();
@@ -333,11 +338,19 @@ namespace Game.Screens
                     spriteCounter--;
                 }                
             }
+            if (!player.CheckSword())
+            {
+                swordTimer = 0;
+            }
             if (swordUsed)
             {
                 player.AcquireSword(false);
-                swordUsed=false;
-                player.ReInitializeRunAnimation();
+                if (swordTimer >= player.GetSwordTime())
+                {
+                    swordUsed = false;
+                    player.ReInitializeRunAnimation();
+                    swordTimer = 0;
+                }
             }
             RemoveSprites();
             
