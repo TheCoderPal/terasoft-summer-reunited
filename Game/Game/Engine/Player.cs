@@ -192,6 +192,11 @@ namespace Game.Engine
            return State == PlayerStates.Jumping;
         }
 
+        public bool CheckSword()
+        {
+            return State == PlayerStates.hasSword;
+        }
+
         public bool CheckRun()
         {
             return playerAnimation==runAnimation;
@@ -200,6 +205,11 @@ namespace Game.Engine
         public int GetJumpTime()
         {
             return (80 * (jumpTexture.Width / jumpTexture.Height));
+        }
+
+        public int GetSwordTime()
+        {
+            return (60 * (swordTexture.Width / swordTexture.Height));
         }
 
         public void Collided(int value)
