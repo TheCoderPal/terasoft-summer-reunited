@@ -729,18 +729,18 @@ namespace Game.Screens
             #region Tamer
             bar.Draw(spriteBatch);
             score.Draw(spriteBatch);
-            spriteBatch.DrawString(textFont, "Level 1 ",new Vector2(screenWidth/40,screenHeight/1.2f),Color.Peru);
-            spriteBatch.DrawString(textFont, "Level 2 ",new Vector2(screenWidth/7,screenHeight/1.2f),Color.Peru);
-            spriteBatch.DrawString(textFont, "Level 3 ",new Vector2(screenWidth/4,screenHeight/1.2f),Color.Peru);
+            spriteBatch.DrawString(textFont, " Flu ",new Vector2((screenWidth/40)+14,screenHeight/1.2f),Color.Peru);
+            spriteBatch.DrawString(textFont, "Pox ",new Vector2(screenWidth/7,screenHeight/1.2f),Color.Peru);
+            spriteBatch.DrawString(textFont, "Malaria ",new Vector2((screenWidth/4)-15,screenHeight/1.2f),Color.Peru);
             spriteBatch.DrawString(textFont, "Dead Virus ", new Vector2(screenWidth / 2f, screenHeight / 1.2f), Color.Peru);
-            spriteBatch.DrawString(textFont, "Hitted Virus ", new Vector2(screenWidth / 1.5f, screenHeight / 1.2f), Color.Peru);
+            spriteBatch.DrawString(textFont, "Dizzy Virus ", new Vector2(screenWidth / 1.5f, screenHeight / 1.2f), Color.Peru);
             spriteBatch.DrawString(textFont, "Injured Virus ", new Vector2(screenWidth / 1.2f, screenHeight / 1.2f), Color.Peru);
-            spriteBatch.Draw(items[12], new Rectangle((int)(screenWidth / 40), (int)(screenHeight / 1.1f),items[12].Width,items[12].Height), Color.White);
+            spriteBatch.Draw(items[12], new Rectangle((int)(screenWidth / 40)+14, (int)(screenHeight / 1.1f),items[12].Width,items[12].Height), Color.White);
             spriteBatch.Draw(items[13], new Rectangle((int)(screenWidth / 7), (int)(screenHeight / 1.1f), items[13].Width, items[13].Height), Color.White);
             spriteBatch.Draw(items[14], new Rectangle((int)(screenWidth / 4), (int)(screenHeight / 1.1f), items[14].Width, items[14].Height), Color.White);
-            spriteBatch.Draw(splashDead, new Rectangle((int)(screenWidth / 2), (int)(screenHeight / 1.1f), splashDead.Width, splashDead.Height), Color.White);
-            spriteBatch.Draw(splashSemiDead, new Rectangle((int)(screenWidth / 1.5f), (int)(screenHeight / 1.1f), splashSemiDead.Width, splashSemiDead.Height), Color.White);
-            spriteBatch.Draw(splashInjured, new Rectangle((int)(screenWidth / 1.2f), (int)(screenHeight / 1.1f), splashInjured.Width, splashInjured.Height), Color.White);
+            spriteBatch.Draw(splashDead, new Rectangle((int)(screenWidth / 2)+40, (int)(screenHeight / 1.1f), splashDead.Width, splashDead.Height), Color.White);
+            spriteBatch.Draw(splashSemiDead, new Rectangle((int)(screenWidth / 1.5f)+40, (int)(screenHeight / 1.1f), splashSemiDead.Width, splashSemiDead.Height), Color.White);
+            spriteBatch.Draw(splashInjured, new Rectangle((int)(screenWidth / 1.2f)+40, (int)(screenHeight / 1.1f), splashInjured.Width, splashInjured.Height), Color.White);
            #endregion
 
             foreach (Sprite s in currentSprite)
