@@ -45,7 +45,7 @@ namespace Game.Screens
         private string[,] current;
         private int spriteCounter = 0, globalCounter = 0, time=0;
         private int screenWidth, screenHeight, jumpTimer;
-        private bool jumping;
+        private bool jumping,swordUsed;
         private List<Sprite> currentSprite;
         private Sprite sword,shield, swordAcquired, shieldAcquired;
         private ContentManager Content;
@@ -333,7 +333,12 @@ namespace Game.Screens
                     spriteCounter--;
                 }                
             }
-
+            if (swordUsed)
+            {
+                player.AcquireSword(false);
+                swordUsed=false;
+                player.ReInitializeRunAnimation();
+            }
             RemoveSprites();
             
             bar.SetCurrentValue(player.Immunity);
@@ -530,7 +535,10 @@ namespace Game.Screens
                         else
                         {
                             if (Constants.isSwappingHand && player.HasSword() && sprite.GetY() == 399)
+                            {
+                                swordUsed=true;
                                 sprite.SlashVirus();
+                            }
                             else
                             {
                                 if (!Constants.isPunching)
