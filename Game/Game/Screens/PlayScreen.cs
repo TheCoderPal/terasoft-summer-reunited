@@ -153,7 +153,7 @@ namespace Game.Screens
             items.Add(swordTexture);
             items.Add(Content.Load<Texture2D>("Textures//gym"));
             items.Add(trans);
-            items.Add(Content.Load<Texture2D>("Textures//gym"));
+            items.Add(Content.Load<Texture2D>("Textures//boss"));
 
             #endregion
 
@@ -369,6 +369,9 @@ namespace Game.Screens
             return (playerBounds.Y + playerBounds.Height - 30) <= itemBounds.Y + itemBounds.Height;
         }
 
+        /// <summary>
+        /// Adds the newly generated items to the list of items to be displayed.
+        /// </summary>
         private void NewItems()
         {
             current = generator.GenerateMore();
@@ -427,6 +430,11 @@ namespace Game.Screens
             }
         }
 
+        /// <summary>
+        /// Applies the effect of collision on sprite and player.
+        /// </summary>
+        /// <param name="name">Sprite name.</param>
+        /// <param name="sprite">Instance of the sprite.</param>
         private void ApplyEffect(String name, Sprite sprite)
         {
             if (!sprite.GetCollided())
@@ -533,6 +541,10 @@ namespace Game.Screens
             }
         }
 
+        /// <summary>
+        /// Collision handling for each sprite on the screen.
+        /// </summary>
+        /// <param name="sprite">Sprite to check collision with.</param>
         private void HandleCollision(Sprite sprite)
         {
             Rectangle itemBounds = new Rectangle(sprite.GetX(), sprite.GetY(), sprite.GetWidth(), sprite.GetHeight());
@@ -586,7 +598,13 @@ namespace Game.Screens
                 }
             }
         }
-
+        /// <summary>
+        /// Takes the bounds and color data of an object and returns the bounds ommiting out transparent lines.
+        /// </summary>
+        /// <param name="rectangle">Bounds of the object.</param>
+        /// <param name="data">Color data of the object.</param>
+        /// <param name="actualRectangle">Out: New bounds of the object.</param>
+        /// <param name="actualColorData">Out: New color data.</param>
         private void GetActualBounds(Rectangle rectangle, Color[] data, out Rectangle actualRectangle, out Color[] actualColorData)
         {
             int ystart, yend;
@@ -634,6 +652,14 @@ namespace Game.Screens
 
         }
 
+        /// <summary>
+        /// Pixel-by-pixel collision detection.
+        /// </summary>
+        /// <param name="rectangleA">Bounds of the first object.</param>
+        /// <param name="dataA">Color data of the first object.</param>
+        /// <param name="rectangleB">Bounds of the second object.</param>
+        /// <param name="dataB">Color data of the second object.</param>
+        /// <returns></returns>
         private static bool IntersectPixels(Rectangle rectangleA, Color[] dataA, Rectangle rectangleB, Color[] dataB)
         {
             int top = Math.Max(rectangleA.Top, rectangleB.Top);
@@ -657,6 +683,11 @@ namespace Game.Screens
             return false;
         }
 
+        /// <summary>
+        /// Plays the sound effect when colliding with a sprite.
+        /// </summary>
+        /// <param name="name">Sprite's name</param>
+        /// <param name="sprite">Instance of the sprite</param>
         private void PlaySoundEffects(String name, Sprite sprite)
         {
             if (!sprite.GetCollided())
@@ -704,6 +735,9 @@ namespace Game.Screens
             }
         }
 
+        /// <summary>
+        /// Removes the sprites that are outside screen bounds from the list.
+        /// </summary>
         private void RemoveSprites()
         {
             for (int i = 0; i <= currentSprite.Count - 1; i++)
