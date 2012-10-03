@@ -9,7 +9,7 @@ namespace Game.Engine
     class ItemsGenerator
     {
         /*
-         * Level 1 : After 20 Item
+         * Level 1 : After 30 Item
          * Level 2 : After 100 Item
          * Level 3 : After 300 Item
          * Level 4 : After 500 Item
@@ -50,13 +50,22 @@ namespace Game.Engine
 
             if(counter%20==0 &&  counter!=0)
                 itemsList[5] = "gym";
-           
+            if (counter == 3)
+                itemsList[9] = "boss1";
+            else if (counter == 10)
+                itemsList[9] = "boss2";
+            else if (counter == 30)
+                itemsList[9] = "boss3";
+            else if (counter == 50)
+                itemsList[9] = "boss4";
+            else if (counter == 90)
+                itemsList[9] = "boss5";
             string[,] returnedItems = new string[10,2];
             for (int i = 0; i <10;i++ )
                 returnedItems[i, 0] = itemsList[i];
             for (int i = 0; i < 10; i++)
-            {  
-                if(returnedItems[i,0].Equals("gym"))
+            {
+                if (returnedItems[i, 0].Equals("gym") || returnedItems[i, 0].Substring(0,3).Equals("boss"))
                     returnedItems[i,1] = 3 +"";
                 else if (badItems.Contains(returnedItems[i, 0]) && counter >10 && counter < 15) 
                     returnedItems[i, 1] = GetRandom(2) + "";
