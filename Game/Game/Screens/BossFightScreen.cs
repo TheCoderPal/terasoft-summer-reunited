@@ -17,6 +17,7 @@ namespace Game.Screens
         private int screenWidth;
         private int screenHeight;
         private int virusHealth;
+        private int bossLevel;
         private ContentManager content;
         private string message;
         private Texture2D gradientTexture;
@@ -44,7 +45,7 @@ namespace Game.Screens
             this.playScreen = playScreen;
             immunityBar = playScreen.bar;
             player = playScreen.player;
-            boss = new Boss(bossLevel, null, Rectangle.Empty);
+            this.bossLevel = bossLevel;
         }
 
         public override void Initialize()
@@ -67,6 +68,7 @@ namespace Game.Screens
             spriteBatch = ScreenManager.SpriteBatch;
             screenHeight = graphics.Viewport.Height;
             screenWidth = graphics.Viewport.Width;
+            boss = new Boss(bossLevel, content.Load<Texture2D>("Transparent"), new Rectangle(1000, 200, 50, 50));
             gradientTexture = content.Load<Texture2D>("Textures\\gradient");
             font = content.Load<SpriteFont>("SpriteFont1");
             virusBar.LoadContent(content);

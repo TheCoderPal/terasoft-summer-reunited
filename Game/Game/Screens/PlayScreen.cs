@@ -43,7 +43,7 @@ namespace Game.Screens
 
         private ItemsGenerator generator;
         private string[,] current;
-        private int spriteCounter = 0, globalCounter = 0, time=0, swordTimer=0;
+        private int spriteCounter = 0, globalCounter = 0, time=0, swordTimer=0, spriteSpeed = 4;
         private int screenWidth, screenHeight, jumpTimer;
         private bool jumping,swordUsed;
         private List<Sprite> currentSprite;
@@ -314,24 +314,26 @@ namespace Game.Screens
 
             if (globalCounter % 60 == 0 && globalCounter >600)
                  spriteCounter++;
-                       
+
+            for (int i = 0; i <= spriteCounter - 1; i++)
+            {
+                currentSprite[i].Update(spriteSpeed);
+                HandleCollision(currentSprite[i]);
+            }
 
             for (int i = 0; i <= spriteCounter - 1; i++)
             {
                 try
                 {
                     Sprite sprite = currentSprite[i];
-                    if (sprite.GetName().Contains("boss") && sprite.GetX() == -1)
+                    if (sprite.GetName().Contains("boss") && sprite.GetX() == 800)
                     {
+                        spriteSpeed = 0;
                         bgLayer1.PauseBackground();
                         bgLayer2.PauseBackground();
                         bgLayer3.PauseBackground();
                         player.MovePlayer();
                     }
-                    else
-                        currentSprite[i].Update(4);
-
-                    HandleCollision(sprite);
                 }
                 catch (Exception e)
                 {
@@ -580,7 +582,7 @@ namespace Game.Screens
                         sprite.Collide(name);
                     else
                     {
-                        if (Constants.isSteppingRight)
+                        if (!Constants.isSteppingRight)
                         {
                             screenPaused = true;
                             ScreenManager.AddScreen(new ExcercisesScreen(this));
@@ -593,6 +595,9 @@ namespace Game.Screens
                         if (playerBounds.Right == sprite.GetX())
                         {
                             //Add Boss Screen
+                            screenPaused = true;
+                            ScreenManager.AddScreen(new BossFightScreen(this, Int32.Parse((name.Substring(4)))));
+                            this.FreezeScreen();
                         }
                     }
                 }
