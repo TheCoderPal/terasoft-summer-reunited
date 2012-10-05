@@ -582,7 +582,7 @@ namespace Game.Screens
                         sprite.Collide(name);
                     else
                     {
-                        if (!Constants.isSteppingRight)
+                        if (Constants.isSteppingRight)
                         {
                             screenPaused = true;
                             ScreenManager.AddScreen(new ExcercisesScreen(this));
