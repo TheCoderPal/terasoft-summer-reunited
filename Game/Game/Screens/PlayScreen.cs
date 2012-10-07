@@ -578,7 +578,7 @@ namespace Game.Screens
                     ApplyEffect(name, sprite);
                     PlaySoundEffects(name, sprite);
 
-                    if (!name.Equals("gym"))
+                    if (!name.Equals("gym") && !name.Contains("boss"))
                         sprite.Collide(name);
                     else
                     {
@@ -592,12 +592,12 @@ namespace Game.Screens
 
                     if (name.Contains("boss"))
                     {
-                        if (playerBounds.Right == sprite.GetX())
+                        if (playerBounds.Right >= sprite.GetX() + 150)
                         {
                             //Add Boss Screen
                             screenPaused = true;
-                            ScreenManager.AddScreen(new BossFightScreen(this, Int32.Parse((name.Substring(4)))));
                             this.FreezeScreen();
+                            ScreenManager.AddScreen(new BossFightScreen(this, Int32.Parse((name.Substring(4)))));
                         }
                     }
                 }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Game.Text;
 using Game.Engine;
 using Microsoft.Xna.Framework.Audio;
+using System;
 
 namespace Game.Screens
 {
@@ -41,6 +42,7 @@ namespace Game.Screens
             immunityBar = playScreen.bar;
             player = playScreen.player;
             this.bossLevel = bossLevel;
+            message = "";
         }
 
         public override void Initialize()
@@ -63,7 +65,7 @@ namespace Game.Screens
             spriteBatch = ScreenManager.SpriteBatch;
             screenHeight = graphics.Viewport.Height;
             screenWidth = graphics.Viewport.Width;
-            boss = new Boss(bossLevel, content.Load<Texture2D>("Transparent"), new Rectangle(1000, 200, 50, 50));
+            boss = new Boss(bossLevel, content.Load<Texture2D>("Textures\\Transparent"), new Rectangle(1000, 200, 50, 50));
             gradientTexture = content.Load<Texture2D>("Textures\\gradient");
             font = content.Load<SpriteFont>("SpriteFont1");
             virusBar.LoadContent(content);
@@ -84,9 +86,23 @@ namespace Game.Screens
             if (timer == 0)
                 message = "";
 
-            boss.AttackBoss(400);
+            boss.AttackBoss(1);
             if (boss.BossDied())
+            {
                 player.RandomReward();
+                boss.AttackBoss(3000);
+                this.FreezeScreen();
+            }
+
+            if (player.HasShield())
+            {
+                shieldRewarded = true; swordRewarded = false;
+            }
+            else if (player.HasSword())
+            {
+                swordRewarded = true;
+                shieldRewarded = false;
+            }
 
             if (displayRewards)
             {

@@ -277,9 +277,15 @@ namespace Game.Engine
         {
             Random r = new Random();
             if (r.NextDouble() > 0.5)
+            {
                 hasShield = true;
+                hasSword = false;
+            }
             else
+            {
                 hasSword = true;
+                hasShield = false;
+            }
         }
     }
 }

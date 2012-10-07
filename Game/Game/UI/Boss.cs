@@ -40,7 +40,7 @@ namespace Game.UI
 
         public bool BossDied()
         {
-            return health <= 0;
+            return health <= 0 && health >= -1000;
         }
     }
 }
