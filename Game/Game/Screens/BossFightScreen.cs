@@ -13,16 +13,11 @@ namespace Game.Screens
         private SpriteBatch spriteBatch;
         private SpriteFont font;
         private GraphicsDevice graphics;
-        private int timer = 3;
-        private int screenWidth;
-        private int screenHeight;
-        private int virusHealth;
-        private int bossLevel;
+        private int timer = 3,screenWidth,screenHeight, virusHealth,bossLevel;
         private ContentManager content;
         private string message;
         private Texture2D gradientTexture;
-        private Bar immunityBar;
-        private Bar virusBar;
+        private Bar immunityBar,virusBar;
         private PlayScreen playScreen;
         private Boss boss;
         private Player player;
