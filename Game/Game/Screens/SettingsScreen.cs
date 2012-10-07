@@ -13,17 +13,13 @@ namespace Game.Screens
         private Button button;
         private HandCursor hand;
         private GraphicsDevice graphics;
-        private int screenWidth;
-        private int counter=0;
-        private int screenHeight;
+        private int screenWidth, counter=0, screenHeight;
         private ContentManager content;
         private string message;
         private Vector2 avatarPosition;
         private Texture2D background, leftArrow, rightArrow;
         private Texture2D[] avatars;
         public Texture2D currentAvatar { get; set; }
-
-        public SettingsScreen() { }
 
         public override void Initialize()
         {
