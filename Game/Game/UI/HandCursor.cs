@@ -9,7 +9,7 @@ namespace Game.UI
     {
         private Texture2D texture;
         private Kinect.Kinect kinect;
-        private Vector2 position;
+        public Vector2 position{get; set;}
 
         public HandCursor()
         {

@@ -5,18 +5,17 @@ using Microsoft.Xna.Framework.Graphics;
 using Game.Text;
 using Game.Engine;
 using Microsoft.Xna.Framework.Audio;
-using System;
 
 namespace Game.Screens
 {
     class BossFightScreen : GameScreen
     {
         private SpriteBatch spriteBatch;
+        Camera2D cam;
         private SpriteFont font;
         private GraphicsDevice graphics;
-        private int timer = 3,screenWidth,screenHeight, virusHealth,bossLevel;
+        private int screenWidth,screenHeight, virusHealth,bossLevel;
         private ContentManager content;
-        private string message;
         private Texture2D gradientTexture;
         private Bar immunityBar,virusBar;
         private PlayScreen playScreen;
@@ -42,11 +41,11 @@ namespace Game.Screens
             immunityBar = playScreen.bar;
             player = playScreen.player;
             this.bossLevel = bossLevel;
-            message = "";
         }
 
         public override void Initialize()
         {
+            showAvatar = true;
             virusBar = new Bar(100, 20, 15, 270, 30);
             rightSwordBounds = new Rectangle(0, 400, 80, 80);
             leftSwordBounds = new Rectangle(1350, 400, 80, 80);
@@ -55,7 +54,9 @@ namespace Game.Screens
             shieldBounds[0] = new Rectangle(590, -80, 80, 80);
             shieldBounds[2] = new Rectangle(590, 720, 80, 80);
             shieldBounds[1] = new Rectangle(-90, 500, 80, 80);
-            shieldBounds[3] = new Rectangle(1304, 500, 80, 80);  
+            shieldBounds[3] = new Rectangle(1304, 500, 80, 80);
+            cam = new Camera2D();
+            cam.Position = new Vector2(500.0f, 200.0f);
             base.Initialize();
         }
         public override void LoadContent()
@@ -66,13 +67,13 @@ namespace Game.Screens
             screenHeight = graphics.Viewport.Height;
             screenWidth = graphics.Viewport.Width;
             boss = new Boss(bossLevel, content.Load<Texture2D>("Textures\\Transparent"), new Rectangle(1000, 200, 50, 50));
-            gradientTexture = content.Load<Texture2D>("Textures\\gradient");
+            gradientTexture = content.Load<Texture2D>("Textures\\Gym-Interior");
             font = content.Load<SpriteFont>("SpriteFont1");
-            virusBar.LoadContent(content);
             rightSword = content.Load<Texture2D>("Textures//sword");
-            leftSword = rightSword;
             bump = content.Load<SoundEffect>("Audio//bump");
             Texture2D shieldSprite = content.Load<Texture2D>("Textures//shield");
+            virusBar.LoadContent(content);
+            leftSword = rightSword;
             for (int i = 0; i <= 3; i++)
                 shields[i] = shieldSprite;
             levelPassed = new Sprite(content.Load<Texture2D>("Textures//Level"), new Rectangle(1280, 200, 800, 95), content);       
@@ -81,11 +82,7 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             virusBar.SetCurrentValue(virusHealth);
-            virusBar.Update(gameTime);
-            timer--;
-            if (timer == 0)
-                message = "";
-
+            cam.Scale+=0.01f;
             boss.AttackBoss(1);
             if (boss.BossDied())
             {
@@ -157,20 +154,10 @@ namespace Game.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            Vector2 viewportSize = new Vector2(screenWidth, screenHeight);
-            Vector2 textSize = font.MeasureString(message);
-            Vector2 textPosition = (viewportSize - textSize) / 2;
-            int hPad = Constants.hPad;
-            int vPad = Constants.vPad;
-            Rectangle backgroundRectangle = new Rectangle((int)textPosition.X - hPad,
-                                                          (int)textPosition.Y - vPad,
-                                                          (int)textSize.X + hPad * 2,
-                                                          (int)textSize.Y + vPad * 2);
-
-            spriteBatch.Begin();
-            spriteBatch.Draw(gradientTexture, backgroundRectangle, Color.White);
+            spriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,null,null,null,null,cam.Transform);
+            spriteBatch.Draw(gradientTexture, new Rectangle(0, 0, 1280, 720), Color.White);
+            virusBar.Draw(spriteBatch);
             immunityBar.Draw(spriteBatch);
-            spriteBatch.DrawString(font, message, textPosition, Color.Orange);
             if (displayRewards)
             {
                 if (swordRewarded)

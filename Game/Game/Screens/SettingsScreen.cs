@@ -23,7 +23,7 @@ namespace Game.Screens
 
         public override void Initialize()
         {
-            showAvatar = false;
+            showAvatar = true;
             button = new Button();
             hand = new HandCursor();
             hand.Initialize(ScreenManager.Kinect);
@@ -72,17 +72,17 @@ namespace Game.Screens
         }
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            if((hand.position.X>(screenWidth/2 -200)) && (hand.position.X<(screenWidth/2 +200)))
             if (Constants.isSwappingHand)
-                for (int i = 0; i < avatars.Length; i++)
-                {
-                    if (i == 3)
-                        counter = 0;
-                    if (avatars[i] == currentAvatar)
-                        counter = i + 1;
-                }
+            {
+                counter++;
+                if(counter== avatars.Length)
+                counter=0;
+                currentAvatar = avatars[counter];
+                Constants.ResetFlags();
+            }
             button.Update(gameTime);
             hand.Update(gameTime);
-            currentAvatar = avatars[counter];
             base.Update(gameTime);
         }
 

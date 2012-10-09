@@ -93,28 +93,3 @@ namespace Game.UI
         }
     }
 }
-/*How to use
- * Camera2d cam = new Camera2d();
-cam.Pos = new Vector2(500.0f,200.0f);
-// cam.Zoom = 2.0f // Example of Zoom in
-// cam.Zoom = 0.5f // Example of Zoom out
- 
-//// if using XNA 3.1
-spriteBatch.Begin(SpriteBlendMode.AlphaBlend,
-                        SpriteSortMode.Immediate,
-                        SaveStateMode.SaveState,
-                        cam.get_transformation(device /*Send the variable that has your graphic device here));
- 
-//// if using XNA 4.0
-/*spriteBatch.Begin(SpriteSortMode.BackToFront,
-                        BlendState.AlphaBlend,
-                        null,
-                        null,
-                        null,
-                        null,
-                        cam.get_transformation(device /*Send the variable that has your graphic device here));
- 
-// Draw Everything
-// You can draw everything in their positions since the cam matrix has already done the maths for you 
- 
-//spriteBatch.End(); // Call Sprite Batch End*/
