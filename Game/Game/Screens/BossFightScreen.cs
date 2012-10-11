@@ -82,7 +82,7 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             virusBar.SetCurrentValue(virusHealth);
-            cam.Scale+=0.01f;
+            //cam.Scale+=0.01f;
             boss.AttackBoss(1);
             if (boss.BossDied())
             {
