@@ -54,7 +54,7 @@ namespace Game.Screens
             avatars[1] = content.Load<Texture2D>("Textures\\avatar-red");
             avatars[2] = content.Load<Texture2D>("Textures\\avatar-green");
             avatars[3] = content.Load<Texture2D>("Textures\\avatar-white");
-            avatarPosition = new Vector2((screenWidth /2f), (screenHeight / 3.4f));
+            avatarPosition = new Vector2((screenWidth /1.7f), (screenHeight / 1.5f));
             currentAvatar = avatars[0];
             base.LoadContent();
         }
