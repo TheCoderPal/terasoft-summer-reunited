@@ -55,6 +55,7 @@ namespace Game.Screens
             avatars[2] = content.Load<Texture2D>("Textures\\avatar-green");
             avatars[3] = content.Load<Texture2D>("Textures\\avatar-white");
             avatarPosition = new Vector2((screenWidth /2f), (screenHeight / 3.4f));
+            currentAvatar = avatars[0];
             base.LoadContent();
         }
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
