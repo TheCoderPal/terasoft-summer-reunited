@@ -16,6 +16,7 @@ namespace Game.Screens
         private int screenWidth, counter=0, screenHeight;
         private ContentManager content;
         private string message;
+        private string message2;
         private Vector2 avatarPosition;
         private Texture2D background, leftArrow, rightArrow;
         private Texture2D[] avatars;
@@ -27,8 +28,9 @@ namespace Game.Screens
             button = new Button();
             hand = new HandCursor();
             hand.Initialize(ScreenManager.Kinect);
-            button.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(1050, 10));
+            button.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(620, 500));
             button.Clicked += new Button.ClickedEventHandler(button_Clicked);
+            avatars = new Texture2D[4];
             base.Initialize();
         }
         void button_Clicked(object sender, System.EventArgs a)
@@ -38,22 +40,23 @@ namespace Game.Screens
         }
         public override void LoadContent()
         {
+            message = " Settings Screen ";
+            message2 = " Please swipe your hand to switch your avatar ";
             content = ScreenManager.Game.Content;
             graphics = ScreenManager.GraphicsDevice;
             spriteBatch = ScreenManager.SpriteBatch;
             screenHeight = graphics.Viewport.Height;
             screenWidth = graphics.Viewport.Width;
-            background = content.Load<Texture2D>("Textures\\backgroundsettings");
+            background = content.Load<Texture2D>("Textures\\losingScreen");
             leftArrow = content.Load<Texture2D>("Textures\\leftArrow");
             rightArrow= content.Load<Texture2D>("Textures\\rightArrow");
-            font = content.Load<SpriteFont>("SpriteFont1");
+            font = content.Load<SpriteFont>("newFont2");
             hand.LoadContent(content);
             button.LoadContent(content);
-            avatars = new Texture2D[4];
-            avatars[0] = content.Load<Texture2D>("Textures\\avatar-dead");
-            avatars[1] = content.Load<Texture2D>("Textures\\avatar-red");
-            avatars[2] = content.Load<Texture2D>("Textures\\avatar-green");
-            avatars[3] = content.Load<Texture2D>("Textures\\avatar-white");
+            avatars[0] = content.Load<Texture2D>(@"Textures\\avatar-dead");
+            avatars[1] = content.Load<Texture2D>(@"Textures\\avatar-red");
+            avatars[2] = content.Load<Texture2D>(@"Textures\\avatar-green");
+            avatars[3] = content.Load<Texture2D>(@"Textures\\avatar-white");
             avatarPosition = new Vector2((screenWidth /1.7f), (screenHeight / 1.5f));
             currentAvatar = avatars[0];
             base.LoadContent();
@@ -62,6 +65,8 @@ namespace Game.Screens
         {
             spriteBatch.Begin();
             spriteBatch.Draw(background, Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, message, new Vector2(550, 75), Color.Black);
+            spriteBatch.DrawString(font, message2, new Vector2(50, 175), Color.Black);
             spriteBatch.Draw(leftArrow, new Vector2(screenWidth/2f -20, screenHeight/2f), Color.White);
             spriteBatch.Draw(rightArrow, new Vector2(screenWidth /2f -20 + currentAvatar.Width, screenHeight / 2f), Color.White);
             spriteBatch.Draw(currentAvatar, avatarPosition, null, Color.White, 0,
@@ -73,7 +78,7 @@ namespace Game.Screens
         }
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            if((hand.position.X>(screenWidth/2 -200)) && (hand.position.X<(screenWidth/2 +200)))
+          //  if((hand.position.X>(screenWidth/2 -200)) && (hand.position.X<(screenWidth/2 +200)))
             if (Constants.isSwappingHand)
             {
                 counter++;
