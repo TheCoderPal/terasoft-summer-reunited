@@ -61,7 +61,7 @@ namespace Game.Screens
             button = new Button();
             hand = new HandCursor();
             hand.Initialize(ScreenManager.Kinect);
-            button.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(1050, 10));
+            button.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(620, 500));
             button.Clicked += new Button.ClickedEventHandler(button_Clicked);
             base.Initialize();
         }
@@ -101,11 +101,11 @@ namespace Game.Screens
             boss.AttackBoss(1);
             if (boss.BossDied())
             {
-                player.RandomReward();
-                boss.AttackBoss(3000);
-                this.FreezeScreen();
                 hand.Update(gameTime);
                 button.Update(gameTime);
+                player.RandomReward();
+                boss.AttackBoss(3000);
+                FreezeScreen();
             }
 
             if (player.HasShield())
@@ -176,11 +176,6 @@ namespace Game.Screens
             spriteBatch.Draw(gradientTexture, new Rectangle(0, 0, 1280, 720), Color.White);
             virusBar.Draw(spriteBatch);
             immunityBar.Draw(spriteBatch);
-            if (boss.BossDied())
-            {
-                hand.Draw(spriteBatch);
-                button.Draw(spriteBatch);
-            }
             if (displayRewards)
             {
                 if (swordRewarded)
@@ -195,7 +190,8 @@ namespace Game.Screens
                         spriteBatch.Draw(shields[i], shieldBounds[i], Color.White);
                     }
                 }
-
+                hand.Draw(spriteBatch);
+                button.Draw(spriteBatch);
                 levelPassed.Draw(spriteBatch);
             }
             spriteBatch.End();
