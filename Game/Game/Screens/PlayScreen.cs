@@ -597,6 +597,7 @@ namespace Game.Screens
                             //Add Boss Screen
                             screenPaused = true;
                             this.FreezeScreen();
+                            currentSprite.Remove(sprite);
                             ScreenManager.AddScreen(new BossFightScreen(this, Int32.Parse((name.Substring(4)))));
                         }
                     }

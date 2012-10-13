@@ -39,7 +39,7 @@ namespace Game.Engine
         private float scale;
 
         //Avatar's Position on screen.
-        private Vector2 Position;
+        private Vector2 Position, InitialPosition;
 
         //Player health.
         private int immunity;
@@ -79,6 +79,7 @@ namespace Game.Engine
             dieTexture = Content.Load<Texture2D>("Sprites/die");
             punchTexture = Content.Load<Texture2D>("Sprites/punch");
             Position = new Vector2(150, 474);
+            InitialPosition = Position;
             runAnimation.Initialize(runTexture, Position, runTexture.Height, runTexture.Height, runTexture.Width / runTexture.Height, 50, Color.White, scale, true);
             jumpAnimation.Initialize(jumpTexture, new Vector2(Position.X, Position.Y - 160), runTexture.Height, jumpTexture.Height, jumpTexture.Width / runTexture.Height, 80, Color.White, scale, false);
             slidingAnimation.Initialize(slideTexture, new Vector2(Position.X, Position.Y + 60), slideTexture.Height, slideTexture.Height, slideTexture.Width / slideTexture.Height, 120, Color.White, scale, false);
@@ -170,6 +171,7 @@ namespace Game.Engine
                 default: playerAnimation = runAnimation; break;
             }
 
+            Position.X += speedX;
             playerAnimation.Position.X += speedX;
             playerAnimation.Update(gameTime);
 
@@ -267,6 +269,7 @@ namespace Game.Engine
         /// </summary>
         public void PausePlayer()
         {
+            Position = InitialPosition;
             speedX = 0;
         }
 
