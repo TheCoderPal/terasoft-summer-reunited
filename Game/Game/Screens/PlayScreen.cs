@@ -358,8 +358,8 @@ namespace Game.Screens
             
             bar.SetCurrentValue(player.Immunity);
             score.score = player.Score;
-            FreezeScreen();
-            ScreenManager.AddScreen(new BossFightScreen(this, 1));
+            //FreezeScreen();
+            //ScreenManager.AddScreen(new BossFightScreen(this, 1));
             base.Update(gameTime);
         }
 
