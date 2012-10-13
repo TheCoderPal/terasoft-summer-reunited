@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Game.Text;
 using Game.Engine;
 using Microsoft.Xna.Framework.Audio;
 
@@ -15,6 +14,8 @@ namespace Game.Screens
         private SpriteFont font;
         private GraphicsDevice graphics;
         private int screenWidth,screenHeight, virusHealth,bossLevel;
+        private Button button;
+        private HandCursor hand;
         private ContentManager content;
         private Texture2D gradientTexture;
         private Bar immunityBar,virusBar;
@@ -46,7 +47,7 @@ namespace Game.Screens
         public override void Initialize()
         {
             showAvatar = true;
-            virusBar = new Bar(100, 20, 15, 270, 30);
+            virusBar = new Bar(100, 950, 15, 270, 30);
             rightSwordBounds = new Rectangle(0, 400, 80, 80);
             leftSwordBounds = new Rectangle(1350, 400, 80, 80);
             shields = new Texture2D[4];
@@ -57,7 +58,19 @@ namespace Game.Screens
             shieldBounds[3] = new Rectangle(1304, 500, 80, 80);
             cam = new Camera2D();
             cam.Position = new Vector2(500.0f, 200.0f);
+            button = new Button();
+            hand = new HandCursor();
+            hand.Initialize(ScreenManager.Kinect);
+            button.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(1050, 10));
+            button.Clicked += new Button.ClickedEventHandler(button_Clicked);
             base.Initialize();
+        }
+        void button_Clicked(object sender, System.EventArgs a)
+        {
+            this.Remove();
+            ScreenManager.AddScreen(playScreen);
+            playScreen.UnfreezeScreen();
+            playScreen.restoreGame();
         }
         public override void LoadContent()
         {
@@ -71,6 +84,8 @@ namespace Game.Screens
             font = content.Load<SpriteFont>("SpriteFont1");
             rightSword = content.Load<Texture2D>("Textures//sword");
             bump = content.Load<SoundEffect>("Audio//bump");
+            hand.LoadContent(content);
+            button.LoadContent(content);
             Texture2D shieldSprite = content.Load<Texture2D>("Textures//shield");
             virusBar.LoadContent(content);
             leftSword = rightSword;
@@ -89,6 +104,8 @@ namespace Game.Screens
                 player.RandomReward();
                 boss.AttackBoss(3000);
                 this.FreezeScreen();
+                hand.Update(gameTime);
+                button.Update(gameTime);
             }
 
             if (player.HasShield())
@@ -154,10 +171,16 @@ namespace Game.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            spriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,null,null,null,null,cam.Transform);
+//            spriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,null,null,null,null,cam.Transform);
+            spriteBatch.Begin();
             spriteBatch.Draw(gradientTexture, new Rectangle(0, 0, 1280, 720), Color.White);
             virusBar.Draw(spriteBatch);
             immunityBar.Draw(spriteBatch);
+            if (boss.BossDied())
+            {
+                hand.Draw(spriteBatch);
+                button.Draw(spriteBatch);
+            }
             if (displayRewards)
             {
                 if (swordRewarded)
