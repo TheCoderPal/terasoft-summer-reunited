@@ -136,7 +136,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Screens\BossFightScreen.cs" />
-    <Compile Include="Screens\BossScreen.cs" />
     <Compile Include="Screens\DumbbellScreen.cs" />
     <Compile Include="Screens\ExcercisesScreen.cs" />
     <Compile Include="Screens\HighScroresScreen.cs" />
