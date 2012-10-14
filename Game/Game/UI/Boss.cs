@@ -10,7 +10,7 @@ namespace Game.UI
     public class Boss
     {
         private int level;
-        private int health;
+        public int health { get; set; }
         private Texture2D texture;
         private Rectangle border;
 

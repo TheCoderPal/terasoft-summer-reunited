@@ -10,7 +10,8 @@ namespace Game.Screens
     class BossFightScreen : GameScreen
     {
         private SpriteBatch spriteBatch;
-        Camera2D cam;
+        private Camera2D cam;
+        private bool flag;
         private SpriteFont font;
         private GraphicsDevice graphics;
         private int screenWidth,screenHeight, virusHealth,bossLevel;
@@ -96,15 +97,19 @@ namespace Game.Screens
         }
         public override void Update(GameTime gameTime)
         {
-            virusBar.SetCurrentValue(virusHealth);
+            virusBar.SetCurrentValue(boss.health);
             //cam.Scale+=0.01f;
             boss.AttackBoss(1);
             if (boss.BossDied())
             {
-                hand.Update(gameTime);
-                button.Update(gameTime);
+                flag = true;
                 player.RandomReward();
                 boss.AttackBoss(3000);
+            }
+            if (flag == true)
+            {
+                hand.Update(gameTime);
+                button.Update(gameTime);
                 FreezeScreen();
             }
 
@@ -190,9 +195,12 @@ namespace Game.Screens
                         spriteBatch.Draw(shields[i], shieldBounds[i], Color.White);
                     }
                 }
+                levelPassed.Draw(spriteBatch);
+            }
+            if (flag == true)
+            {
                 hand.Draw(spriteBatch);
                 button.Draw(spriteBatch);
-                levelPassed.Draw(spriteBatch);
             }
             spriteBatch.End();
             base.Draw(gameTime);
