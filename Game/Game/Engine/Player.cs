@@ -172,7 +172,12 @@ namespace Game.Engine
             }
 
             Position.X += speedX;
-            playerAnimation.Position.X += speedX;
+            runAnimation.Position.X += speedX;
+            jumpAnimation.Position.X += speedX;
+            slidingAnimation.Position.X += speedX;
+            swordAnimation.Position.X += speedX;
+            punchAnimation.Position.X += speedX;
+
             playerAnimation.Update(gameTime);
 
             //Increment Score
