@@ -270,6 +270,7 @@ namespace Game.Engine
         public void PausePlayer()
         {
             Position = InitialPosition;
+            ReInitializeRunAnimation();
             speedX = 0;
         }
 
