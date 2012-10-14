@@ -2,12 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 namespace Game.UI
 {
-    public class Camera2D : GameScreen, ICamera2D
+    public class Camera2D : ICamera2D
     {
         private Vector2 _position;
         protected float _viewportHeight;
         protected float _viewportWidth;
-
+        protected ScreenManager screenManager;
         #region Properties
 
         public Vector2 Position
@@ -17,36 +17,37 @@ namespace Game.UI
         }
         public float Rotation { get; set; }
         public Vector2 Origin { get; set; }
-        public float Scale { get { return Scale; }
-            set { Scale = value; if (Scale < 0.1f) Scale = 0.1f; } }
+        public float Scale { get; set;}
         public Vector2 ScreenCenter { get; protected set; }
         public Matrix Transform { get; set; }
-        public IFocusable Focus { get; set; }
+        public Vector2 Focus { get; set; }
         public float MoveSpeed { get; set; }
 
         #endregion
 
+        public Camera2D(ScreenManager screenManager)
+        {
+            this.screenManager = screenManager;
+        }
         /// <summary>
         /// Called when the GameComponent needs to be initialized. 
         /// </summary>
-        public override void Initialize()
+        public void Initialize()
         {
-            _viewportWidth = ScreenManager.GraphicsDevice.Viewport.Width;
-            _viewportHeight = ScreenManager.GraphicsDevice.Viewport.Height;
+            _viewportWidth = screenManager.GraphicsDevice.Viewport.Width;
+            _viewportHeight = screenManager.GraphicsDevice.Viewport.Height;
             Scale = 1.0f;
             Rotation = 0.0f;
             Position = Vector2.Zero;
             ScreenCenter = new Vector2(_viewportWidth / 2, _viewportHeight / 2);
             MoveSpeed = 1.25f;
-
-            base.Initialize();
         }
          public void Move(Vector2 amount)
         {
            Position += amount;
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             // Create the Transform used by any
             // spritebatch process
@@ -61,10 +62,8 @@ namespace Game.UI
             // Move the Camera to the position that it needs to go
             var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            _position.X += (Focus.Position.X - Position.X) * MoveSpeed * delta;
-            _position.Y += (Focus.Position.Y - Position.Y) * MoveSpeed * delta;
-
-            base.Update(gameTime);
+            _position.X += (Focus.X - Position.X) * MoveSpeed * delta;
+            _position.Y += (Focus.Y - Position.Y) * MoveSpeed * delta;
         }
 
         /// <summary>

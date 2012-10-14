@@ -14,7 +14,7 @@ namespace Game.Screens
         private bool flag;
         private SpriteFont font;
         private GraphicsDevice graphics;
-        private int screenWidth,screenHeight, virusHealth,bossLevel;
+        private int screenWidth,screenHeight,bossLevel;
         private Button button;
         private HandCursor hand;
         private ContentManager content;
@@ -57,19 +57,21 @@ namespace Game.Screens
             shieldBounds[2] = new Rectangle(590, 720, 80, 80);
             shieldBounds[1] = new Rectangle(-90, 500, 80, 80);
             shieldBounds[3] = new Rectangle(1304, 500, 80, 80);
-            cam = new Camera2D();
+            cam = new Camera2D(ScreenManager);
+            cam.Initialize();
+            cam.Focus = new Vector2(640, 360);
             cam.Position = new Vector2(500.0f, 200.0f);
             button = new Button();
             hand = new HandCursor();
             hand.Initialize(ScreenManager.Kinect);
-            button.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(620, 500));
+            button.Initialize("Buttons/OK", this.ScreenManager.Kinect, new Vector2(820, 100));
             button.Clicked += new Button.ClickedEventHandler(button_Clicked);
             base.Initialize();
         }
         void button_Clicked(object sender, System.EventArgs a)
         {
             this.Remove();
-            ScreenManager.AddScreen(playScreen);
+           // ScreenManager.AddScreen(playScreen);
             playScreen.UnfreezeScreen();
             playScreen.restoreGame();
         }
@@ -98,7 +100,7 @@ namespace Game.Screens
         public override void Update(GameTime gameTime)
         {
             virusBar.SetCurrentValue(boss.health);
-            //cam.Scale+=0.01f;
+     //       cam.Scale+=0.01f;
             boss.AttackBoss(1);
             if (boss.BossDied())
             {
@@ -132,8 +134,8 @@ namespace Game.Screens
                 if (shieldRewarded)
                     ShieldAnimation(gameTime);
             }
-
             base.Update(gameTime);
+            cam.Update(gameTime);
         }
 
 
@@ -176,8 +178,8 @@ namespace Game.Screens
 
         public override void Draw(GameTime gameTime)
         {
-//            spriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,null,null,null,null,cam.Transform);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend,null,null,null,null,cam.Transform);
+          //  spriteBatch.Begin();
             spriteBatch.Draw(gradientTexture, new Rectangle(0, 0, 1280, 720), Color.White);
             virusBar.Draw(spriteBatch);
             immunityBar.Draw(spriteBatch);
@@ -199,8 +201,8 @@ namespace Game.Screens
             }
             if (flag == true)
             {
-                hand.Draw(spriteBatch);
                 button.Draw(spriteBatch);
+                hand.Draw(spriteBatch);
             }
             spriteBatch.End();
             base.Draw(gameTime);

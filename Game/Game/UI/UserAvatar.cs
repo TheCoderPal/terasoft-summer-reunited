@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 namespace Game.UI
@@ -22,7 +21,6 @@ namespace Game.UI
         private Texture2D avatar;
         private Vector2 avatarPosition;
         private SpriteFont font;
-        private String command;
         const int minDepth = 120;
         const int maxDepth = 350;
         private int depth;
@@ -67,7 +65,6 @@ namespace Game.UI
             allAvatars[2] = content.Load<Texture2D>(@"Textures/avatar-green");
             allAvatars[3] = content.Load<Texture2D>(@"Textures/avatar-red");
                 avatar = allAvatars[0];
-                command = "";
             avatarPosition = new Vector2((screenWidth + 25), (screenHeight / 3.4f));
            
         }
@@ -117,7 +114,6 @@ namespace Game.UI
             if (depth == 0)
             {
                 avatar = allAvatars[0];
-                command = " : No player detected";
             }
             else
             {
@@ -127,7 +123,6 @@ namespace Game.UI
                     avatar = allAvatars[1];
                 else if (depth < maxDepth)
                     avatar = allAvatars[2];
-                command = "";
             }
         }
 

@@ -53,7 +53,7 @@ public interface ICamera2D
     /// </summary>
     /// <seealso cref="IFocusable"/>
     /// <value>The focus.</value>
-    IFocusable Focus { get; set; }
+    Vector2 Focus { get; set; }
 
     /// <summary>
     /// Determines whether the target is in view given the specified position.

@@ -165,7 +165,6 @@ namespace Game.Screens
 
             playerBounds = player.GetBoundingRectangle();
             playerData = player.GetColorData();
-
             base.LoadContent();
 
         }
@@ -255,12 +254,11 @@ namespace Game.Screens
                             playQueue = 3;
                             break;
                         }
-                    //case 3:
-                    //    {
-                    //        MediaPlayer.Play(songs[2]);
-                    //        playQueue = 1;
-                    //        break;
-                    //    }
+                    case 3:
+                        {
+                            playQueue = 1;
+                            break;
+                        }
                     default: break;
                 }
             }
