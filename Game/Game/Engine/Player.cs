@@ -276,6 +276,10 @@ namespace Game.Engine
         {
             Position = InitialPosition;
             ReInitializeRunAnimation();
+            jumpAnimation.Position = Position;
+            punchAnimation.Position = Position;
+            slidingAnimation.Position = Position;
+            punchAnimation.Position = Position;
             speedX = 0;
         }
 

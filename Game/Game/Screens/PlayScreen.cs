@@ -805,9 +805,13 @@ namespace Game.Screens
 
             base.Draw(gametime);
         }
+
         public void restoreGame()
         {
             player.PausePlayer();
+            bgLayer1.MoveBackground(-1);
+            bgLayer2.MoveBackground(-2);
+            bgLayer3.MoveBackground(-4);
             spriteSpeed = 4;
         }
 

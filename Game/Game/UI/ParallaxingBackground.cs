@@ -86,5 +86,14 @@ namespace Game.UI
         {
             speed = 0;
         }
+
+        /// <summary>
+        /// Sets the speed of background
+        /// </summary>
+        /// <param name="New speed"></param>
+        public void MoveBackground(int value)
+        {
+            speed = value;
+        }
     }
 }
