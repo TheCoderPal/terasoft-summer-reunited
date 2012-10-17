@@ -363,6 +363,7 @@ namespace Game.Screens
             
             bar.SetCurrentValue(player.Immunity);
             score.score = player.Score;
+
             //FreezeScreen();
             //ScreenManager.AddScreen(new BossFightScreen(this, 1));
             base.Update(gameTime);
@@ -603,6 +604,9 @@ namespace Game.Screens
                         {
                             //Add Boss Screen
                             screenPaused = true;
+                            spriteCounter = 0;
+                            currentSprite.Clear();
+                            globalCounter = 600;
                             this.FreezeScreen();
                             currentSprite.Remove(sprite);
                             ScreenManager.AddScreen(new BossFightScreen(this, Int32.Parse((name.Substring(4)))));
@@ -611,6 +615,7 @@ namespace Game.Screens
                 }
             }
         }
+
         /// <summary>
         /// Takes the bounds and color data of an object and returns the bounds ommiting out transparent lines.
         /// </summary>
