@@ -315,8 +315,14 @@ namespace Game.Screens
 
             for (int i = 0; i <= spriteCounter - 1; i++)
             {
-                currentSprite[i].Update(spriteSpeed);
-                HandleCollision(currentSprite[i]);
+                try
+                {
+                    currentSprite[i].Update(spriteSpeed);
+                    HandleCollision(currentSprite[i]);
+                }
+                catch (Exception e)
+                {
+                }
             }
 
             for (int i = 0; i <= spriteCounter - 1; i++)
