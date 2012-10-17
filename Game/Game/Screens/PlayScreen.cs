@@ -322,6 +322,7 @@ namespace Game.Screens
                 }
                 catch (Exception e)
                 {
+                    spriteCounter--; 
                 }
             }
 
